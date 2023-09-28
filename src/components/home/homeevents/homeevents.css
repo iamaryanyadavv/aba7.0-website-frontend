@@ -1,0 +1,23 @@
+@media screen and (max-width: 600px) {
+    .homeeventspics{
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+    }
+}
+@media screen and (min-width: 600px) {
+    .homeeventspics{
+        width: 300px;
+        height: 300px;
+        border-radius: 20px;
+    }
+}
+
+.mini-events-btn{
+    background: #163364 !important;
+    box-shadow: 0px 4px 6px #000 !important;
+}
+
+.mini-events-btn-2{
+    color: #ff9f56 !important;
+}
