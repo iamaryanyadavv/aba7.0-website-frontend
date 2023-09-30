@@ -42,7 +42,7 @@ export default function ScheduleContent() {
                     }}>
                     <Loading
                         size="xl"
-                        color={'black'}
+                        color='warning'
                     />
                 </Grid.Container>
             }

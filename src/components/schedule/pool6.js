@@ -80,7 +80,7 @@ export default function Pool6(){
             }}>
                 <Loading
                 size="xl"
-                color={'black'}
+                color='warning'
                 />
             </Grid.Container>
             }

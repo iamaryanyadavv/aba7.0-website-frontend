@@ -49,7 +49,7 @@ export default function TournamentRules() {
                             paddingTop: '20px',
                             paddingBottom: '20px'
                         }}>
-                            APL Event
+                            ABA 7.0 
                         </Text>
 
                         <Text showIn={'xs'}

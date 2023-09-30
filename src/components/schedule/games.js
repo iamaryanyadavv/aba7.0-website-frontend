@@ -67,7 +67,7 @@ export default function Games() {
                     }}>
                     <Loading
                         size="xl"
-                        color={'black'}
+                        color='warning'
                     />
                 </Grid.Container>
             }

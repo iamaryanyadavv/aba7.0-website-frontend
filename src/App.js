@@ -8,6 +8,7 @@ import Header from './components/header/header';
 import Footer from './components/footer/footer.js';
 import FootNavbar from './components/footnavbar/footnavbar';
 import Schedule from './pages/SchedulePage/schedule';
+import GalleryPage from './pages/GalleryPage/gallerypage';
 
 function App() {
     const theme = createTheme({
@@ -27,6 +28,7 @@ function App() {
                     <Routes>
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/schedule" element={<Schedule />} />
+                        <Route exact path="/gallery" element={<GalleryPage />} />
                     </Routes>
                 </Router>
             </div>
