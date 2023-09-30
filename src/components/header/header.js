@@ -2,7 +2,7 @@ import React from "react";
 import "./header.css";
 import { Navbar, Link, Image } from "@nextui-org/react";
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
-import TransparentLogo from '../../assets/images/Grey.jpeg'
+import Logo from '../../assets/images/LogoWhite.svg'
 
 function Header() {
 
@@ -30,7 +30,7 @@ function Header() {
                         cursor: 'pointer',
                         transform: 'rotate(180deg)',
                     }
-                }} src={TransparentLogo}
+                }} src={Logo}
                     onClick={() => {
                         window.location.pathname = ''
                     }} />
@@ -52,7 +52,7 @@ function Header() {
                 <Image css={{
                     width: '40px',
                     height: '40px'
-                }} src={TransparentLogo} />
+                }} src={Logo} />
             </Navbar.Content>
             <Navbar.Content>
                 <Link className="ig-link" target="_blank" href="https://www.instagram.com/aba_ashoka/">

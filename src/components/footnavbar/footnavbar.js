@@ -1,7 +1,7 @@
 import { Grid, Image, Row, Link } from "@nextui-org/react";
 import './footnavbar.css';
 import React from "react";
-import BlueLogo from '../../assets/images/Grey.jpeg';
+import Logo from '../../assets/images/LogoWhite.svg';
 
 export default function FootNavbar () {
     return(
@@ -30,7 +30,7 @@ export default function FootNavbar () {
                     <Image 
                     css={{
                         borderRadius: '10px'
-                    }} src={BlueLogo} width={'90px'} height={'90px'} />
+                    }} src={Logo} width={'90px'} height={'90px'} />
                 </Grid>
             </Grid.Container>
 
