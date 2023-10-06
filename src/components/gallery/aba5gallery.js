@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCircleChevronLeft,
@@ -10,63 +10,7 @@ import { Grid, Text } from '@nextui-org/react'
 
 const ABA5Gallery = () => {
 
-    // pull this array of urls from aws via backend
-
-    const ABA5galleryImages = [
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00526.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00550.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00554.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00558.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00559.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00566.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00567.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00578.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00580.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00584.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00586.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00587.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00603.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00605.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00606.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00607.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+2022/DSC00610.jpg"
-        },
-    ]
-
-
+    const [ABA5galleryImages, setABA5GalleryImages] = useState([])
     const [slideNumber, setSlideNumber] = useState(0)
     const [openModal, setOpenModal] = useState(false)
 
@@ -94,10 +38,21 @@ const ABA5Gallery = () => {
             : setSlideNumber(slideNumber + 1)
     }
 
+    useEffect(() => {
+        try {
+            fetch("http://localhost:3001/aba5images")
+                .then(response => response.json()) 
+                .then(data => setABA5GalleryImages(data))
+                .catch(error => console.log(error));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);    
+
     return (
         <div>
 
-            {openModal &&
+            {openModal && ABA5galleryImages && 
                 <div className='sliderWrap'>
                     <FontAwesomeIcon icon={faCircleXmark} className='btnClose' onClick={handleCloseModal} />
                     <FontAwesomeIcon icon={faCircleChevronLeft} className='btnPrev' onClick={prevSlide} />
@@ -108,6 +63,7 @@ const ABA5Gallery = () => {
                 </div>
             }
 
+            {ABA5galleryImages && 
             <Grid.Container
                 css={{
                     jc: 'center',
@@ -158,7 +114,7 @@ const ABA5Gallery = () => {
                         </div>
                     </Grid.Container>
                 </Grid>
-            </Grid.Container>
+            </Grid.Container>}
 
 
         </div>

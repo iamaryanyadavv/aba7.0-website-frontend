@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faCircleChevronLeft,
@@ -10,86 +10,9 @@ import { Grid, Text } from '@nextui-org/react'
 
 const ABA6Gallery = () => {
 
-    // pull this array of urls from aws via backend
-
-    const ABA6galleryImages = [
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0869.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0870.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0873.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0874.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0882.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0889.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0895.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0899.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0907.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0911.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0915.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0928.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0930.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0935.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0941.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0956.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0969.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0989.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0990.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_0995.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_1007.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_1012.jpg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_1020.jpeg"
-        },
-        {
-            img: "https://abagallery.s3.ap-south-1.amazonaws.com/ABA+6.0/IMG_1027.jpg"
-        },
-    ]
-
-
     const [slideNumber, setSlideNumber] = useState(0)
     const [openModal, setOpenModal] = useState(false)
+    const [ABA6galleryImages, setABA6GalleryImages] = useState([])
 
     const handleOpenModal = (index) => {
         setSlideNumber(index)
@@ -115,10 +38,21 @@ const ABA6Gallery = () => {
             : setSlideNumber(slideNumber + 1)
     }
 
+    useEffect(() => {
+        try {
+            fetch("http://localhost:3001/aba6images")
+                .then(response => response.json())
+                .then(data => setABA6GalleryImages(data))
+                .catch(error => console.log(error));
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);  
+
     return (
         <div>
 
-            {openModal &&
+            {openModal && ABA6galleryImages &&
                 <div className='sliderWrap'>
                     <FontAwesomeIcon icon={faCircleXmark} className='btnClose' onClick={handleCloseModal} />
                     <FontAwesomeIcon icon={faCircleChevronLeft} className='btnPrev' onClick={prevSlide} />
@@ -129,7 +63,7 @@ const ABA6Gallery = () => {
                 </div>
             }
 
-            <Grid.Container
+            {ABA6galleryImages && <Grid.Container
                 css={{
                     jc: 'center',
                     textAlign: 'center'
@@ -179,7 +113,7 @@ const ABA6Gallery = () => {
                         </div>
                     </Grid.Container>
                 </Grid>
-            </Grid.Container>
+            </Grid.Container>}
 
 
         </div>
