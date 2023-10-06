@@ -8,7 +8,6 @@ function Header() {
 
     const items = [
         { name: 'Home', href: '/' },
-        { name: 'ABAxKKIx', href: '/abaxkkkix' },
         { name: 'FanUpxABA Fantasy', href: '/fanupabafantasy' },
         { name: 'RoadToABA', href: '/roadtoaba' },
         { name: 'Schedule', href: '/schedule' },

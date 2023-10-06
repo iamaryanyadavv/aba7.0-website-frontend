@@ -10,6 +10,8 @@ import Pool3 from "./pool3";
 import Pool4 from "./pool4";
 import Pool5 from "./pool5";
 import Pool6 from "./pool6";
+import PlayersComponent from "./players";
+import TeamsComponent from "./teams";
 import './schedule.css'
 
 export default function ScheduleContent() {
@@ -17,6 +19,8 @@ export default function ScheduleContent() {
     const [Games, setGames] = useState(true);
     const [Standings, setStandings] = useState(false)
     const [Rules, setRules] = useState(false)
+    const [Players, setPlayers] = useState(false)
+    const [Teams, setTeams] = useState(false)
 
     async function getStandings() {
         await fetch('https://aplapi.onrender.com/seasons/apl6/standings')
@@ -62,6 +66,8 @@ export default function ScheduleContent() {
                                     setGames(true)
                                     setStandings(false)
                                     setRules(false)
+                                    setPlayers(false)
+                                    setTeams(false)
                                 }}>
                                 <Text className="games-btn-text"
                                     css={{
@@ -82,6 +88,8 @@ export default function ScheduleContent() {
                                     setGames(false)
                                     setStandings(true)
                                     setRules(false)
+                                    setPlayers(false)
+                                    setTeams(false)
                                 }}>
                                 <Text className="games-btn-text"
                                     css={{
@@ -101,7 +109,53 @@ export default function ScheduleContent() {
                                 onClick={() => {
                                     setGames(false)
                                     setStandings(false)
+                                    setRules(false)
+                                    setPlayers(true)
+                                    setTeams(false)
+                                }}>
+                                <Text className="games-btn-text"
+                                    css={{
+                                        fontSize: '$md',
+                                        fontWeight: '$semibold',
+                                    }}>
+                                    Players
+                                </Text>
+                            </Button>
+                        </Grid>
+
+                        <Grid
+                            css={{
+                                padding: '10px'
+                            }}>
+                            <Button auto className="games-btn" rounded flat
+                                onClick={() => {
+                                    setGames(false)
+                                    setStandings(false)
+                                    setRules(false)
+                                    setPlayers(false)
+                                    setTeams(true)
+                                }}>
+                                <Text className="games-btn-text"
+                                    css={{
+                                        fontSize: '$md',
+                                        fontWeight: '$semibold',
+                                    }}>
+                                    Teams
+                                </Text>
+                            </Button>
+                        </Grid>
+
+                        <Grid
+                            css={{
+                                padding: '10px'
+                            }}>
+                            <Button auto className="games-btn" rounded flat
+                                onClick={() => {
+                                    setGames(false)
+                                    setStandings(false)
                                     setRules(true)
+                                    setPlayers(false)
+                                    setTeams(false)
                                 }}>
                                 <Text className="games-btn-text"
                                     css={{
@@ -114,7 +168,7 @@ export default function ScheduleContent() {
                         </Grid>
                     </Grid.Container>
 
-                    {Games && !Standings && !Rules &&
+                    {Games && !Standings && !Rules && !Players && !Teams &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -149,7 +203,7 @@ export default function ScheduleContent() {
                         </>
                     }
 
-                    {!Games && Standings && !Rules &&
+                    {!Games && Standings && !Rules && !Players && !Teams &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -180,7 +234,7 @@ export default function ScheduleContent() {
                         </>
                     }
 
-                    {!Games && !Standings && Rules &&
+                    {!Games && !Standings && Rules && !Players && !Teams &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -205,6 +259,62 @@ export default function ScheduleContent() {
                             <Col>
                                 <AuctionRules />
                                 <TournamentRules />
+                            </Col>
+                        </>
+                    }
+
+                    {!Games && !Standings && !Rules && Players && !Teams &&
+                        <>
+                            <Text hideIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '20px 0px 10px 0px',
+                                    fontSize: '$6xl',
+                                    fontWeight: '$semibold',
+                                    color: '#163364'
+                                }}>
+                                Players
+                            </Text>
+                            <Text showIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '20px 0px 10px 0px',
+                                    fontSize: '$4xl',
+                                    fontWeight: '$semibold',
+                                    color: '#163364'
+                                }}>
+                                Players
+                            </Text>
+                            <Col>
+                                <PlayersComponent />
+                            </Col>
+                        </>
+                    }
+
+                    {!Games && !Standings && !Rules && !Players && Teams &&
+                        <>
+                            <Text hideIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '20px 0px 10px 0px',
+                                    fontSize: '$6xl',
+                                    fontWeight: '$semibold',
+                                    color: '#163364'
+                                }}>
+                                Teams
+                            </Text>
+                            <Text showIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '20px 0px 10px 0px',
+                                    fontSize: '$4xl',
+                                    fontWeight: '$semibold',
+                                    color: '#163364'
+                                }}>
+                                Teams
+                            </Text>
+                            <Col>
+                                <TeamsComponent />
                             </Col>
                         </>
                     }

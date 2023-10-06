@@ -223,7 +223,7 @@ export default function Games() {
                                                                     width: '100%'
                                                                 },
                                                                 '@xsMin': {
-                                                                    width: '100px',
+                                                                    width: '150px',
                                                                     alignItems: 'center'
                                                                 }
                                                             }}>
