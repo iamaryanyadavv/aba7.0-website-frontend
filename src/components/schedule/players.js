@@ -191,6 +191,14 @@ export default function Players() {
     //     )
     // }
 
+    useEffect(() => {
+        if (StatsModal) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = 'auto';
+        }
+      }, [StatsModal]);
+
     const TierLessCards = PreTierAllotmentPlayers.map((player, index) => (
 
         <Grid key={index}
@@ -1466,6 +1474,7 @@ export default function Players() {
                     {StatsPlayer &&
                         <Modal
                             fullScreen
+                            shouldBlockScroll={false}
                             closeButton
                             open={StatsModal}
                             onClose={() => {
