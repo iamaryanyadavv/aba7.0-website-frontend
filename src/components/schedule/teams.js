@@ -16,7 +16,7 @@ export default function Teams() {
     }
 
     const OnceTeamBudgetsData = async (teamslists) => {
-        await fetch('https://aplapi.onrender.com/seasons/apl6/teamdata')
+        await fetch('http://localhost:3001/aba7teams')
         .then(response => response.json())
         .then((data)=>{
             createTeamAccordions(data, teamslists);

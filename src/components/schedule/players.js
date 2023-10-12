@@ -25,6 +25,7 @@ export default function Players() {
     const [Top10, setTop10] = useState([]);
     const [StatsModal, setStatsModal] = useState(false);
     const [StatsPlayer, setStatsPlayer] = useState();
+    const [PlayersWithStats, setPlayersWithStats] = useState({});
 
     // Player array - 
     // 0: Picture
@@ -50,11 +51,22 @@ export default function Players() {
     // 7: manager email
     // 8: manager phone
 
+    //Stats array - 
+    // 0: player name
+    // 1: team for
+    // 2: team against
+    // 3: Minutes
+    // 4: Points
+    // 5: Rebounds
+    // 6: Assists
+    // 7: Steals
+    // 8: Fouls
+
     const getTeamData = async () => {
         await fetch('http://localhost:3001/aba7teams')
             .then(response => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 OnceTeamData(data)
             })
     }
@@ -63,11 +75,121 @@ export default function Players() {
         await fetch('http://localhost:3001/aba7players')
             .then(response => response.json())
             .then((data) => {
-                console.log(data)
-                preparePlayerTierData(data, teams);
+                // console.log(data)
+                OncePlayerData(data, teams);
                 setFetching(false);
             })
     }
+
+    const OncePlayerData = async (players, teams) => {
+        await fetch('http://localhost:3001/aba7stats')
+            .then(response => response.json())
+            .then((data) => {
+                // console.log(data)
+                preparePlayerTierData(data, players, teams)
+            })
+    }
+
+    // const modalPlayer = (name) => {
+    //     return(
+    //         <Modal
+    //             closeButton
+    //             open={true}
+    //             onClose={() => {
+    //                 setStatsModal(false)
+    //                 setStatsPlayer(null)
+    //             }}>
+    //             <Modal.Header>
+    //                 <Text
+    //                     css={{
+    //                         '@xsMax': {
+    //                             fontSize: '$md',
+    //                             fontWeight: '$medium'
+    //                         },
+    //                         '@xsMin': {
+    //                             fontSize: '$xl',
+    //                             fontWeight: '$medium'
+    //                         },
+    //                         border: 'solid',
+    //                         borderColor: '#faf7ea',
+    //                         borderWidth: '0px 0px 2px 0px'
+    //                     }}>
+    //                     {name}'s Statistics
+    //                 </Text>
+    //             </Modal.Header>
+    //             <Modal.Body>
+    //                 <Col>
+    //                     <Row>
+    //                         <Text css={{
+    //                             fontWeight: '$semibold',
+    //                             marginRight: '4px'
+    //                         }}>
+    //                             Name:
+    //                         </Text>
+    //                         <Text>
+    //                             {name}
+    //                         </Text>
+    //                     </Row>
+    //                     <Row>
+    //                         <Text css={{
+    //                             fontWeight: '$semibold',
+    //                             marginRight: '4px'
+    //                         }}>
+    //                             Batch:
+    //                         </Text>
+    //                         <Text>
+    //                             {PlayersWithStats[name][3]}
+    //                         </Text>
+    //                     </Row>
+    //                     <Row>
+    //                         <Text css={{
+    //                             fontWeight: '$semibold',
+    //                             marginRight: '4px'
+    //                         }}>
+    //                             Type:
+    //                         </Text>
+    //                         <Text>
+    //                             {PlayersWithStats[name][1]}
+    //                         </Text>
+    //                     </Row>
+    //                     <Row>
+    //                         <Text css={{
+    //                             fontWeight: '$semibold',
+    //                             marginRight: '4px'
+    //                         }}>
+    //                             Height:
+    //                         </Text>
+    //                         <Text>
+    //                             {PlayersWithStats[name][2]}
+    //                         </Text>
+    //                     </Row>
+
+    //                     <Table bordered
+    //                         css={{
+    //                             height: "auto",
+    //                             minWidth: "100%",
+    //                         }}>
+    //                         <Table.Header>
+    //                             <Table.Column>Against</Table.Column>
+    //                             <Table.Column>Minutes</Table.Column>
+    //                             <Table.Column>Points</Table.Column>
+    //                             <Table.Column>Rebounds</Table.Column>
+    //                             <Table.Column>Assists</Table.Column>
+    //                             <Table.Column>Steals</Table.Column>
+    //                             <Table.Column>Fouls</Table.Column>
+    //                         </Table.Header>
+    //                         <Table.Body>
+    //                             <Table.Row>
+    //                                 <Table.Cell css={{ textAlign: 'start' }}>{PlayersWithStats[name][0][0]}</Table.Cell>
+    //                                 <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
+    //                             </Table.Row>
+    //                         </Table.Body>
+    //                     </Table>
+    //                 </Col>
+    //             </Modal.Body>
+    //         </Modal>
+    //     )
+    // }
 
     const TierLessCards = PreTierAllotmentPlayers.map((player, index) => (
 
@@ -265,7 +387,7 @@ export default function Players() {
                     }
                 }}
                 onClick={() => {
-                    setStatsPlayer(player)
+                    setStatsPlayer(player[1])
                     setStatsModal(true)
                 }}
             >
@@ -281,6 +403,7 @@ export default function Players() {
             </Grid>
             {/* <Modal
                 closeButton
+                fullScreen
                 open={StatsModal}
                 onClose={() => {
                     setStatsModal(false)
@@ -325,7 +448,7 @@ export default function Players() {
                                 Batch:
                             </Text>
                             <Text>
-                                {player[10]}
+                                {PlayersWithStats[player[1]][3]}
                             </Text>
                         </Row>
                         <Row>
@@ -336,7 +459,7 @@ export default function Players() {
                                 Type:
                             </Text>
                             <Text>
-                                {player[2]}
+                                {PlayersWithStats[player[1]][1]}
                             </Text>
                         </Row>
                         <Row>
@@ -347,7 +470,7 @@ export default function Players() {
                                 Height:
                             </Text>
                             <Text>
-                                {player[3]}
+                                {PlayersWithStats[player[1]][2]}
                             </Text>
                         </Row>
 
@@ -357,29 +480,26 @@ export default function Players() {
                                 minWidth: "100%",
                             }}>
                             <Table.Header>
-                                <Table.Column>Stat (Avg per game)</Table.Column>
-                                <Table.Column>Value</Table.Column>
+                                <Table.Column>Against</Table.Column>
+                                <Table.Column>Minutes</Table.Column>
+                                <Table.Column>Points</Table.Column>
+                                <Table.Column>Rebounds</Table.Column>
+                                <Table.Column>Assists</Table.Column>
+                                <Table.Column>Steals</Table.Column>
+                                <Table.Column>Fouls</Table.Column>
                             </Table.Header>
                             <Table.Body>
                                 <Table.Row>
-                                    <Table.Cell css={{ textAlign: 'start' }}>Minutes</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>{player[12]}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell css={{ textAlign: 'start' }}>Points</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>{player[13]}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell css={{ textAlign: 'start' }}>Rebounds</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>{player[14]}</Table.Cell>
-                                </Table.Row>
-                                <Table.Row>
-                                    <Table.Cell css={{ textAlign: 'start' }}>Assists</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>{player[15]}</Table.Cell>
+                                    <Table.Cell css={{ textAlign: 'start' }}>{PlayersWithStats[player[1]][0][0]}</Table.Cell>
+                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
+                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
+                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
+                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
+                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
+                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>
-
                     </Col>
                 </Modal.Body>
             </Modal> */}
@@ -948,7 +1068,7 @@ export default function Players() {
         </Grid>
     ))
 
-    const preparePlayerTierData = (players, teams) => {
+    const preparePlayerTierData = (stats, players, teams) => {
         const pretierallotmentplayers = []
         const tier1players = []
         const tier2players = []
@@ -956,6 +1076,23 @@ export default function Players() {
         const tier4players = []
         var playerssorted = []
         var top10 = []
+
+        var playerswithstats = {}
+        for (const player of players.values) {
+            playerswithstats[player[1]] = [[], player[2], player[3], player[10]]
+        }
+
+        for (const stat of stats) {
+            var statArray = [stat[2], stat[3], stat[4], stat[5], stat[6], stat[7], stat[8]]
+            playerswithstats[stat[0]][0].push(statArray)
+        }
+
+        for (const player of players.values) {
+            var avgStatArray = ['Average', player[12], player[13], player[14], player[15], player[16], player[17],]
+            playerswithstats[player[1]][0].push(avgStatArray)
+        }
+        setPlayersWithStats(playerswithstats)
+
         if (players.values.length > 1) {
             for (var i = 0; i < players.values.length; i++) {
                 for (var j = 0; j < teams.length; j++) {
@@ -1326,8 +1463,9 @@ export default function Players() {
                     } */}
 
                     {/* Stats Modal */}
-                    {StatsPlayer && 
+                    {StatsPlayer &&
                         <Modal
+                            fullScreen
                             closeButton
                             open={StatsModal}
                             onClose={() => {
@@ -1349,7 +1487,7 @@ export default function Players() {
                                         borderColor: '#faf7ea',
                                         borderWidth: '0px 0px 2px 0px'
                                     }}>
-                                    {StatsPlayer[1]}'s Statistics
+                                    {StatsPlayer}'s Statistics
                                 </Text>
                             </Modal.Header>
                             <Modal.Body>
@@ -1362,7 +1500,7 @@ export default function Players() {
                                             Name:
                                         </Text>
                                         <Text>
-                                            {StatsPlayer[1]}
+                                            {StatsPlayer}
                                         </Text>
                                     </Row>
                                     <Row>
@@ -1373,7 +1511,7 @@ export default function Players() {
                                             Batch:
                                         </Text>
                                         <Text>
-                                            {StatsPlayer[10]}
+                                            {PlayersWithStats[StatsPlayer][2]}
                                         </Text>
                                     </Row>
                                     <Row>
@@ -1384,7 +1522,7 @@ export default function Players() {
                                             Type:
                                         </Text>
                                         <Text>
-                                            {StatsPlayer[2]}
+                                            {PlayersWithStats[StatsPlayer][1]}
                                         </Text>
                                     </Row>
                                     <Row>
@@ -1395,36 +1533,48 @@ export default function Players() {
                                             Height:
                                         </Text>
                                         <Text>
-                                            {StatsPlayer[3]}
+                                            {PlayersWithStats[StatsPlayer][3]}
                                         </Text>
                                     </Row>
 
-                                    <Table bordered
+                                    <Table striped={true}
                                         css={{
                                             height: "auto",
                                             minWidth: "100%",
                                         }}>
                                         <Table.Header>
-                                            <Table.Column>Stat (Avg per game)</Table.Column>
-                                            <Table.Column>Value</Table.Column>
+                                            <Table.Column>Against</Table.Column>
+                                            <Table.Column>Minutes</Table.Column>
+                                            <Table.Column>Points</Table.Column>
+                                            <Table.Column>Rebounds</Table.Column>
+                                            <Table.Column>Assists</Table.Column>
+                                            <Table.Column>Steals</Table.Column>
+                                            <Table.Column>Fouls</Table.Column>
                                         </Table.Header>
                                         <Table.Body>
-                                            <Table.Row>
-                                                <Table.Cell css={{ textAlign: 'start' }}>Minutes</Table.Cell>
-                                                <Table.Cell css={{ textAlign: 'start' }}>{StatsPlayer[12]}</Table.Cell>
-                                            </Table.Row>
-                                            <Table.Row>
-                                                <Table.Cell css={{ textAlign: 'start' }}>Points</Table.Cell>
-                                                <Table.Cell css={{ textAlign: 'start' }}>{StatsPlayer[13]}</Table.Cell>
-                                            </Table.Row>
-                                            <Table.Row>
-                                                <Table.Cell css={{ textAlign: 'start' }}>Rebounds</Table.Cell>
-                                                <Table.Cell css={{ textAlign: 'start' }}>{StatsPlayer[14]}</Table.Cell>
-                                            </Table.Row>
-                                            <Table.Row>
-                                                <Table.Cell css={{ textAlign: 'start' }}>Assists</Table.Cell>
-                                                <Table.Cell css={{ textAlign: 'start' }}>{StatsPlayer[15]}</Table.Cell>
-                                            </Table.Row>
+                                            {PlayersWithStats[StatsPlayer][0].map((row) => {
+                                                return (
+                                                    <Table.Row>
+                                                        <Table.Cell css={{ textAlign: 'start' }}>
+                                                            {row[0]!='Average' ?
+                                                            <Text>
+                                                                vs {row[0]}
+                                                            </Text>
+                                                            :
+                                                            <Text>
+                                                                {row[0]}
+                                                            </Text>
+                                                            }
+                                                        </Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[1]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[2]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[3]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[4]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[6]}</Table.Cell>
+                                                    </Table.Row>
+                                                )
+                                            })}
                                         </Table.Body>
                                     </Table>
 

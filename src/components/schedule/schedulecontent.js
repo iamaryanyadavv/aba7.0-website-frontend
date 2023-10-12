@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Table, Grid, Loading, Avatar, Text, Col, Button, Spacer } from "@nextui-org/react";
+import { Table, Grid, Loading, Avatar, Text, Col, Button, Popover } from "@nextui-org/react";
 import AuctionRules from "./auctionrules";
 import TournamentRules from "./tournamentrules";
 import ABA7Games from './games'
@@ -16,10 +16,10 @@ import './schedule.css'
 
 export default function ScheduleContent() {
     const [Fetching, setFetching] = useState(false);
-    const [Games, setGames] = useState(true);
+    const [Games, setGames] = useState(false);
     const [Standings, setStandings] = useState(false)
     const [Rules, setRules] = useState(false)
-    const [Players, setPlayers] = useState(false)
+    const [Players, setPlayers] = useState(true)
     const [Teams, setTeams] = useState(false)
 
     async function getStandings() {
@@ -57,48 +57,65 @@ export default function ScheduleContent() {
                             jc: 'center',
                             alignItems: 'center',
                         }}>
+
                         <Grid
                             css={{
                                 padding: '10px'
                             }}>
-                            <Button className="games-btn" auto rounded flat
-                                onClick={() => {
-                                    setGames(true)
-                                    setStandings(false)
-                                    setRules(false)
-                                    setPlayers(false)
-                                    setTeams(false)
-                                }}>
-                                <Text className="games-btn-text"
-                                    css={{
-                                        fontSize: '$md',
-                                        fontWeight: '$semibold',
-                                    }}>
-                                    Games
-                                </Text>
-                            </Button>
+                            <Popover>
+                                <Popover.Trigger>
+                                    <Button className="games-btn" auto rounded flat
+                                    // onClick={() => {
+                                    //     setGames(true)
+                                    //     setStandings(false)
+                                    //     setRules(false)
+                                    //     setPlayers(false)
+                                    //     setTeams(false)
+                                    // }}
+                                    >
+                                        <Text className="games-btn-text"
+                                            css={{
+                                                fontSize: '$md',
+                                                fontWeight: '$semibold',
+                                            }}>
+                                            Games
+                                        </Text>
+                                    </Button>
+                                </Popover.Trigger>
+                                <Popover.Content>
+                                    <Text css={{ p: "$10" }}>Will be released soon!</Text>
+                                </Popover.Content>
+                            </Popover>
                         </Grid>
 
                         <Grid
                             css={{
                                 padding: '10px'
                             }}>
-                            <Button auto className="games-btn" rounded flat
-                                onClick={() => {
-                                    setGames(false)
-                                    setStandings(true)
-                                    setRules(false)
-                                    setPlayers(false)
-                                    setTeams(false)
-                                }}>
-                                <Text className="games-btn-text"
-                                    css={{
-                                        fontSize: '$md',
-                                        fontWeight: '$semibold',
-                                    }}>
-                                    Standings
-                                </Text>
-                            </Button>
+                            <Popover>
+                                <Popover.Trigger>
+                                    <Button auto className="games-btn" rounded flat
+                                        // onClick={() => {
+                                        //     setGames(false)
+                                        //     setStandings(true)
+                                        //     setRules(false)
+                                        //     setPlayers(false)
+                                        //     setTeams(false)
+                                        // }}
+                                        >
+                                        <Text className="games-btn-text"
+                                            css={{
+                                                fontSize: '$md',
+                                                fontWeight: '$semibold',
+                                            }}>
+                                            Standings
+                                        </Text>
+                                    </Button>
+                                </Popover.Trigger>
+                                <Popover.Content>
+                                    <Text css={{ p: "$10" }}>Will be released soon!</Text>
+                                </Popover.Content>
+                            </Popover>
                         </Grid>
 
                         <Grid
