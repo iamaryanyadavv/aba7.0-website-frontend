@@ -262,7 +262,7 @@ export default function Teams() {
             }}>
                 <Loading
                 size="xl"
-                color={'white'}
+                color={'warning'}
                 />
             </Grid.Container>
             }
