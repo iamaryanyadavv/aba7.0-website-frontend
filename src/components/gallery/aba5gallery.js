@@ -58,7 +58,7 @@ const ABA5Gallery = () => {
                     <FontAwesomeIcon icon={faCircleChevronLeft} className='btnPrev' onClick={prevSlide} />
                     <FontAwesomeIcon icon={faCircleChevronRight} className='btnNext' onClick={nextSlide} />
                     <div className='fullScreenImage'>
-                        <img src={ABA5galleryImages[slideNumber].img} alt='' />
+                        <img src={ABA5galleryImages[slideNumber]} alt='' />
                     </div>
                 </div>
             }

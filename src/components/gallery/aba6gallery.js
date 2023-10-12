@@ -58,7 +58,7 @@ const ABA6Gallery = () => {
                     <FontAwesomeIcon icon={faCircleChevronLeft} className='btnPrev' onClick={prevSlide} />
                     <FontAwesomeIcon icon={faCircleChevronRight} className='btnNext' onClick={nextSlide} />
                     <div className='fullScreenImage'>
-                        <img src={ABA6galleryImages[slideNumber].img} alt='' />
+                        <img src={ABA6galleryImages[slideNumber]} alt='' />
                     </div>
                 </div>
             }
@@ -105,7 +105,7 @@ const ABA6Gallery = () => {
                                             key={index}
                                             onClick={() => handleOpenModal(index)}
                                         >
-                                            <img src={slide.img} alt='' />
+                                            <img src={slide} alt='' />
                                         </div>
                                     )
                                 })
