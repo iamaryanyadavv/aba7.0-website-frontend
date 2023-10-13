@@ -132,13 +132,14 @@ export default function Players() {
                 css={{
                     margin: '12px',
                     '&:hover': {
-                        cursor: 'pointer'
-                    }
+                        cursor: 'pointer',
+                    },
                 }}
                 onClick={() => {
                     setStatsPlayer(player[1])
                     setStatsModal(true)
                 }}
+                className="player-card"
             >
                 <Image
                     src={player[0]}
@@ -167,6 +168,7 @@ export default function Players() {
                     setStatsPlayer(player[1])
                     setStatsModal(true)
                 }}
+                className="player-card"
             >
                 <Image
                     src={player[0]}
@@ -195,6 +197,7 @@ export default function Players() {
                     setStatsPlayer(player[1])
                     setStatsModal(true)
                 }}
+                className="player-card"
             >
                 <Image
                     src={player[0]}
@@ -223,6 +226,7 @@ export default function Players() {
                     setStatsPlayer(player[1])
                     setStatsModal(true)
                 }}
+                className="player-card"
             >
                 <Image
                     src={player[0]}
@@ -1081,7 +1085,7 @@ export default function Players() {
                         </Grid.Container>
                     }
 
-                    {TierLessCards.length == 0 && Tier1Cards.length == 0 && Tier2Cards.length == 0 && Tier3Cards.length == 0 && Tier4Cards.length == 0 &&
+                    {/* {TierLessCards.length == 0 && Tier1Cards.length == 0 && Tier2Cards.length == 0 && Tier3Cards.length == 0 && Tier4Cards.length == 0 &&
                         <div>
                             <Text hideIn={'xs'}
                                 css={{
@@ -1105,7 +1109,7 @@ export default function Players() {
                             </Text>
                             <Spacer y={15} />
                         </div>
-                    }
+                    } */}
                 </div>
             }
         </div>
