@@ -251,6 +251,17 @@ export default function Players() {
         var top10 = []
 
         var playerswithstats = {}
+        function getRankSubscript(rank) {
+            if (rank % 10 === 1 && rank % 100 !== 11) {
+                return "st";
+            } else if (rank % 10 === 2 && rank % 100 !== 12) {
+                return "nd";
+            } else if (rank % 10 === 3 && rank % 100 !== 13) {
+                return "rd";
+            } else {
+                return "th";
+            }
+        }
         for (const player of players.values) {
             playerswithstats[player[1]] = [[], player[2], player[3], player[10]]
         }
@@ -261,9 +272,28 @@ export default function Players() {
         }
 
         for (const player of players.values) {
-            var avgStatArray = ['Average', player[12], player[13], player[14], player[15], player[16], player[17],]
-            playerswithstats[player[1]][0].push(avgStatArray)
+            const statIndices = [12, 13, 14, 15, 16, 17];
+        
+            const rankArray = ['Rank'];
+        
+            for (const statIndex of statIndices) {
+                const statValue = player[statIndex];
+                const temprank = calculateRank(players.values, statIndex, statValue);
+                const rank = temprank+getRankSubscript(temprank);
+                rankArray.push(rank);
+            }
+        
+            playerswithstats[player[1]][0].push(['Average', ...player.slice(12, 18)]);
+            playerswithstats[player[1]][0].push(rankArray);
         }
+        
+        // Function to calculate the rank of a player for a specific stat
+        function calculateRank(playersArray, statIndex, statValue) {
+            const sortedArray = playersArray.slice().sort((a, b) => b[statIndex] - a[statIndex]);
+            const rank = sortedArray.findIndex((player) => player[statIndex] === statValue) + 1;
+            return rank;
+        }
+        
         setPlayersWithStats(playerswithstats)
 
         if (players.values.length > 1) {
@@ -733,15 +763,16 @@ export default function Players() {
                                                 return (
                                                     <Table.Row>
                                                         <Table.Cell css={{ textAlign: 'start' }}>
-                                                            {row[0] != 'Average' ?
-                                                                <Text>
-                                                                    vs {row[0]}
-                                                                </Text>
-                                                                :
-                                                                <Text>
-                                                                    {row[0]}
-                                                                </Text>
-                                                            }
+                                                        {row[0] !== 'Average' && row[0] !== 'Rank' ? (
+                                                            <Text>
+                                                                vs {row[0]}
+                                                            </Text>
+                                                        ) : (
+                                                            <Text>
+                                                                {row[0]}
+                                                            </Text>
+                                                        )}
+
                                                         </Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[1]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[2]}</Table.Cell>
