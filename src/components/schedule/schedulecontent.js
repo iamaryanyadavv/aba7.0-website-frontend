@@ -95,14 +95,14 @@ export default function ScheduleContent() {
                             <Popover>
                                 <Popover.Trigger>
                                     <Button auto className="games-btn" rounded flat
-                                        // onClick={() => {
-                                        //     setGames(false)
-                                        //     setStandings(true)
-                                        //     setRules(false)
-                                        //     setPlayers(false)
-                                        //     setTeams(false)
-                                        // }}
-                                        >
+                                    // onClick={() => {
+                                    //     setGames(false)
+                                    //     setStandings(true)
+                                    //     setRules(false)
+                                    //     setPlayers(false)
+                                    //     setTeams(false)
+                                    // }}
+                                    >
                                         <Text className="games-btn-text"
                                             css={{
                                                 fontSize: '$md',
@@ -285,12 +285,22 @@ export default function ScheduleContent() {
                             <Text hideIn={'xs'}
                                 css={{
                                     textAlign: 'center',
-                                    padding: '20px 0px 10px 0px',
+                                    padding: '20px 0px 0px 0px',
                                     fontSize: '$6xl',
                                     fontWeight: '$semibold',
                                     color: '#163364'
                                 }}>
                                 Players
+                            </Text>
+                            <Text hideIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '0px 0px 20px 0px',
+                                    fontSize: '$xl',
+                                    fontWeight: '$normal',
+                                    color: '#163364'
+                                }}>
+                                Click to check statistics
                             </Text>
                             <Text showIn={'xs'}
                                 css={{
@@ -301,6 +311,16 @@ export default function ScheduleContent() {
                                     color: '#163364'
                                 }}>
                                 Players
+                            </Text>
+                            <Text showIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '0px 0px 20px 0px',
+                                    fontSize: '$md',
+                                    fontWeight: '$normal',
+                                    color: '#163364'
+                                }}>
+                                Click to check statistics
                             </Text>
                             <Col>
                                 <PlayersComponent />

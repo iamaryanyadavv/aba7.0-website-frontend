@@ -9,6 +9,7 @@ import Footer from './components/footer/footer.js';
 import FootNavbar from './components/footnavbar/footnavbar';
 import Schedule from './pages/SchedulePage/schedule';
 import GalleryPage from './pages/GalleryPage/gallerypage';
+import ImagePage from './pages/imagePage';
 
 function App() {
     const theme = createTheme({
@@ -29,6 +30,7 @@ function App() {
                         <Route exact path="/" element={<Home />} />
                         <Route exact path="/schedule" element={<Schedule />} />
                         <Route exact path="/gallery" element={<GalleryPage />} />
+                        <Route exact path="/image" element={<ImagePage />} />
                     </Routes>
                 </Router>
             </div>

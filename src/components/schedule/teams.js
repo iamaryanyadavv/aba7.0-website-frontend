@@ -6,52 +6,52 @@ export default function Teams() {
     const [Fetching, setFetching] = useState(true);
     const [TeamAccordions, setTeamAccordions] = useState();
 
-    const getTeamBudgetsData = async () =>{
+    const getTeamBudgetsData = async () => {
         await fetch('https://aplapi.onrender.com/seasons/apl6/teamdata/budgets')
-        .then(response => response.json())
-        .then((data)=>{
-            OnceTeamBudgetsData(data);
-        })
-        
+            .then(response => response.json())
+            .then((data) => {
+                OnceTeamBudgetsData(data);
+            })
+
     }
 
     const OnceTeamBudgetsData = async (teamslists) => {
         await fetch('http://localhost:3001/aba7teams')
-        .then(response => response.json())
-        .then((data)=>{
-            createTeamAccordions(data, teamslists);
-        })
+            .then(response => response.json())
+            .then((data) => {
+                createTeamAccordions(data, teamslists);
+            })
         setFetching(false);
     }
 
-    function createTeamAccordions(teams, teamslists){
-        if(teams.length>1){
+    function createTeamAccordions(teams, teamslists) {
+        if (teams.length > 1) {
             const onlyteams = []
-            for(var i=1; i<teams.length;i++){
+            for (var i = 1; i < teams.length; i++) {
                 onlyteams.push(teams[i])
             }
-            setTeamAccordions(onlyteams.map((team,index)=>(
+            setTeamAccordions(onlyteams.map((team, index) => (
                 <Collapse
-                css={{
-                    margin: '30px',
-                    backgroundColor: 'White',
-                    jc: 'center',
-                    alignItems: 'center',
-                    '@xsMax':{
-                        width: '330px'                        
-                    },
-                    '@xsMin':{
-                        width: '500px'
+                    css={{
+                        margin: '20px',
+                        backgroundColor: 'White',
+                        jc: 'center',
+                        alignItems: 'center',
+                        '@xsMax': {
+                            width: '330px'
+                        },
+                        '@xsMin': {
+                            width: '500px'
+                        }
+                    }}
+                    contentLeft={
+                        <Avatar bordered size={'xl'} src={team[0]} />
                     }
-                }} 
-                contentLeft={
-                    <Avatar bordered size={'xl'} src={team[0]} />
-                } 
-                key={index} 
-                borderWeight={'null'}
-                shadow 
-                title={team[2]} 
-                subtitle='Expand for details'>
+                    key={index}
+                    borderWeight={'null'}
+                    shadow
+                    title={team[2]}
+                    subtitle='Expand for details'>
                     <Grid.Container css={{
                         jc: 'center',
                         alignItems: 'center',
@@ -59,20 +59,20 @@ export default function Teams() {
                     }}>
                         <Col>
                             <Text hideIn={'xs'}
-                            css={{
-                                fontSize: '$2xl',
-                                fontWeight: '$medium'
-                            }}>
+                                css={{
+                                    fontSize: '$2xl',
+                                    fontWeight: '$medium'
+                                }}>
                                 Manager: {team[4]}
                             </Text>
                             <Text showIn={'xs'}
-                            css={{
-                                fontSize: '$lg',
-                                fontWeight: '$medium'
-                            }}>
+                                css={{
+                                    fontSize: '$lg',
+                                    fontWeight: '$medium'
+                                }}>
                                 Manager: {team[4]}
                             </Text>
-                            
+
                             {/* <Text hideIn={'xs'}
                             css={{
                                 fontSize: '$xl',
@@ -89,224 +89,224 @@ export default function Teams() {
                                 Owners: {team[5]}
                             </Text> */}
                         </Col>
-    
+
 
                     </Grid.Container>
-                    {AccordionMaterial(team,teamslists)}
+                    {AccordionMaterial(team, teamslists)}
                 </Collapse>
             )))
         }
     }
 
-    function AccordionMaterial(team,teamslists){
-        
+    function AccordionMaterial(team, teamslists) {
+
         var accMaterial = ''
-        for (var i=0; i<teamslists.values.length; i++){
-            if(teamslists.values[i].length>1){
-                if(team[2]===teamslists.values[i][0]){
-                    var budgetBarValue = (parseInt(teamslists.values[i][26])/150)*100
-                    accMaterial =   
+        for (var i = 0; i < teamslists.values.length; i++) {
+            if (teamslists.values[i].length > 1) {
+                if (team[2] === teamslists.values[i][0]) {
+                    var budgetBarValue = (parseInt(teamslists.values[i][26]) / 150) * 100
+                    accMaterial =
                         <Grid.Container
-                        css={{
-                            jc:'center',
-                            alignItems: 'center'
-                        }}>
-                            {(teamslists.values[i][30]) && 
-                            <Col>
-                                <Text
-                                css={{
-                                    fontSize: '$xl',
-                                    fontWeight: '$medium',
-                                    paddingBottom: '5%'
-                                }}>
-                                    Record: {teamslists.values[i][30]}
-                                </Text>
-                            </Col>
+                            css={{
+                                jc: 'center',
+                                alignItems: 'center'
+                            }}>
+                            {(teamslists.values[i][30]) &&
+                                <Col>
+                                    <Text
+                                        css={{
+                                            fontSize: '$xl',
+                                            fontWeight: '$medium',
+                                            paddingBottom: '5%'
+                                        }}>
+                                        Record: {teamslists.values[i][30]}
+                                    </Text>
+                                </Col>
                             }
-                            {!teamslists.values[i][30] && 
-                            <Col>
-                                <Text
-                                css={{
-                                    fontSize: '$xl',
-                                    fontWeight: '$medium',
-                                    paddingBottom: '5%'
-                                }}>
-                                    Record -
-                                </Text>
-                            </Col>
+                            {!teamslists.values[i][30] &&
+                                <Col>
+                                    <Text
+                                        css={{
+                                            fontSize: '$xl',
+                                            fontWeight: '$medium',
+                                            paddingBottom: '5%'
+                                        }}>
+                                        Record -
+                                    </Text>
+                                </Col>
                             }
                             <Table bordered
-                            css={{
-                                height: "auto",
-                                minWidth: "100%",
-                            }}>
+                                css={{
+                                    height: "auto",
+                                    minWidth: "100%",
+                                }}>
                                 <Table.Header>
                                     <Table.Column>Player</Table.Column>
                                     <Table.Column>Price</Table.Column>
                                 </Table.Header>
                                 <Table.Body>
-                                    {teamslists.values[i][1] && teamslists.values[i][2] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][1]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][2]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][1] && teamslists.values[i][2] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][1]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][2]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][3] && teamslists.values[i][4] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][3]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][4]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][3] && teamslists.values[i][4] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][3]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][4]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][5] && teamslists.values[i][6] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][5]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][6]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][5] && teamslists.values[i][6] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][5]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][6]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][7] && teamslists.values[i][8] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][7]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][8]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][7] && teamslists.values[i][8] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][7]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][8]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][9] && teamslists.values[i][10] &&       
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][9]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][10]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][9] && teamslists.values[i][10] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][9]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][10]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][11] && teamslists.values[i][12] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][11]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][12]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][11] && teamslists.values[i][12] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][11]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][12]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][13] && teamslists.values[i][14] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][13]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][14]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][13] && teamslists.values[i][14] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][13]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][14]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][15] && teamslists.values[i][16] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][15]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][16]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][15] && teamslists.values[i][16] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][15]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][16]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][17] && teamslists.values[i][18] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][17]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][18]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][17] && teamslists.values[i][18] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][17]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][18]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][19] && teamslists.values[i][20] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][19]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][20]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][19] && teamslists.values[i][20] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][19]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][20]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][21] && teamslists.values[i][22] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][21]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][22]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][21] && teamslists.values[i][22] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][21]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][22]}</Table.Cell>
+                                        </Table.Row>
                                     }
-                                    {teamslists.values[i][23] && teamslists.values[i][24] && 
-                                    <Table.Row>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][23]}</Table.Cell>
-                                        <Table.Cell css={{textAlign: 'start'}}>{teamslists.values[i][24]}</Table.Cell>
-                                    </Table.Row>
+                                    {teamslists.values[i][23] && teamslists.values[i][24] &&
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][23]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'start' }}>{teamslists.values[i][24]}</Table.Cell>
+                                        </Table.Row>
                                     }
                                 </Table.Body>
                             </Table>
                             <Col
-                            css={{
-                                marginTop: '20px'
-                            }}>
-                                <Text
                                 css={{
-                                    fontSize: '$xl',
-                                    fontWeight: '$medium',
-                                    margin:'10px'
+                                    marginTop: '20px'
                                 }}>
+                                <Text
+                                    css={{
+                                        fontSize: '$xl',
+                                        fontWeight: '$medium',
+                                        margin: '10px'
+                                    }}>
                                     {teamslists.values[i][26]} M Spent (Max. 150)
                                 </Text>
                                 <Progress size='sm' color='warning' value={budgetBarValue} />
                             </Col>
                         </Grid.Container>
-                    
-                }  
+
+                }
             }
         }
-        return(accMaterial)
+        return (accMaterial)
     }
-    
 
-    useEffect( () => {
+
+    useEffect(() => {
         getTeamBudgetsData();
         const interval = setInterval(() => {
             getTeamBudgetsData();
-          }, 30000);
-        
+        }, 30000);
+
         return () => clearInterval(interval);
     }, [])
 
-    return(
+    return (
         <div>
-            {Fetching===true && 
-            <Grid.Container gap={4}
-            css={{
-                jc: 'center',
-                alignItems: 'center',
-                height: '60vh',
-            }}>
-                <Loading
-                size="xl"
-                color={'white'}
-                />
-            </Grid.Container>
+            {Fetching === true &&
+                <Grid.Container gap={4}
+                    css={{
+                        jc: 'center',
+                        alignItems: 'center',
+                        height: '60vh',
+                    }}>
+                    <Loading
+                        size="xl"
+                        color={'warning'}
+                    />
+                </Grid.Container>
             }
             {!Fetching && TeamAccordions &&
-            <Grid.Container
-            css={{
-                jc: 'center',
-                textAlign: 'center',
-                alignItems: 'center',
-                padding: '30px 0px 0px 0px',
-                backgroundColor: '#faf7ea',
-                borderRadius: '20px',
-                borderStyle: 'solid',
-                borderWidth: '0px'
-            }}>
-                {TeamAccordions}
-            </Grid.Container>
+                <Grid.Container
+                    css={{
+                        jc: 'center',
+                        textAlign: 'center',
+                        alignItems: 'center',
+                        padding: '30px 0px 0px 0px',
+                        backgroundColor: '#faf7ea',
+                        borderRadius: '20px',
+                        borderStyle: 'solid',
+                        borderWidth: '0px'
+                    }}>
+                    {TeamAccordions}
+                </Grid.Container>
             }
             {!Fetching && !TeamAccordions &&
-            <div>
-            <Text hideIn={'xs'}
-            css={{
-                fontSize: '$4xl',
-                fontWeight: '$semibold',
-                padding: '40px 10% 0px 10%',
-                textAlign: 'center',
+                <div>
+                    <Text hideIn={'xs'}
+                        css={{
+                            fontSize: '$4xl',
+                            fontWeight: '$semibold',
+                            padding: '40px 10% 0px 10%',
+                            textAlign: 'center',
 
-            }}>
-                No Teams yet... Check again after team registration starts!
-            </Text>
-            <Text showIn={'xs'}
-            css={{
-                fontSize: '$2xl',
-                fontWeight: '$semibold',
-                padding: '40px 10% 0px 10%',
-                textAlign: 'center',
+                        }}>
+                        No Teams yet... Check again after team registration starts!
+                    </Text>
+                    <Text showIn={'xs'}
+                        css={{
+                            fontSize: '$2xl',
+                            fontWeight: '$semibold',
+                            padding: '40px 10% 0px 10%',
+                            textAlign: 'center',
 
-            }}>
-                No Teams yet... Check again after team registration starts!
-            </Text>
-            <Spacer y={15}/>
-        </div>
+                        }}>
+                        No Teams yet... Check again after team registration starts!
+                    </Text>
+                    <Spacer y={15} />
+                </div>
             }
         </div>
     )
-    
+
 }

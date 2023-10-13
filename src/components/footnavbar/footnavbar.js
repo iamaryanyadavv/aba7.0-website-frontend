@@ -65,16 +65,16 @@ export default function FootNavbar () {
                         css={{
                             padding: '12px'
                         }}>
-                            <Link className="footnavbar-item" href="/registration" >
-                                ABAxKKIx
+                            <Link className="footnavbar-item" href="/fanupabafantasy">
+                                FanUpxABA Fantasy
                             </Link>
                         </Grid>
                         <Grid 
                         css={{
                             padding: '12px'
                         }}>
-                            <Link className="footnavbar-item" href="/events" >
-                                Schedule
+                            <Link className="footnavbar-item" href="/roatoaba" >
+                                RoadToABA
                             </Link>
                         </Grid>
                     </Grid.Container>
@@ -95,23 +95,15 @@ export default function FootNavbar () {
                         css={{
                             padding: '12px'
                         }}>
-                            <Link className="footnavbar-item" href="/slots" >
-                                RoadToABA
+                            <Link className="footnavbar-item" href="/schedule" >
+                                Schedule
                             </Link>
                         </Grid>
                         <Grid 
                         css={{
                             padding: '12px'
                         }}>
-                            <Link className="footnavbar-item" href="/seasons">
-                                FanUpxABA Fantasy
-                            </Link>
-                        </Grid>
-                        <Grid 
-                        css={{
-                            padding: '12px'
-                        }}>
-                            <Link className="footnavbar-item" href="/team">
+                            <Link className="footnavbar-item" href="/gallery">
                                 Gallery
                             </Link>
                         </Grid>

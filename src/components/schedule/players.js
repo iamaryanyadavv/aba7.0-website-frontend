@@ -90,304 +90,18 @@ export default function Players() {
             })
     }
 
-    // const modalPlayer = (name) => {
-    //     return(
-    //         <Modal
-    //             closeButton
-    //             open={true}
-    //             onClose={() => {
-    //                 setStatsModal(false)
-    //                 setStatsPlayer(null)
-    //             }}>
-    //             <Modal.Header>
-    //                 <Text
-    //                     css={{
-    //                         '@xsMax': {
-    //                             fontSize: '$md',
-    //                             fontWeight: '$medium'
-    //                         },
-    //                         '@xsMin': {
-    //                             fontSize: '$xl',
-    //                             fontWeight: '$medium'
-    //                         },
-    //                         border: 'solid',
-    //                         borderColor: '#faf7ea',
-    //                         borderWidth: '0px 0px 2px 0px'
-    //                     }}>
-    //                     {name}'s Statistics
-    //                 </Text>
-    //             </Modal.Header>
-    //             <Modal.Body>
-    //                 <Col>
-    //                     <Row>
-    //                         <Text css={{
-    //                             fontWeight: '$semibold',
-    //                             marginRight: '4px'
-    //                         }}>
-    //                             Name:
-    //                         </Text>
-    //                         <Text>
-    //                             {name}
-    //                         </Text>
-    //                     </Row>
-    //                     <Row>
-    //                         <Text css={{
-    //                             fontWeight: '$semibold',
-    //                             marginRight: '4px'
-    //                         }}>
-    //                             Batch:
-    //                         </Text>
-    //                         <Text>
-    //                             {PlayersWithStats[name][3]}
-    //                         </Text>
-    //                     </Row>
-    //                     <Row>
-    //                         <Text css={{
-    //                             fontWeight: '$semibold',
-    //                             marginRight: '4px'
-    //                         }}>
-    //                             Type:
-    //                         </Text>
-    //                         <Text>
-    //                             {PlayersWithStats[name][1]}
-    //                         </Text>
-    //                     </Row>
-    //                     <Row>
-    //                         <Text css={{
-    //                             fontWeight: '$semibold',
-    //                             marginRight: '4px'
-    //                         }}>
-    //                             Height:
-    //                         </Text>
-    //                         <Text>
-    //                             {PlayersWithStats[name][2]}
-    //                         </Text>
-    //                     </Row>
-
-    //                     <Table bordered
-    //                         css={{
-    //                             height: "auto",
-    //                             minWidth: "100%",
-    //                         }}>
-    //                         <Table.Header>
-    //                             <Table.Column>Against</Table.Column>
-    //                             <Table.Column>Minutes</Table.Column>
-    //                             <Table.Column>Points</Table.Column>
-    //                             <Table.Column>Rebounds</Table.Column>
-    //                             <Table.Column>Assists</Table.Column>
-    //                             <Table.Column>Steals</Table.Column>
-    //                             <Table.Column>Fouls</Table.Column>
-    //                         </Table.Header>
-    //                         <Table.Body>
-    //                             <Table.Row>
-    //                                 <Table.Cell css={{ textAlign: 'start' }}>{PlayersWithStats[name][0][0]}</Table.Cell>
-    //                                 <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
-    //                             </Table.Row>
-    //                         </Table.Body>
-    //                     </Table>
-    //                 </Col>
-    //             </Modal.Body>
-    //         </Modal>
-    //     )
-    // }
-
     useEffect(() => {
         if (StatsModal) {
-          document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
         } else {
-          document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
         }
-      }, [StatsModal]);
+    }, [StatsModal]);
 
     const TierLessCards = PreTierAllotmentPlayers.map((player, index) => (
 
-        <Grid key={index}
-            css={{
-                margin: '20px',
-                padding: '12px',
-                backgroundColor: 'rgb(5,5,5)',
-                borderRadius: '20px',
-                boxShadow: '10px 10px 10px rgb(5,5,5)',
-                // borderStyle: 'ridge',
-                // borderWidth: '20px',
-                // borderColor: '#C4B454'
-            }}>
-            {/* Card Column */}
-            <Col>
-                {/* Top Left Info + img ROW */}
-                <Row
-                    css={{
-                        jc: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center'
-                    }}>
-                    {/* Top Left Info */}
-                    <Col>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsGenderAmbiguous size={'20px'} className='user' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Gender */}
-                                {player[9]}
-                            </Text>
-                        </Row>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsBook size={'20px'} className='book' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Batch */}
-                                {player[10]}
-                            </Text>
-                        </Row>
-
-                        {/* Tier + Price */}
-                        <Row
-                            css={{
-                                display: 'flex',
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <AiOutlineDollar size={'20px'} className='dollar' />
-
-                            <Text
-                                css={{
-                                    color: '$gray500',
-                                    padding: ' 0px 0px 0px 2px',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                }}>
-                                {/* available after auction */}
-                                -
-                            </Text>
-
-                        </Row>
-
-
-                    </Col>
-                    {player[0] &&
-                        <img src={player[0]} className='player-picture' />
-                    }
-                    {!player[0] &&
-                        <img src={User} className="player-picture" />
-                    }
-                </Row>
-
-                {/* Name */}
-                <Text
-                    css={{
-                        textAlign: 'center',
-                        color: 'White',
-                        // borderStyle: 'solid',
-                        // borderWidth: '0px 0px 2px 0px',
-                        // borderColor: '#C4B454',
-                        padding: '5px 5px 0px 5px',
-                        fontSize: '$3xl',
-                        fontWeight: '$medium'
-                    }}>
-                    {player[1]}
-                </Text>
-
-                {/* Bottom Info */}
-                <Col
-                    css={{
-                        textAlign: 'center',
-                    }}>
-
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            padding: '0px 0px 5px 0px'
-                        }}>
-                        {/* <GiSoccerBall size={'20px'} className='team' /> */}
-                        {/* Team Logo */}
-                        <Avatar size={'lg'} bordered src={player[8]} />
-                        <Text
-                            css={{
-                                color: '$gray500',
-                                fontSize: '$lg',
-                                fontWeight: '$medium',
-                                padding: '0px 0px 0px 5px'
-                            }}>
-                            {/*Team Name */}
-                            -
-                        </Text>
-                    </Row>
-
-                    {/* Positions p + s */}
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                        }}>
-                        <TbSoccerField size={'25px'} className='soccerball' />
-                        {player[2] && player[3] && player[2] != player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    padding: ' 0px 0px 0px 2px',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}, {player[3]}
-                            </Text>
-                        }
-                        {player[2] && player[3] && player[2] == player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                        {player[2] && !player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                    </Row>
-                </Col>
-
-            </Col>
-        </Grid>
-    ))
-
-    const Tier1Cards = Tier1PlayerData.map((player, index) => (
         <>
-            <Grid
+            <Grid key={index}
                 css={{
                     margin: '12px',
                     '&:hover': {
@@ -409,671 +123,122 @@ export default function Players() {
                     }}
                 />
             </Grid>
-            {/* <Modal
-                closeButton
-                fullScreen
-                open={StatsModal}
-                onClose={() => {
-                    setStatsModal(false)
-                    setStatsPlayer(null)
-                }}>
-                <Modal.Header>
-                    <Text
-                        css={{
-                            '@xsMax': {
-                                fontSize: '$md',
-                                fontWeight: '$medium'
-                            },
-                            '@xsMin': {
-                                fontSize: '$xl',
-                                fontWeight: '$medium'
-                            },
-                            border: 'solid',
-                            borderColor: '#faf7ea',
-                            borderWidth: '0px 0px 2px 0px'
-                        }}>
-                        {player[1]}'s Statistics
-                    </Text>
-                </Modal.Header>
-                <Modal.Body>
-                    <Col>
-                        <Row>
-                            <Text css={{
-                                fontWeight: '$semibold',
-                                marginRight: '4px'
-                            }}>
-                                Name:
-                            </Text>
-                            <Text>
-                                {player[1]}
-                            </Text>
-                        </Row>
-                        <Row>
-                            <Text css={{
-                                fontWeight: '$semibold',
-                                marginRight: '4px'
-                            }}>
-                                Batch:
-                            </Text>
-                            <Text>
-                                {PlayersWithStats[player[1]][3]}
-                            </Text>
-                        </Row>
-                        <Row>
-                            <Text css={{
-                                fontWeight: '$semibold',
-                                marginRight: '4px'
-                            }}>
-                                Type:
-                            </Text>
-                            <Text>
-                                {PlayersWithStats[player[1]][1]}
-                            </Text>
-                        </Row>
-                        <Row>
-                            <Text css={{
-                                fontWeight: '$semibold',
-                                marginRight: '4px'
-                            }}>
-                                Height:
-                            </Text>
-                            <Text>
-                                {PlayersWithStats[player[1]][2]}
-                            </Text>
-                        </Row>
+        </>
+    ))
 
-                        <Table bordered
-                            css={{
-                                height: "auto",
-                                minWidth: "100%",
-                            }}>
-                            <Table.Header>
-                                <Table.Column>Against</Table.Column>
-                                <Table.Column>Minutes</Table.Column>
-                                <Table.Column>Points</Table.Column>
-                                <Table.Column>Rebounds</Table.Column>
-                                <Table.Column>Assists</Table.Column>
-                                <Table.Column>Steals</Table.Column>
-                                <Table.Column>Fouls</Table.Column>
-                            </Table.Header>
-                            <Table.Body>
-                                <Table.Row>
-                                    <Table.Cell css={{ textAlign: 'start' }}>{PlayersWithStats[player[1]][0][0]}</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
-                                    <Table.Cell css={{ textAlign: 'start' }}>0</Table.Cell>
-                                </Table.Row>
-                            </Table.Body>
-                        </Table>
-                    </Col>
-                </Modal.Body>
-            </Modal> */}
+    const Tier1Cards = Tier1PlayerData.map((player, index) => (
+        <>
+            <Grid key={index}
+                css={{
+                    margin: '12px',
+                    '&:hover': {
+                        cursor: 'pointer',
+                    },
+                }}
+                onClick={() => {
+                    setStatsPlayer(player[1])
+                    setStatsModal(true)
+                }}
+                className="player-card"
+            >
+                <Image
+                    src={player[0]}
+                    css={{
+                        width: '200px',
+                        height: '300px',
+                        objectFit: 'cover',
+                        borderRadius: '8px'
+                    }}
+                />
+            </Grid>
         </>
     ))
 
     const Tier2Cards = Tier2PlayerData.map((player, index) => (
 
-        <Grid key={index}
-            css={{
-                margin: '20px',
-                padding: '12px',
-                backgroundColor: 'Black',
-                borderRadius: '20px',
-                boxShadow: '10px 10px 10px rgb(5,5,5)',
-                // borderStyle: 'solid',
-                // borderWidth: '2.5px',
-                // borderColor: '#C4B454'
-            }}>
-            {/* Card Column */}
-            <Col>
-                {/* Top Left Info + img ROW */}
-                <Row
-                    css={{
-                        jc: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center'
-                    }}>
-                    {/* Top Left Info */}
-                    <Col>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsGenderAmbiguous size={'20px'} className='user' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Gender */}
-                                {player[9]}
-                            </Text>
-                        </Row>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsBook size={'20px'} className='book' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Batch */}
-                                {player[10]}
-                            </Text>
-                        </Row>
-
-                        {/* Tier + Price */}
-                        <Row
-                            css={{
-                                display: 'flex',
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <AiOutlineDollar size={'20px'} className='dollar' />
-                            {player[6] != '0' &&
-                                <Text
-                                    css={{
-                                        color: 'White',
-                                        padding: ' 0px 0px 0px 2px',
-                                        fontSize: '$lg',
-                                        fontWeight: '$medium',
-                                    }}>
-                                    {player[6]}M
-                                </Text>
-                            }
-                        </Row>
-
-
-                    </Col>
-                    {player[0] &&
-                        <img src={player[0]} className='player-picture' />
+        <>
+            <Grid key={index}
+                css={{
+                    margin: '12px',
+                    '&:hover': {
+                        cursor: 'pointer'
                     }
-                    {!player[0] &&
-                        <img src={User} className="player-picture" />
-                    }
-                </Row>
-
-                {/* Name */}
-                <Text
+                }}
+                onClick={() => {
+                    setStatsPlayer(player[1])
+                    setStatsModal(true)
+                }}
+                className="player-card"
+            >
+                <Image
+                    src={player[0]}
                     css={{
-                        textAlign: 'center',
-                        color: 'White',
-                        // borderStyle: 'solid',
-                        // borderWidth: '0px 0px 2px 0px',
-                        // borderColor: '#C4B454',
-                        padding: '5px 5px 0px 5px',
-                        fontSize: '$3xl',
-                        fontWeight: '$medium'
-                    }}>
-                    {player[1]}
-                </Text>
-
-                {/* Bottom Info */}
-                <Col
-                    css={{
-                        textAlign: 'center',
-                    }}>
-
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            padding: '0px 0px 5px 0px'
-                        }}>
-                        {/* <GiSoccerBall size={'20px'} className='team' /> */}
-                        {/* Team Logo */}
-                        <Avatar size={'lg'} bordered src={player[8]} />
-                        {player[7] != '0' &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/*Team Name */}
-                                {player[7]}
-                            </Text>
-                        }
-                    </Row>
-
-                    {/* Positions p + s */}
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                        }}>
-                        <TbSoccerField size={'25px'} className='soccerball' />
-                        {player[2] && player[3] && player[2] != player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    padding: ' 0px 0px 0px 2px',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}, {player[3]}
-                            </Text>
-                        }
-                        {player[2] && player[3] && player[2] == player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                        {player[2] && !player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                    </Row>
-                </Col>
-
-            </Col>
-        </Grid>
+                        width: '200px',
+                        height: '300px',
+                        objectFit: 'cover',
+                        borderRadius: '8px'
+                    }}
+                />
+            </Grid>
+        </>
     ))
 
     const Tier3Cards = Tier3PlayerData.map((player, index) => (
 
-        <Grid key={index}
-            css={{
-                margin: '20px',
-                padding: '12px',
-                backgroundColor: 'Black',
-                borderRadius: '20px',
-                boxShadow: '10px 10px 10px rgb(5,5,5)',
-                // borderStyle: 'solid',
-                // borderWidth: '2.5px',
-                // borderColor: '#C4B454'
-            }}>
-            {/* Card Column */}
-            <Col>
-                {/* Top Left Info + img ROW */}
-                <Row
-                    css={{
-                        jc: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center'
-                    }}>
-                    {/* Top Left Info */}
-                    <Col>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsGenderAmbiguous size={'20px'} className='user' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Gender */}
-                                {player[9]}
-                            </Text>
-                        </Row>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsBook size={'20px'} className='book' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Batch */}
-                                {player[10]}
-                            </Text>
-                        </Row>
-
-                        {/* Tier + Price */}
-                        <Row
-                            css={{
-                                display: 'flex',
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <AiOutlineDollar size={'20px'} className='dollar' />
-                            {player[6] != "0" &&
-                                <Text
-                                    css={{
-                                        color: 'White',
-                                        padding: ' 0px 0px 0px 2px',
-                                        fontSize: '$lg',
-                                        fontWeight: '$medium',
-                                    }}>
-                                    {player[6]}M
-                                </Text>
-                            }
-                        </Row>
-
-
-                    </Col>
-                    {player[0] &&
-                        <img src={player[0]} className='player-picture' />
+        <>
+            <Grid key={index}
+                css={{
+                    margin: '12px',
+                    '&:hover': {
+                        cursor: 'pointer'
                     }
-                    {!player[0] &&
-                        <img src={User} className="player-picture" />
-                    }
-                </Row>
-
-                {/* Name */}
-                <Text
+                }}
+                onClick={() => {
+                    setStatsPlayer(player[1])
+                    setStatsModal(true)
+                }}
+                className="player-card"
+            >
+                <Image
+                    src={player[0]}
                     css={{
-                        textAlign: 'center',
-                        color: 'White',
-                        // borderStyle: 'solid',
-                        // borderWidth: '0px 0px 2px 0px',
-                        // borderColor: '#C4B454',
-                        padding: '5px 5px 0px 5px',
-                        fontSize: '$3xl',
-                        fontWeight: '$medium'
-                    }}>
-                    {player[1]}
-                </Text>
-
-                {/* Bottom Info */}
-                <Col
-                    css={{
-                        textAlign: 'center',
-                    }}>
-
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            padding: '0px 0px 5px 0px'
-                        }}>
-                        {/* <GiSoccerBall size={'20px'} className='team' /> */}
-                        {/* Team Logo */}
-                        <Avatar size={'lg'} bordered src={player[8]} />
-                        {player[7] != '0' &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/*Team Name */}
-                                {player[7]}
-                            </Text>
-                        }
-                    </Row>
-
-                    {/* Positions p + s */}
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                        }}>
-                        <TbSoccerField size={'25px'} className='soccerball' />
-                        {player[2] && player[3] && player[2] != player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    padding: ' 0px 0px 0px 2px',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}, {player[3]}
-                            </Text>
-                        }
-                        {player[2] && player[3] && player[2] == player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                        {player[2] && !player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                    </Row>
-                </Col>
-
-            </Col>
-        </Grid>
+                        width: '200px',
+                        height: '300px',
+                        objectFit: 'cover',
+                        borderRadius: '8px'
+                    }}
+                />
+            </Grid>
+        </>
     ))
 
     const Tier4Cards = Tier4PlayerData.map((player, index) => (
 
-        <Grid key={index}
-            css={{
-                margin: '20px',
-                padding: '12px',
-                backgroundColor: 'Black',
-                borderRadius: '20px',
-                boxShadow: '10px 10px 10px rgb(5,5,5)',
-                // borderStyle: 'solid',
-                // borderWidth: '2.5px',
-                // borderColor: '#C4B454'
-            }}>
-            {/* Card Column */}
-            <Col>
-                {/* Top Left Info + img ROW */}
-                <Row
-                    css={{
-                        jc: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center'
-                    }}>
-                    {/* Top Left Info */}
-                    <Col>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsGenderAmbiguous size={'20px'} className='user' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Gender */}
-                                {player[9]}
-                            </Text>
-                        </Row>
-                        <Row
-                            css={{
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <BsBook size={'20px'} className='book' />
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/* Batch */}
-                                {player[10]}
-                            </Text>
-                        </Row>
-
-                        {/* Tier + Price */}
-                        <Row
-                            css={{
-                                display: 'flex',
-                                jc: 'center',
-                                alignItems: 'center',
-                                textAlign: 'center',
-                                padding: '5px 0px 5px 0px'
-                            }}>
-                            <AiOutlineDollar size={'20px'} className='dollar' />
-                            {player[6] != '0' &&
-                                <Text
-                                    css={{
-                                        color: 'White',
-                                        padding: ' 0px 0px 0px 2px',
-                                        fontSize: '$lg',
-                                        fontWeight: '$medium',
-                                    }}>
-                                    {player[6]}M
-                                </Text>
-                            }
-                        </Row>
-
-
-                    </Col>
-                    {player[0] &&
-                        <img src={player[0]} className='player-picture' />
+        <>
+            <Grid key={index}
+                css={{
+                    margin: '12px',
+                    '&:hover': {
+                        cursor: 'pointer'
                     }
-                    {!player[0] &&
-                        <img src={User} className="player-picture" />
-                    }
-                </Row>
-
-                {/* Name */}
-                <Text
+                }}
+                onClick={() => {
+                    setStatsPlayer(player[1])
+                    setStatsModal(true)
+                }}
+                className="player-card"
+            >
+                <Image
+                    src={player[0]}
                     css={{
-                        textAlign: 'center',
-                        color: 'White',
-                        // borderStyle: 'solid',
-                        // borderWidth: '0px 0px 1px 0px',
-                        // borderColor: '$gray200',
-                        // marginBottom: '10px',
-                        padding: '5px 5px 0px 5px',
-                        fontSize: '$3xl',
-                        fontWeight: '$medium'
-                    }}>
-                    {player[1]}
-                </Text>
-
-                {/* Bottom Info */}
-                <Col
-                    css={{
-                        textAlign: 'center',
-                    }}>
-
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                            padding: '0px 0px 5px 0px'
-                        }}>
-                        {/* <GiSoccerBall size={'20px'} className='team' /> */}
-                        {/* Team Logo */}
-                        <Avatar size={'lg'} bordered src={player[8]} />
-                        {player[7] != '0' &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium',
-                                    padding: '0px 0px 0px 5px'
-                                }}>
-                                {/*Team Name */}
-                                {player[7]}
-                            </Text>
-                        }
-                    </Row>
-
-                    {/* Positions p + s */}
-                    <Row
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            textAlign: 'center',
-                        }}>
-                        <TbSoccerField size={'25px'} className='soccerball' />
-                        {player[2] && player[3] && player[2] != player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    padding: ' 0px 0px 0px 2px',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}, {player[3]}
-                            </Text>
-                        }
-                        {player[2] && player[3] && player[2] == player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                        {player[2] && !player[3] &&
-                            <Text
-                                css={{
-                                    color: 'White',
-                                    fontSize: '$lg',
-                                    fontWeight: '$medium'
-                                }}>
-                                {player[2]}
-                            </Text>
-                        }
-                    </Row>
-                </Col>
-
-            </Col>
-        </Grid>
+                        width: '200px',
+                        height: '300px',
+                        objectFit: 'cover',
+                        borderRadius: '8px'
+                    }}
+                />
+            </Grid>
+        </>
     ))
 
     const preparePlayerTierData = (stats, players, teams) => {
@@ -1172,7 +337,7 @@ export default function Players() {
                     }}>
                     <Loading
                         size="xl"
-                        color={'white'}
+                        color={'warning'}
                     />
                 </Grid.Container>
             }
@@ -1473,7 +638,8 @@ export default function Players() {
                     {/* Stats Modal */}
                     {StatsPlayer &&
                         <Modal
-                            fullScreen
+                            fullScreen={true}
+                            scroll
                             shouldBlockScroll={false}
                             closeButton
                             open={StatsModal}
@@ -1534,7 +700,9 @@ export default function Players() {
                                             {PlayersWithStats[StatsPlayer][1]}
                                         </Text>
                                     </Row>
-                                    <Row>
+                                    <Row css={{
+                                        paddingBottom: '12px'
+                                    }}>
                                         <Text css={{
                                             fontWeight: '$semibold',
                                             marginRight: '4px'
@@ -1546,41 +714,41 @@ export default function Players() {
                                         </Text>
                                     </Row>
 
-                                    <Table striped={true}
+                                    <Table bordered={true}
                                         css={{
                                             height: "auto",
                                             minWidth: "100%",
                                         }}>
                                         <Table.Header>
-                                            <Table.Column>Against</Table.Column>
-                                            <Table.Column>Minutes</Table.Column>
-                                            <Table.Column>Points</Table.Column>
-                                            <Table.Column>Rebounds</Table.Column>
-                                            <Table.Column>Assists</Table.Column>
-                                            <Table.Column>Steals</Table.Column>
-                                            <Table.Column>Fouls</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'start'}}>Against</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Minutes</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Points</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Rebounds</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Assists</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Steals</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Fouls</Table.Column>
                                         </Table.Header>
                                         <Table.Body>
                                             {PlayersWithStats[StatsPlayer][0].map((row) => {
                                                 return (
                                                     <Table.Row>
                                                         <Table.Cell css={{ textAlign: 'start' }}>
-                                                            {row[0]!='Average' ?
-                                                            <Text>
-                                                                vs {row[0]}
-                                                            </Text>
-                                                            :
-                                                            <Text>
-                                                                {row[0]}
-                                                            </Text>
+                                                            {row[0] != 'Average' ?
+                                                                <Text>
+                                                                    vs {row[0]}
+                                                                </Text>
+                                                                :
+                                                                <Text>
+                                                                    {row[0]}
+                                                                </Text>
                                                             }
                                                         </Table.Cell>
-                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[1]}</Table.Cell>
-                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[2]}</Table.Cell>
-                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[3]}</Table.Cell>
-                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[4]}</Table.Cell>
-                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[5]}</Table.Cell>
-                                                        <Table.Cell css={{ textAlign: 'start' }}>{row[6]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[1]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[2]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[3]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[4]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[6]}</Table.Cell>
                                                     </Table.Row>
                                                 )
                                             })}
@@ -1917,7 +1085,7 @@ export default function Players() {
                         </Grid.Container>
                     }
 
-                    {TierLessCards.length == 0 && Tier1Cards.length == 0 && Tier2Cards.length == 0 && Tier3Cards.length == 0 && Tier4Cards.length == 0 &&
+                    {/* {TierLessCards.length == 0 && Tier1Cards.length == 0 && Tier2Cards.length == 0 && Tier3Cards.length == 0 && Tier4Cards.length == 0 &&
                         <div>
                             <Text hideIn={'xs'}
                                 css={{
@@ -1941,7 +1109,7 @@ export default function Players() {
                             </Text>
                             <Spacer y={15} />
                         </div>
-                    }
+                    } */}
                 </div>
             }
         </div>
