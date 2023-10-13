@@ -47,7 +47,7 @@ const ABA5Gallery = () => {
         } catch (error) {
             console.log(error);
         }
-    }, []);    
+    }, []);   
 
     return (
         <div>
@@ -106,7 +106,7 @@ const ABA5Gallery = () => {
                                             key={index}
                                             onClick={() => handleOpenModal(index)}
                                         >
-                                            <img src={slide.img} alt='' />
+                                            <img src={slide} alt='' />
                                         </div>
                                     )
                                 })
