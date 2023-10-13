@@ -713,7 +713,7 @@ export default function Players() {
                                             fontWeight: '$semibold',
                                             marginRight: '4px'
                                         }}>
-                                            Batch:
+                                            Height:
                                         </Text>
                                         <Text>
                                             {PlayersWithStats[StatsPlayer][2]}
@@ -737,7 +737,7 @@ export default function Players() {
                                             fontWeight: '$semibold',
                                             marginRight: '4px'
                                         }}>
-                                            Height:
+                                            Batch:
                                         </Text>
                                         <Text>
                                             {PlayersWithStats[StatsPlayer][3]}
