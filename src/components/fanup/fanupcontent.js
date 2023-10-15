@@ -427,7 +427,7 @@ export default function FanUpContent() {
                                 },
                                 fontWeight: '$medium'
                             }}>
-                                2. Minimum number of players to save your team = 3
+                                2. Minimum number of players to save your team = 5
                             </Text>
                             <Text css={{
                                 '@xsMin': {
@@ -438,7 +438,7 @@ export default function FanUpContent() {
                                 },
                                 fontWeight: '$medium'
                             }}>
-                                3. Minimum number of women in your team = 1
+                                3. Minimum number of women in your team = 2
                             </Text>
                             <Text css={{
                                 '@xsMin': {
