@@ -21,7 +21,7 @@
 
 .player-card:hover{
     cursor: pointer;
-    opacity: 0.9;
+    opacity: 1;
     transform: scale(1.025);
     transition: transform 0.25s ease-in-out;
 }

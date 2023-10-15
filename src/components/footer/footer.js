@@ -11,7 +11,7 @@ function Footer(){
                     textAlign: 'center',
                     alignItems: 'center',
                     borderStyle: 'solid',
-                    borderColor: '$gray600',
+                    borderColor: '#faf7ea',
                     borderWidth: '0px 0px 0px 0px'
                 }}>
                     <Text hideIn={'xs'}
@@ -61,8 +61,8 @@ function Footer(){
                     textAlign: 'center',
                     padding: '10px 0px',
                     borderStyle: 'solid',
-                    borderColor: '$gray700',
-                    borderWidth: '1px 0px 0px 0px',
+                    borderColor: '#faf7ea',
+                    borderWidth: '2px 0px 0px 0px',
                     '@xsMax':{
                         fontSize: '$xs'
                     }

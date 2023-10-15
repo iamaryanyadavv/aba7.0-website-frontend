@@ -13,7 +13,7 @@ export default function ImagePage() {
         // image, name, ppos, spos, comments, tier, price, team, teamlogo, gender, batch, email
         // https://aplapi.onrender.com/registration/player
         
-        const res = await fetch('http://localhost:3001/image', {
+        const res = await fetch('https://localhost:3001/image', {
             method: 'POST',
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
