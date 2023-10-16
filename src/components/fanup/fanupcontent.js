@@ -1,4 +1,4 @@
-import { Text, Grid, Col, Modal, Loading, Row, Image, Avatar, Button } from "@nextui-org/react";
+import { Text, Grid, Col, Modal, Loading, Row, Image, Avatar, Button, Table } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useTicker } from "../../hooks";
@@ -22,22 +22,68 @@ export default function FanUpContent() {
     const [Player3Email, setPlayer3Email] = useState('')
     const [Player4Email, setPlayer4Email] = useState('')
     const [Player5Email, setPlayer5Email] = useState('')
+
+    const [Player1Gender, setPlayer1Gender] = useState('')
+    const [Player2Gender, setPlayer2Gender] = useState('')
+    const [Player3Gender, setPlayer3Gender] = useState('')
+    const [Player4Gender, setPlayer4Gender] = useState('')
+    const [Player5Gender, setPlayer5Gender] = useState('')
+
+    const [GridNo, setGridNo] = useState(0)
+    const [ShowPlayersModal, setShowPlayersModal] = useState(false)
+    const [SavedSuccessfully, setSavedSuccessfully] = useState()
     // -------------------------------------------------------
 
-    const [SavedSuccessfully, setSavedSuccessfully] = useState()
+    // Select Player Modal -------------------------------------
+    const [OneReady, setOneReady] = useState(true);
+    const [TwoReady, setTwoReady] = useState(false);
+    const [ThreeReady, setThreeReady] = useState(false);
+    const [FourReady, setFourReady] = useState(false);
+
+    const [Tier1Players, setTier1Players] = useState([])
+    const [Tier2Players, setTier2Players] = useState([])
+    const [Tier3Players, setTier3Players] = useState([])
+    const [Tier4Players, setTier4Players] = useState([])
+    // ---------------------------------------------------------
 
     const getUserTeam = async (user) => {
         getAllPlayers()
         console.log(user)
         setLoginLoader(false)
-        // get user's team and set player1-5, and player1-5email IDS
+        await fetch('http://localhost:3001/aba7fantasy')
+            .then(response => response.json())
+            .then((fantasydata) => {
+                console.log(fantasydata)
+            })
+        // get user's team and set player1-5, player1-5email IDS, and player 1-5 genders
     }
 
     const getAllPlayers = async () => {
         await fetch('http://localhost:3001/aba7players')
             .then(response => response.json())
             .then((players) => {
-                console.log(players.values)
+                var tier1 = []
+                var tier2 = []
+                var tier3 = []
+                var tier4 = []
+                players.values.map((player) => {
+                    if (player[5] == '1') {
+                        tier1.push(player)
+                    }
+                    if (player[5] == '2') {
+                        tier2.push(player)
+                    }
+                    if (player[5] == '3') {
+                        tier3.push(player)
+                    }
+                    if (player[5] == '4') {
+                        tier4.push(player)
+                    }
+                })
+                setTier1Players(tier1)
+                setTier2Players(tier2)
+                setTier3Players(tier3)
+                setTier4Players(tier4)
             })
     }
 
@@ -121,7 +167,7 @@ export default function FanUpContent() {
             }
 
             {/* GOOGLE LOGIN BTN */}
-            {Object.keys(User).length == 0 &&
+            {Object.keys(User).length == 0 && !LoginLoader &&
                 <Grid.Container
                     css={{
                         jc: 'center',
@@ -230,10 +276,10 @@ export default function FanUpContent() {
                             }
                             <Text css={{
                                 fontWeight: '$medium',
-                                '@xsMin':{
+                                '@xsMin': {
                                     fontSize: '$xl',
                                 },
-                                '@xsMax':{
+                                '@xsMax': {
                                     fontSize: '$base'
                                 },
                                 margin: '0px 0px 0px 8px'
@@ -242,10 +288,10 @@ export default function FanUpContent() {
                             </Text>
                             <Text css={{
                                 fontWeight: '$medium',
-                                '@xsMin':{
+                                '@xsMin': {
                                     fontSize: '$xl',
                                 },
-                                '@xsMax':{
+                                '@xsMax': {
                                     fontSize: '$base'
                                 },
                                 margin: '0px 0px 0px 8px'
@@ -259,21 +305,26 @@ export default function FanUpContent() {
                             alignItems: 'center',
                             width: 'max-content',
                             borderRadius: '8px',
-                            padding: '0% 48px'
+                            padding: '0% 12px'
                         }}
                             className="fantasy-court"
                         >
+
                             <Row css={{
                                 justifyContent: 'center',
                             }}>
                                 <Grid css={{
-                                    margin: '24px 12px',
+                                    margin: '24px 24px',
                                     '&:hover': {
                                         cursor: 'pointer',
                                         opacity: '0.95',
                                         transform: 'scale(1.025)'
                                     }
-                                }}>
+                                }}
+                                    onClick={() => {
+                                        setShowPlayersModal(true)
+                                        setGridNo(1)
+                                    }}>
                                     <Image
                                         src={Blank}
                                         css={{
@@ -287,13 +338,17 @@ export default function FanUpContent() {
                                     />
                                 </Grid>
                                 <Grid css={{
-                                    margin: '24px 12px',
+                                    margin: '24px 24px',
                                     '&:hover': {
                                         cursor: 'pointer',
                                         opacity: '0.95',
                                         transform: 'scale(1.025)'
                                     }
-                                }}>
+                                }}
+                                    onClick={() => {
+                                        setShowPlayersModal(true)
+                                        setGridNo(2)
+                                    }}>
                                     <Image
                                         src={Blank}
                                         css={{
@@ -313,13 +368,17 @@ export default function FanUpContent() {
                                 justifyContent: 'center',
                             }}>
                                 <Grid css={{
-                                    margin: '24px 12px',
+                                    margin: '12px 12px',
                                     '&:hover': {
                                         cursor: 'pointer',
                                         opacity: '0.95',
                                         transform: 'scale(1.025)'
                                     }
-                                }}>
+                                }}
+                                    onClick={() => {
+                                        setShowPlayersModal(true)
+                                        setGridNo(3)
+                                    }}>
                                     <Image
                                         src={Blank}
                                         css={{
@@ -339,13 +398,17 @@ export default function FanUpContent() {
                                 justifyContent: 'center',
                             }}>
                                 <Grid css={{
-                                    margin: '24px 12px',
+                                    margin: '24px 24px',
                                     '&:hover': {
                                         cursor: 'pointer',
                                         opacity: '0.95',
                                         transform: 'scale(1.025)'
                                     }
-                                }}>
+                                }}
+                                    onClick={() => {
+                                        setShowPlayersModal(true)
+                                        setGridNo(4)
+                                    }}>
                                     <Image
                                         src={Blank}
                                         css={{
@@ -360,13 +423,17 @@ export default function FanUpContent() {
                                     />
                                 </Grid>
                                 <Grid css={{
-                                    margin: '24px 12px',
+                                    margin: '24px 24px',
                                     '&:hover': {
                                         cursor: 'pointer',
                                         opacity: '0.95',
                                         transform: 'scale(1.025)'
                                     }
-                                }}>
+                                }}
+                                    onClick={() => {
+                                        setShowPlayersModal(true)
+                                        setGridNo(5)
+                                    }}>
                                     <Image
                                         src={Blank}
                                         css={{
@@ -401,7 +468,7 @@ export default function FanUpContent() {
                                     fontSize: '$xl'
                                 },
                                 '@xsMax': {
-                                    fontSize: '$base'
+                                    fontSize: '$lg'
                                 },
                                 fontWeight: '$medium'
                             }}>
@@ -451,10 +518,21 @@ export default function FanUpContent() {
                             }}>
                                 4. Cannot have more than 2 players from one team
                             </Text>
-                            <Button auto flat color={'warning'}
-                            css={{
-                                margin: '12px 0px'
+                            <Text css={{
+                                '@xsMin': {
+                                    fontSize: '$base'
+                                },
+                                '@xsMax': {
+                                    fontSize: '$md'
+                                },
+                                fontWeight: '$medium'
                             }}>
+                                5. Cannot have the same player more than once in your team.
+                            </Text>
+                            <Button auto flat color={'warning'}
+                                css={{
+                                    margin: '12px 0px'
+                                }}>
                                 <Text css={{
                                     fontWeight: '$semibold',
                                 }}>
@@ -463,8 +541,369 @@ export default function FanUpContent() {
                             </Button>
                         </Col>
                     </Grid>
+
+
                 </Grid.Container>
             }
+
+            <Modal
+                fullScreen={true}
+                closeButton
+                open={ShowPlayersModal}
+                onClose={()=>{
+                    setShowPlayersModal(false)
+                }}>
+                <Modal.Header>
+                    <Text
+                        css={{
+                            '@xsMax': {
+                                fontSize: '$md',
+                                fontWeight: '$medium'
+                            },
+                            '@xsMin': {
+                                fontSize: '$xl',
+                                fontWeight: '$medium'
+                            },
+                            border: 'solid',
+                            borderColor: '#faf7ea',
+                            borderWidth: '0px 0px 2px 0px'
+                        }}>
+                        Choose your player, {User.given_name}
+                    </Text>
+                </Modal.Header>
+                <Modal.Body>
+                    <Grid.Container
+                        css={{
+                            jc: 'center',
+                            alignItems: 'center',
+                        }}>
+                        <Grid
+                            css={{
+                                '@xsMin': {
+                                    padding: '16px'
+                                },
+                                '@xsMax': {
+                                    padding: '8px 24px'
+                                }
+                            }}>
+                            <Text id='tier1btn'
+                                css={{
+                                    fontSize: '$lg',
+                                    color: '#E6BE8A',
+                                    fontWeight: '$semibold',
+                                    borderRadius: '20px',
+                                    backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                                    textAlign: 'center',
+                                    padding: '2px 24px',
+                                    transition: 'padding 0.5s',
+                                    '&:hover': {
+                                        cursor: 'pointer',
+                                        backgroundColor: 'rgba(255, 215, 0, 0.25)',
+                                        padding: '2px 24px',
+                                    }
+                                }}
+                                onClick={() => {
+                                    setOneReady(true)
+                                    setTwoReady(false)
+                                    setThreeReady(false)
+                                    setFourReady(false)
+                                    document.getElementById('tier1btn').style.transform = 'scale(0.95)'
+                                    window.setTimeout(() => {
+                                        document.getElementById('tier1btn').style.transform = 'scale(1)'
+                                    }, 150)
+                                }}
+                            >
+                                Tier 1
+                            </Text>
+                        </Grid>
+
+                        <Grid
+                            css={{
+                                '@xsMin': {
+                                    padding: '16px'
+                                },
+                                '@xsMax': {
+                                    padding: '8px 24px'
+                                }
+                            }}>
+                            <Text id='tier2btn'
+                                css={{
+                                    fontSize: '$lg',
+                                    color: 'rgb(157, 171, 187)',
+                                    fontWeight: '$semibold',
+                                    borderRadius: '20px',
+                                    backgroundColor: 'rgba(192, 192, 192, 0.2)',
+                                    textAlign: 'center',
+                                    padding: '2px 24px',
+                                    transition: 'padding 0.5s',
+                                    '&:hover': {
+                                        cursor: 'pointer',
+                                        backgroundColor: 'rgba(192, 192, 192, 0.25)',
+                                        padding: '2px 24px',
+                                    }
+                                }}
+                                onClick={() => {
+                                    setOneReady(false)
+                                    setTwoReady(true)
+                                    setThreeReady(false)
+                                    setFourReady(false)
+                                    document.getElementById('tier2btn').style.transform = 'scale(0.95)'
+                                    window.setTimeout(() => {
+                                        document.getElementById('tier2btn').style.transform = 'scale(1)'
+                                    }, 150)
+                                }}
+                            >
+                                Tier 2
+                            </Text>
+                        </Grid>
+
+                        <Grid
+                            css={{
+                                '@xsMin': {
+                                    padding: '16px'
+                                },
+                                '@xsMax': {
+                                    padding: '8px 24px 24px 24px'
+                                }
+                            }}>
+                            <Text id='tier3btn'
+                                css={{
+                                    fontSize: '$lg',
+                                    color: '#CD7F32',
+                                    fontWeight: '$semibold',
+                                    borderRadius: '20px',
+                                    backgroundColor: 'rgba(190, 159, 103, 0.2)',
+                                    textAlign: 'center',
+                                    padding: '2px 24px',
+                                    transition: 'padding 0.5s',
+                                    '&:hover': {
+                                        cursor: 'pointer',
+                                        backgroundColor: 'rgba(205, 127, 50, 0.25)',
+                                        padding: '2px 24px',
+                                    }
+                                }}
+                                onClick={() => {
+                                    setOneReady(false)
+                                    setTwoReady(false)
+                                    setThreeReady(true)
+                                    setFourReady(false)
+                                    document.getElementById('tier3btn').style.transform = 'scale(0.95)'
+                                    window.setTimeout(() => {
+                                        document.getElementById('tier3btn').style.transform = 'scale(1)'
+                                    }, 150)
+                                }}
+                            >
+                                Tier 3
+                            </Text>
+                        </Grid>
+
+                        <Grid
+                            css={{
+                                '@xsMin': {
+                                    padding: '16px'
+                                },
+                                '@xsMax': {
+                                    padding: '8px 24px 24px 24px'
+                                }
+                            }}>
+                            <Text id='tier4btn'
+                                css={{
+                                    fontSize: '$lg',
+                                    color: 'rgb(183, 110, 121)',
+                                    fontWeight: '$semibold',
+                                    borderRadius: '20px',
+                                    backgroundColor: 'rgba(183, 110, 121, 0.2)',
+                                    textAlign: 'center',
+                                    padding: '2px 24px',
+                                    transition: 'padding 0.5s',
+                                    '&:hover': {
+                                        cursor: 'pointer',
+                                        backgroundColor: 'rgba(183, 110, 121, 0.25)',
+                                        padding: '2px 24px',
+                                    }
+                                }}
+                                onClick={() => {
+                                    setOneReady(false)
+                                    setTwoReady(false)
+                                    setThreeReady(false)
+                                    setFourReady(true)
+                                    document.getElementById('tier4btn').style.transform = 'scale(0.95)'
+                                    window.setTimeout(() => {
+                                        document.getElementById('tier4btn').style.transform = 'scale(1)'
+                                    }, 150)
+                                }}
+                            >
+                                Tier 4
+                            </Text>
+                        </Grid>
+                    </Grid.Container>
+
+                    {OneReady && Tier1Players &&
+                        <Table bordered={true}
+                        color={'warning'}
+                        selectionMode="multiple"
+                            css={{
+                                height: "auto",
+                                minWidth: "100%",
+                            }}>
+                            <Table.Header>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                            </Table.Header>
+                            <Table.Body>
+                                {Tier1Players.map((player) => {
+                                    return (
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'center' }}>
+                                                <Avatar src={player[0]} size={'md'} />
+                                            </Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                        </Table.Row>
+                                    )
+                                })}
+                            </Table.Body>
+                        </Table>
+                    }
+
+                    {TwoReady && Tier2Players &&
+                        <Table bordered={true}
+                        color={'warning'}
+                        selectionMode="multiple"
+                            css={{
+                                height: "auto",
+                                minWidth: "100%",
+                            }}>
+                            <Table.Header>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                            </Table.Header>
+                            <Table.Body>
+                                {Tier2Players.map((player) => {
+                                    return (
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'center' }}>
+                                                <Avatar src={player[0]} size={'md'} />
+                                            </Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                        </Table.Row>
+                                    )
+                                })}
+                            </Table.Body>
+                        </Table>
+                    }
+
+                    {ThreeReady && Tier3Players &&
+                        <Table bordered={true}
+                        color={'warning'}
+                        selectionMode="multiple"
+                            css={{
+                                height: "auto",
+                                minWidth: "100%",
+                            }}>
+                            <Table.Header>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                            </Table.Header>
+                            <Table.Body>
+                                {Tier3Players.map((player) => {
+                                    return (
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'center' }}>
+                                                <Avatar src={player[0]} size={'md'} />
+                                            </Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                        </Table.Row>
+                                    )
+                                })}
+                            </Table.Body>
+                        </Table>
+                    }
+
+                    {FourReady && Tier4Players &&
+                        <Table bordered={true}
+                        color={'warning'}
+                        selectionMode="multiple"
+                            css={{
+                                height: "auto",
+                                minWidth: "100%",
+                            }}>
+                            <Table.Header>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                            </Table.Header>
+                            <Table.Body>
+                                {Tier4Players.map((player) => {
+                                    return (
+                                        <Table.Row>
+                                            <Table.Cell css={{ textAlign: 'center' }}>
+                                                <Avatar src={player[0]} size={'md'} />
+                                            </Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                        </Table.Row>
+                                    )
+                                })}
+                            </Table.Body>
+                        </Table>
+                    }
+
+                </Modal.Body>
+            </Modal>
         </>
     )
 }
