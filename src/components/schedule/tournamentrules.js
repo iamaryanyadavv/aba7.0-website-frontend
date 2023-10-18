@@ -49,7 +49,7 @@ export default function TournamentRules() {
                             paddingTop: '20px',
                             paddingBottom: '20px'
                         }}>
-                            ABA 7.0 
+                            Game Rules
                         </Text>
 
                         <Text showIn={'xs'}
@@ -76,21 +76,14 @@ export default function TournamentRules() {
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                1. The tournament has two rounds - <b><u>Group Stages and Knockouts</u></b>.
+                                The tournament has two stages - Group Stages & Knockouts.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                2. In the <b>Group Stages</b>, teams will be divided into <b>4 groups of 5 teams</b>. Every team will play all other teams in their group once. The <b>top three teams</b> in each group will <b>qualify</b> for the next round. The teams that finish <b>first</b> in their respective groups will <b>directly play in the quarter-finals</b>. The teams finishing second and third will go through a playoff round in order to reach the quarter-finals. Post the quarter-finals, we will have regular semi-finals and a final.
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                3. The format for the matches will be as follows:
+                                Each team will play all other teams in their group.
                             </Text>
                             <Text
                             css={{
@@ -99,21 +92,28 @@ export default function TournamentRules() {
                                 textDecoration:'underline',
                                 fontWeight: 'bold'
                             }}>
-                                Group Stages:
+                                General:
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                - Each match will be a <b>running 12-minute game</b>. The referee will blow their <b>whistle at the halfway point</b> of the game and the teams will <b>switch sides</b>. The <b>second half will start immediately after this</b>.
+                                - A win is equal to 2 points. A loss is equal to 0 points.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                - Matches that end in a draw in regular time during the group stages will see both teams being awarded 1 point each.
+                                - If there is a tie in the number of wins, it will go down to point difference. If there is a tie in point difference as well, the team who won in their head to head will qualify for the next stage.
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Top 2 teams from each pool will qualify to the next stage.
                             </Text>
                             <Text
                             css={{
@@ -122,161 +122,65 @@ export default function TournamentRules() {
                                 textDecoration:'underline',
                                 fontWeight:'bold'
                             }}>
-                                Knockouts:
+                                Duration:
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                - Each match will be 7 minutes per half with a halftime break of 1 minute.
+                                - No warm-up time will be given, teams should be ready to play as soon as the previous match finishes. If the team fails to reach at the scheduled time, the match will result in a forfeit.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                - Matches that end in a draw will be followed by extra time of 3 minutes. Extra time will be of the Golden Goal format (the team that scores first wins the match immediately). 
+                                - A coin toss at the start of every match decides who starts the game with possession of the ball.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                - If the draw persists beyond extra time, there will be an <b>American penalty shootout (one-on-ones)</b> in which each team takes <b>three penalties, starting at the halfway line</b>.
+                                - There will be a 12 second shot clock, when violated will result in the opposite team gaining possession. (6)
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                - If the deadlock persists, the match will be decided in sudden death. Only those players on the field when the final whistle is blown can participate in the shoot-out.
+                                - After an offensive rebound(only counted if the ball touches the rim) or a change of possession, the shot clock is reset to 12 seconds.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
-                                padding: '10px'
+                                padding: '10px',
+                                textDecoration:'underline',
+                                fontWeight:'bold'
                             }}>
-                                4. Teams can field a maximum of SIX players in a game (<b>with at least one non-cis man at all times</b>) throughout the tournament. Substitutions are rolling and can be made when the ball goes out of play (<b>the referee and the core team must be verbally informed</b>) without any restrictions on the number of substitutions. <b>A minimum of 4 players should be fielded, otherwise, the match will be abandoned/forfeited</b>. In this case, the penalty would be the same as mentioned in point (5).
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                5. Teams have to be present 5 minutes before their game kicks off. In case the team fails to arrive for their game a <b>maximum of 5 minutes after the kick-off time</b>, the match will be <b>forfeited</b>. The <b>other team will be given a 3-0 win along with 3 points</b>.
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                6. When the ball goes out, the opposition team will be awarded a kick-in. Players are allowed to score directly from a kick-in.
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                7. In the case of free kicks, the wall has to be 5 yards away. There are <b>no offsides</b>.
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                8. If an in-game penalty occurs, the player will have to take a <b>one-step penalty</b>. If the player shuffles and misses, the penalty will be considered a miss. If the player shuffles and scores, they will be awarded another try. However, if the player shuffles the second time as well, the penalty will be considered a miss. <b>Only the referee's decision is final</b>.
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                9. 2 yellow cards given to one player within one match will lead to an immediate red. Red cards will lead to the suspension of a player, both from the current match as well as the next. A total of 3 yellow cards to one player in the group stage will lead to a one-match suspension. The player will be suspended for the game that succeeds the game in which they received their third yellow card. The card tally will get refreshed after the group stages.
+                                Players:
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                <b>For example:</b>
+                                - 5 out of the 6 players must play every match 
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                If a player receives one yellow card each in Game 1, Game 2 and Game 3, they will be suspended for Game 4.
+                                - 1 non-cis man player and 2 cis men from 1 team should be on court at all times. Any team that fails to follow the above rule will be docked 2 points in the group stage (equivalent to a win) and will automatically forfeit any knockout game where this occurs 
                             </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '2.5px 10px 10px 40px'
-                            }}>
-                                If a player receives their third yellow card in Game 4 (the last match of the group stages), the <b>yellow card tally will be refreshed before the knockout stage</b> starts and no suspensions will occur.
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                10. There can only be a maximum of 5 people sitting at a team table. Team owners must ensure that this rule is adhered to. There will be strict penalties otherwise
-                            </Text>
-                            <Table 
-                                aria-label="Example table with static content"
-                                css={{
-                                height: "auto",
-                                }}
-                                >
-                                    <Table.Header>
-                                        <Table.Column>Team</Table.Column>
-                                        <Table.Column>Match 1</Table.Column>
-                                        <Table.Column>Match 2</Table.Column>
-                                        <Table.Column>Match 3</Table.Column>
-                                        <Table.Column>Points</Table.Column>
-                                        <Table.Column>Goal Difference</Table.Column>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        <Table.Row key='1'>
-                                            <Table.Cell>A</Table.Cell>
-                                            <Table.Cell>W</Table.Cell>
-                                            <Table.Cell>W</Table.Cell>
-                                            <Table.Cell>D</Table.Cell>
-                                            <Table.Cell>7</Table.Cell>
-                                            <Table.Cell>4</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row key='2'>
-                                        <Table.Cell>B</Table.Cell>
-                                            <Table.Cell>W</Table.Cell>
-                                            <Table.Cell>W</Table.Cell>
-                                            <Table.Cell>D</Table.Cell>
-                                            <Table.Cell>7</Table.Cell>
-                                            <Table.Cell>2</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row key='3'>
-                                        <Table.Cell>C</Table.Cell>
-                                            <Table.Cell>L</Table.Cell>
-                                            <Table.Cell>L</Table.Cell>
-                                            <Table.Cell>W</Table.Cell>
-                                            <Table.Cell>3</Table.Cell>
-                                            <Table.Cell>0</Table.Cell>
-                                        </Table.Row>
-                                        <Table.Row key='4'>
-                                        <Table.Cell>D</Table.Cell>
-                                            <Table.Cell>L</Table.Cell>
-                                            <Table.Cell>L</Table.Cell>
-                                            <Table.Cell>L</Table.Cell>
-                                            <Table.Cell>0</Table.Cell>
-                                            <Table.Cell>-3</Table.Cell>
-                                        </Table.Row>
-                                    </Table.Body>
-                                </Table>
                                 <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                Assumed that teams have won by a margin of 1 goal.
+                            - At least 5 players must have a minimum playing time of 2 minutes in a match.
 
                             </Text>
                             <Text
@@ -284,16 +188,196 @@ export default function TournamentRules() {
                                 fontSize: '$xl',
                                 padding: '2.5px 10px 10px 40px'
                             }}>
-                                In such a scenario, team A will be placed higher on the table than team B.
+                                - All substitutions can only be made on a dead ball.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px',
-                                fontWeight: 'bold'
+                                textDecoration:'underline',
+                                fontWeight:'bold'
                             }}>
-                                11. The referee's word is final.
+                                Playing:
                             </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Half court rules apply: A 3-pointer is worth 2 points, while a 2-point basket or free throw is worth 1.
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - After a conversion, the ball is live. That means the team that conceded gets a free rebound and needs to clear the ball at the 3 point line, by either dribbling or passing the ball out. After the free rebound is taken the other team can immediately start defending.
+                            </Text>
+                                <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                            - Only 5 seconds will be given to take the free rebound, if not taken it will result in a turnover and the other team gets the possession.
+
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Each team gets to call one 30-second Timeout in each game. 
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - “First to 21” rule applies in regular time. If scores are tied at the end of regulation time, there will be an overtime of 3 minutes. The “First to 21” rule does not hold once the game reaches OT. 
+                            </Text>
+                                <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                            - Clearances will apply at the 3-point line, and any change of possession will require a clearance. 
+
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - All other common Basketball rules will apply (Travel, Carry, Double Dribble, etc). 
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - The Referees’ decision will be final. The ABA committee will make the final call regarding any general conflicts.
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Possession of the ball given to either team following any dead ball situation shall start/resume with a checkball.
+                            </Text>
+
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '10px',
+                                textDecoration:'underline',
+                                fontWeight:'bold'
+                            }}>
+                                Fouls:
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Each shooting foul will result in one free throw. 
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Flagrant fouls are awarded one free throw and ball possession. Each player can only commit a maximum of 1 flagrant foul in one game. On the second flagrant foul, the player will be ejected. 
+                            </Text>
+                                <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                            - Bonus Free Throw Rules: Once a team commits 5 defensive team fouls in the game, from the 5th foul onwards, the following free throw rules will be followed: 
+
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Each team gets to call one 30-second Timeout in each game. 
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 80px'
+                            }}>
+                                1. Common foul: One free throw 
+                            </Text>
+                                <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 80px'
+                            }}>
+                            2. Shooting foul: One free throw
+
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 80px'
+                            }}>
+                                3. And one: Basket count and free throw
+                            </Text>
+
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Each shooting foul will result in one free throw. 
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Unsportsmanlike conduct can result in a technical foul to a player as well as an owner. Which will lead to 1 free shot as well as possession of the ball. (outside done by OC) 
+                            </Text>   
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '10px',
+                                textDecoration:'underline',
+                                fontWeight:'bold'
+                            }}>
+                                Power Play:
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - A power play can be called on a dead ball by the captain or an owner of the team.
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - <b>The power play states</b>: For the duration of a minute, the captain/owner can choose to boost either a 1 pointer or a 2 pointer. In this minute if chosen to boost a 1 pointer– all 1 pointers scored will be worth 2 points. If chosen to boost a 2 pointer– all 2 pointers will be worth 3 points.
+                            </Text>
+                                <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                            - This Power play can only be called once in a match.
+
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '2.5px 10px 10px 40px'
+                            }}>
+                                - Note: The ball is live after a point scored, you cannot call a power play after someone scores. It can only be called if there is a foul or a free throw or the ball goes out of bounds.
+                            </Text>                             
                         </Col>
                     </Col>
                 </Grid.Container>

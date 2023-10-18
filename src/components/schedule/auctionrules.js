@@ -48,7 +48,7 @@ export default function AuctionRules() {
                             paddingTop: '20px',
                             paddingBottom: '20px'
                         }}>
-                            Auction
+                            Auction Rules
                         </Text>
 
                         <Text showIn={'xs'}
@@ -58,7 +58,7 @@ export default function AuctionRules() {
                             paddingTop: '20px',
                             paddingBottom: '20px'
                         }}>
-                            Auction
+                            Auction Rules
                         </Text>
 
                         <Col
