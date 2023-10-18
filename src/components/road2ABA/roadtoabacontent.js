@@ -1234,19 +1234,6 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                 </Grid.Container>
                             </Grid>
                         </Row>
-
-                        
-
-                        {/* Auction */}
-                       
-
-                        {/* Groups Draw */}
-                        
-
-                        {/* Practice Games */}
-                        
-                        {/* APL */}
-                       
                     </Grid.Container>
 
 
