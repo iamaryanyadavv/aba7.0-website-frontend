@@ -75,35 +75,42 @@ export default function AuctionRules() {
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                1. Every team will have a budget of 130 million
+                                1. The auction will be conducted on the 20th of October in the Sports Block MPH at 6:30 PM.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                2. Players are divided into 4 tiers: Tier 1, Tier 2, Tier 3 and Tier 4 (Wildcards)
+                                2. All team owners must be dressed in formal attire, and only owners will be allowed to sit at the team table during the auction.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                3. Every team must have a minimum of 9 (7 men + 2 non-cis men) players. The upper limit on the number of players a team can buy is 11 players
+                                3. The auction for the cis-men players will only start after the auction for the non-cis-men players has been fully concluded.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                4. Every team should mandatorily have 2 non-cis men players. Failure to comply will lead to disqualification
+                                4. Each team must decide on one person to wield the placard, and the auctioneer(s) will recognize that individual alone as the team's representative. For any change in the placard holder, the auctioneer must be notified with clear notice and communication.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                5. Every tier will have a base price as follows:
+                                5. You must raise the placard high enough for the auctioneer’s benefit, and your bid will be recognized once the auctioneer has called out your team name along with the quoted price.
+                            </Text>
+                            <Text
+                            css={{
+                                fontSize: '$xl',
+                                padding: '10px'
+                            }}>
+                                6. All players will be divided into 5 tiers with the following base prices:
                             </Text>
                                 <Table 
                                 aria-label="Example table with static content"
@@ -129,7 +136,7 @@ export default function AuctionRules() {
                                             <Table.Cell>4M</Table.Cell>
                                         </Table.Row>
                                         <Table.Row key='4'>
-                                            <Table.Cell>4</Table.Cell>
+                                            <Table.Cell>Wildcard</Table.Cell>
                                             <Table.Cell>1M</Table.Cell>
                                         </Table.Row>
                                     </Table.Body>
@@ -139,84 +146,35 @@ export default function AuctionRules() {
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                6. Every player will be bid based on a regular open basis (the highest bid wins). The entire auction will be callout-bid based so the owners can bid any amount for a player that comes on screen
+                                7. If a player goes unsold, they would be put into the auction again towards the end, for the minimum base price of 1 million, irrespective of the tier.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                7. Unsold players in the first round will return in a second round of auctions at a lower starting base price. If they remain unsold even after the second round, they will be randomly allotted to the teams based on squad numbers
+                                8. <b>Right To Match</b>: The top 3 teams from last year’s tournament (<b>Escobar, HypeFly and Mylapore Machas</b>) have the option of matching the winning bid for a player who played for their team in ABA 6.0. Thereon, if matched, this player will once again return to their old team. The option to match will be presented to the respective team once the winning bid is recorded. Please wait to exercise the RTM till the auctioneer asks you. <b>Each of these can exercise their right to match on any <u>one</u> player</b>. 
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                8. Owners will not be allowed to make bids that will exceed their budget: 
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '2.5px 10px 10px 40px'
-                            }}>
-                                a. If such a bid occurs, the team found guilty will be given -3 group stage points immediately and will be out of the auction for that round. The bidding will, however, still continue. The team with the last legal bid will continue with the process and the other teams can bid further in case they have the budget
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '2.5px 10px 10px 40px'
-                            }}>
-                                b. Warnings will be given to owners at the 170m mark
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '2.5px 10px 10px 40px'
-                            }}>
-                                c. In case any team is unable to fulfill the minimum quota of 9 (7+2) players before their budget is over, they will be given -3 group stage points
+                                9. In case a team overbids i.e. bids in excess of the remaining funds, or bids in a way that makes team completion within budget impossible, this team will be docked 4 points from their starting tally at the tournament. <b>This will virtually rule your team out of contention for the knockout stages</b>, so suit yourselves. The maximum bid value for any player at the auction is 115 Million to allow for at least 5 players at a price of 1 million to fill up the team.
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                9. Owners have to be dressed in formal clothes
+                                10. Once the hammer hits the podium, and the player is sold, the auctioneer will not entertain any further bids. 
                             </Text>
                             <Text
                             css={{
                                 fontSize: '$xl',
                                 padding: '10px'
                             }}>
-                                10. There can only be a maximum of 5 people sitting at a team table. Team owners must ensure that this rule is adhered to. There will be strict penalties otherwise
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                11. No player can join an owner unless they have been bought by that particular owner
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                12. The decorum of the hall must be maintained at all times
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                13. All phones should be on silent
-                            </Text>
-                            <Text
-                            css={{
-                                fontSize: '$xl',
-                                padding: '10px'
-                            }}>
-                                14. The auctioneers' decision, followed by the decision from the organizing committee is final
+                                11. The word of the auctioneer is final, and all disputes would be solved by the committee in consultation with the auctioneer.
                             </Text>
                         </Col>
                     </Col>
