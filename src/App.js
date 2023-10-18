@@ -11,7 +11,7 @@ import Schedule from './pages/SchedulePage/schedule';
 import GalleryPage from './pages/GalleryPage/gallerypage';
 import ImagePage from './pages/imagePage';
 import FanUpPage from './pages/FanUpPage/fanup';
-
+import RoadToABA from './components/road2ABA/roadtoaba';
 function App() {
     const theme = createTheme({
         type: 'light',
@@ -33,6 +33,7 @@ function App() {
                         <Route exact path="/gallery" element={<GalleryPage />} />
                         <Route exact path="/fanupabafantasy" element={<FanUpPage />} />
                         <Route exact path="/image" element={<ImagePage />} />
+                        <Route exact path="/roadtoaba" element={<RoadToABA />} />
                     </Routes>
                 </Router>
             </div>
