@@ -33,7 +33,7 @@ export default function EventsHead () {
                             color: '#163364',
                             padding:'2.5% 10px 0px 10px'
                         }}>
-                            Promo Events
+                             Events
                         </Text>
                         <Text showIn={'xs'}
                         css={{
@@ -46,27 +46,12 @@ export default function EventsHead () {
                             color: '#163364',
                             padding: '5% 10px 0px 10px'
                         }}>
-                            Promo Events
+                             Events
                         </Text>
                     </Grid>
                     
                 </Grid.Container>
-                <Grid.Container
-                css={{
-                    jc: 'center',
-                    textAlign: 'center'
-                }}>
-                    <Grid>
-                        <Text
-                        css={{
-                            fontSize: '$lg',
-                            color: '$gray800',
-                            paddingBottom: '50px'
-                        }}>
-                            Participate in these promo events and win exciting prizes!
-                        </Text>
-                    </Grid>
-                </Grid.Container>
+                
             </Grid>
         </Grid.Container>
     )

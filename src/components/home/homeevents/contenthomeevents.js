@@ -2,7 +2,7 @@ import { Grid, Col, Text, Image, Button } from "@nextui-org/react";
 import './homeevents.css';
 import React from "react";
 import FIFA from '../../../assets/images/Grey.jpeg';
-import Foosball from '../../../assets/images/Grey.jpeg';
+import Foosball from '../../../assets/images/LogoWhite.svg';
 import AuctionPredictions from '../../../assets/images/Grey.jpeg';
 
 export default function EventsContent () {
