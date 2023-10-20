@@ -1265,7 +1265,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                     width: '180px',
                                     color:'#163364'
                                 }}>
-                                    26th October 2023 
+                                    27th-29th October 2023 
                                     
                                 </Text>
                             </Grid>
@@ -1287,7 +1287,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                         textAlign: 'center',
                                         color:'#163364'
                                     }}>
-                                        26th
+                                        27th-29th
                                         
                                     </Text>
                                     <Text showIn={'sm'}
@@ -1427,11 +1427,6 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                         </Text>
                                                     </Grid>
                                                 </Grid.Container>
-
-                                            
-                                                
-
-                                               
                                 
                                         </Col>
                                     </Grid>
