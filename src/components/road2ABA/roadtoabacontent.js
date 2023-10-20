@@ -10,7 +10,7 @@ import questforthebest from '../../assets/images/roadtoabaquestforthebest.png';
 import registration from '../../assets/images/roadtoabaregistration.png';
 import scoutinggames from '../../assets/images/roadtoabascoutinggames.png';
 import practice from '../../assets/images/roadtoabapractice.png';
-import logo from '../../assets/images/LogoWhite.svg';
+import logo from '../../assets/images/logo.jpg';
 
 
 
