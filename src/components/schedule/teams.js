@@ -7,7 +7,7 @@ export default function Teams() {
     const [TeamAccordions, setTeamAccordions] = useState();
 
     const getTeamBudgetsData = async () => {
-        await fetch('https://aplapi.onrender.com/seasons/apl6/teamdata/budgets')
+        await fetch('http://localhost:3001/aba7teamlist')
             .then(response => response.json())
             .then((data) => {
                 OnceTeamBudgetsData(data);

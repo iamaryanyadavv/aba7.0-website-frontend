@@ -55,7 +55,7 @@ export default function Pool2(){
     ];
 
     async function getStandings(){
-        await fetch('https://aplapi.onrender.com/seasons/apl6/standings/b')
+        await fetch('http://localhost:3001/aba7standings/b')
         .then(response=>response.json())
         .then(data=>{
             // console.log(data.values[0][0])
@@ -159,7 +159,7 @@ export default function Pool2(){
                             <Table.Cell>{Group[2][7]}</Table.Cell>
                             <Table.Cell>{Group[2][8]}</Table.Cell>
                             <Table.Cell>{Group[2][9]}</Table.Cell>
-                            <Table.Cell><StyledBadge type='vacation'>{Group[2][10]}</StyledBadge></Table.Cell>
+                            <Table.Cell><StyledBadge type='paused'>{Group[2][10]}</StyledBadge></Table.Cell>
                         </Table.Row>
                         <Table.Row key='4'>
                             <Table.Cell><Avatar bordered src={Group[3][0]} size="lg"/></Table.Cell>

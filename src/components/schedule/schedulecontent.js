@@ -92,30 +92,23 @@ export default function ScheduleContent() {
                             css={{
                                 padding: '10px'
                             }}>
-                            <Popover>
-                                <Popover.Trigger>
-                                    <Button auto className="games-btn" rounded flat
-                                    // onClick={() => {
-                                    //     setGames(false)
-                                    //     setStandings(true)
-                                    //     setRules(false)
-                                    //     setPlayers(false)
-                                    //     setTeams(false)
-                                    // }}
-                                    >
-                                        <Text className="games-btn-text"
-                                            css={{
-                                                fontSize: '$md',
-                                                fontWeight: '$semibold',
-                                            }}>
-                                            Standings
-                                        </Text>
-                                    </Button>
-                                </Popover.Trigger>
-                                <Popover.Content>
-                                    <Text css={{ p: "$10" }}>Will be released soon!</Text>
-                                </Popover.Content>
-                            </Popover>
+                            <Button auto className="games-btn" rounded flat
+                            onClick={() => {
+                                setGames(false)
+                                setStandings(true)
+                                setRules(false)
+                                setPlayers(false)
+                                setTeams(false)
+                            }}
+                            >
+                                <Text className="games-btn-text"
+                                    css={{
+                                        fontSize: '$md',
+                                        fontWeight: '$semibold',
+                                    }}>
+                                    Standings
+                                </Text>
+                            </Button>
                         </Grid>
 
                         <Grid
@@ -246,8 +239,6 @@ export default function ScheduleContent() {
                             <Pool2 />
                             <Pool3 />
                             <Pool4 />
-                            <Pool5 />
-                            <Pool6 />
                         </>
                     }
 

@@ -265,7 +265,7 @@ export default function Players() {
         for (const player of players.values) {
             playerswithstats[player[1]] = [[], player[2], player[3], player[10]]
         }
-
+       
         for (const stat of stats) {
             var statArray = [stat[2], stat[3], stat[4], stat[5], stat[6], stat[7], stat[8]]
             playerswithstats[stat[0]][0].push(statArray)
@@ -323,9 +323,9 @@ export default function Players() {
                     }
                 }
             }
-            playerssorted = players.values.sort(function (a, b) {
-                return b[6] - a[6]
-            })
+            // playerssorted = players.values.sort(function (a, b) {
+            //     return b[6] - a[6]
+            // })
         }
         setPreTierAllotmentPlayers(pretierallotmentplayers)
         setTier1PlayerData(tier1players)
@@ -334,19 +334,19 @@ export default function Players() {
         setTier4PlayerData(tier4players)
 
         // loop to set the top 10 most expensive players
-        for (var i = 1; i < 11; i++) {
-            top10.push(playerssorted[i])
-        }
-        setTop10(top10)
+        // for (var i = 1; i < 11; i++) {
+        //     top10.push(playerssorted[i])
+        // }
+        // setTop10(top10)
 
         //loop at t0 update each player with their team logo
-        for (var i = 0; i < players.values.length; i++) {
-            for (var j = 0; j < teams.length; j++) {
-                if (teams[j][2] == players.values[i][7]) {
-                    players.values[i][8] = teams[j][0]
-                }
-            }
-        }
+        // for (var i = 0; i < players.values.length; i++) {
+        //     for (var j = 0; j < teams.length; j++) {
+        //         if (teams[j][2] == players.values[i][7]) {
+        //             players.values[i][8] = teams[j][0]
+        //         }
+        //     }
+        // }
 
 
 
