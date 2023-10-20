@@ -3,7 +3,6 @@ import "./homelanding.css";
 import { Button, Text, Link, Col, Row } from "@nextui-org/react";
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
 import { HiExternalLink } from 'react-icons/hi';
-
 function HomeLanding() {
     return (
         // <div className="homelanding">
