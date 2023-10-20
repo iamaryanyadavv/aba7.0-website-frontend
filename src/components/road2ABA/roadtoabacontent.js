@@ -10,7 +10,7 @@ import questforthebest from '../../assets/images/roadtoabaquestforthebest.png';
 import registration from '../../assets/images/roadtoabaregistration.png';
 import scoutinggames from '../../assets/images/roadtoabascoutinggames.png';
 import practice from '../../assets/images/roadtoabapractice.png';
-
+import logo from '../../assets/images/LogoWhite.svg';
 
 
 
@@ -1228,6 +1228,202 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                             width: '250px'
                                                         }}>
                                                            An All star game amongst ABA 6.0 and ABA 5.0 captains!! Winner gets the glory. Loser gets a forfeit. Come join us along with Vistaar and Abhinaya for the most fun Thursday night yet!!
+                                                        </Text>
+                                                    </Grid>
+                                                </Grid.Container>
+
+                                            
+                                                
+
+                                               
+                                
+                                        </Col>
+                                    </Grid>
+
+                                </Grid.Container>
+                            </Grid>
+                        </Row>
+                        {/* Scouting Games */}
+                        <Row
+                        css={{
+                            jc: 'center',
+                            textAlign: 'center',
+                            alignItems: 'center'
+                        }}>
+                            {/* Date-Timeline */}
+                            <Grid hideIn={'sm'}
+                            css={{
+                                jc: 'center',
+                                textAlign: 'center',
+                                alignItems: 'center',
+                            }}>
+                                <Text hideIn={'sm'}
+                                css={{
+                                    fontSize: '$2xl',
+                                    fontWeight: '$semibold',
+                                    alignItems: 'baseline',
+                                    width: '180px',
+                                    color:'#163364'
+                                }}>
+                                    26th October 2023 
+                                    
+                                </Text>
+                            </Grid>
+                            <Grid showIn={'sm'}>
+                                <Col 
+                                css={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    jc: 'center',
+                                    alignItems: 'center',
+                                    textAlign: 'center',
+                                    width: '70px',
+                                    color:'#163364'
+                                }}> 
+                                    <Text showIn={'sm'}
+                                    css={{
+                                        fontSize: '$lg',
+                                        fontWeight: '$semibold',
+                                        textAlign: 'center',
+                                        color:'#163364'
+                                    }}>
+                                        26th
+                                        
+                                    </Text>
+                                    <Text showIn={'sm'}
+                                    css={{
+                                        fontSize: '$lg',
+                                        fontWeight: '$semibold',
+                                        textAlign: 'center',
+                                        color:'#163364'
+                                    }}>
+                                        October
+                                        
+                                    </Text>
+                                    <Text showIn={'sm'}
+                                    css={{
+                                        fontSize: '$lg',
+                                        fontWeight: '$semibold',
+                                        textAlign: 'center',
+                                        color:'#163364'
+                                    }}>
+                                        2023 
+            
+                                    </Text>
+                                    
+                                </Col>
+
+                            </Grid>
+
+                            {/* Content Card */}
+                            <Grid
+                            css={{
+                                borderStyle: 'solid',
+                                borderWidth: '0px 0px 0px 2px',
+                                borderColor: '#ff9f56'
+                            }}>
+                                <Grid.Container gap={0}
+                                css={{
+                                    jc: 'flex-start',
+                                    textAlign: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                    {/* Image side grid */}
+                                    <Grid
+                                    css={{
+                                        alignItems: 'center',
+                                        margin: '0px 10px 0px 10px'
+                                    }}>
+                                        <Image css={{
+                                            '@xsMin':{
+                                                width: '250px',
+                                                height: '250px',
+                                                borderRadius: '20px'
+                                            },
+                                            '@xsMax':{
+                                                width: '200px',
+                                                height: '200px',
+                                                borderRadius: '20px'
+                                            },
+                                            objectFit: 'cover'
+                                        }} src={logo}  />
+                                    </Grid>
+
+                                    {/* Text side grid */}
+                                    <Grid
+                                    css={{
+                                        jc: 'center',
+                                        textAlign: 'center',
+                                        alignItems: 'center',
+                                    }}>
+                                        <Col>
+                                                {/* Title */}
+                                                <Grid.Container gap={0.5}
+                                                css={{
+                                                    jc: 'center',
+                                                    maxWidth: 'fit-content',
+                                                    textAlign: 'center',
+                                                    alignItems: 'center',
+                                                }}>
+                                                    <Grid>
+                                                        <Text hideIn={'sm'}
+                                                        css={{
+                                                            jc: 'center',
+                                                            textAlign: 'center',
+                                                            fontSize: '$4xl',
+                                                            fontWeight: '$bold',
+                                                            borderStyle: 'solid',
+                                                            borderWidth: '0px 0px 2px 0px',
+                                                            borderColor: '#ff9f56',
+                                                            color:'#163364'
+                                                        }}>
+                                                         ABA 7.0
+                                                        </Text>
+                                                        <Text showIn={'sm'}
+                                                        css={{
+                                                            jc: 'center',
+                                                            textAlign: 'center',
+                                                            fontSize: '$2xl',
+                                                            fontWeight: '$bold',
+                                                            borderStyle: 'solid',
+                                                            borderWidth: '0px 0px 2px 0px',
+                                                            borderColor: '#ff9f56',
+                                                            color:'#163364'
+                                                        }}>
+                                                        ABA 7.0
+                                                        </Text>
+                                                    </Grid>
+                                                </Grid.Container>
+                                                
+
+                                                {/* Description 2 */}
+                                                <Grid.Container gap={0.5}
+                                                css={{
+                                                    maxWidth: 'fit-content',
+                                                    jc: 'center',
+                                                    textAlign: 'center',
+                                                    alignItems: 'center',
+                                                }}>
+                                                    <Grid>
+                                                        <Text hideIn={'sm'}
+                                                        css={{
+                                                            jc: 'center',
+                                                            fontWeight: '$medium',
+                                                            textAlign: 'left',
+                                                            fontSize: '$md',
+                                                            width: '500px'
+                                                        }}>
+                                                            The moment we've all been waiting for...
+                                                        </Text>
+                                                        <Text showIn={'sm'}
+                                                        css={{
+                                                            jc: 'center',
+                                                            fontWeight: '$medium',
+                                                            textAlign: 'left',
+                                                            fontSize: '$sm',
+                                                            width: '250px'
+                                                        }}>
+                                                           The moment we've all been waiting for...
                                                         </Text>
                                                     </Grid>
                                                 </Grid.Container>
