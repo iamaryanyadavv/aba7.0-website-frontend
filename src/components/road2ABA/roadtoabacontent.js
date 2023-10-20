@@ -111,7 +111,7 @@ export default function RoadToABAContents(){
                                 borderStyle: 'solid',
                                 borderWidth: '0px 0px 0px 2px',
                                 borderRadius: '0px 0px 0px 0px',
-                                borderColor: '#CC0033',
+                                borderColor: '#ff9f56',
                             }}>
                                 <Grid.Container gap={0}
                                 css={{
@@ -165,7 +165,7 @@ export default function RoadToABAContents(){
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#CC0033',
+                                                            borderColor: '#ff9f56',
                                                             color: '#163364'
                                                         }}>
                                                             Registration
@@ -178,7 +178,7 @@ export default function RoadToABAContents(){
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#CC0033',
+                                                            borderColor: '#ff9f56',
                                                             color: '#163364'
                                                         }}>
                                                             Registration
@@ -340,7 +340,7 @@ Player Registration on 3rd October closed in less than an hour with over 12 peop
                             css={{
                                 borderStyle: 'solid',
                                 borderWidth: '0px 0px 0px 2px',
-                                borderColor: '#cc0033'
+                                borderColor: '#ff9f56'
                             }}>
                                 <Grid.Container gap={0}
                                 css={{
@@ -394,7 +394,7 @@ Player Registration on 3rd October closed in less than an hour with over 12 peop
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#CC0033',
+                                                            borderColor: '#ff9f56',
                                                             color: '#163364'
                                                         }}>
                                                             Quest for the best
@@ -407,7 +407,7 @@ Player Registration on 3rd October closed in less than an hour with over 12 peop
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#CC0033',
+                                                            borderColor: '#ff9f56',
                                                             color: '#163364'
                                                             
                                                         }}>
@@ -539,7 +539,7 @@ There was a significant number of people in the audience who were also given a c
                             css={{
                                 borderStyle: 'solid',
                                 borderWidth: '0px 0px 0px 2px',
-                                borderColor: '#c1004d'
+                                borderColor: '#ff9f56'
                             }}>
                                 <Grid.Container gap={0}
                                 css={{
@@ -593,7 +593,7 @@ There was a significant number of people in the audience who were also given a c
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#e6025d',
+                                                            borderColor: '#ff9f56',
                                                             color:'#163364'
                                                         }}>
                                                             Scouting Games (Merch Reveal)
@@ -606,7 +606,7 @@ There was a significant number of people in the audience who were also given a c
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#e6025d',
+                                                            borderColor: '#ff9f56',
                                                             color:'#163364'
                                                         }}>
                                                             Scouting Games (Merch Reveal)
@@ -734,7 +734,7 @@ On the second day, ABA collabed with the Ashokan fashion club, CLAD, who set up 
                             css={{
                                 borderStyle: 'solid',
                                 borderWidth: '0px 0px 0px 2px',
-                                borderColor: '#c1004d'
+                                borderColor: '#ff9f56'
                             }}>
                                 <Grid.Container gap={0}
                                 css={{
@@ -788,7 +788,7 @@ On the second day, ABA collabed with the Ashokan fashion club, CLAD, who set up 
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#e6025d',
+                                                            borderColor: '#ff9f56',
                                                             color: '#163364'
                                                         }}>
                                                             Auction Night
@@ -801,7 +801,7 @@ On the second day, ABA collabed with the Ashokan fashion club, CLAD, who set up 
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#e6025d',
+                                                            borderColor: '#ff9f56',
                                                             color: '#163364'
                                                         }}>
                                                             Auction Night
@@ -928,7 +928,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                             css={{
                                 borderStyle: 'solid',
                                 borderWidth: '0px 0px 0px 2px',
-                                borderColor: '#a90069'
+                                borderColor: '#ff9f56'
                             }}>
                                 <Grid.Container gap={0}
                                 css={{
@@ -982,7 +982,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#ed0293',
+                                                            borderColor: '#ff9f56',
                                                             color:'#163364'
                                                         }}>
                                                             Practice Games
@@ -995,7 +995,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#ed0293',
+                                                            borderColor: '#ff9f56',
                                                             color:'#163364'
                                                         }}>
                                                             Practice Games
@@ -1124,7 +1124,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                             css={{
                                 borderStyle: 'solid',
                                 borderWidth: '0px 0px 0px 2px',
-                                borderColor: '#a90069'
+                                borderColor: '#ff9f56'
                             }}>
                                 <Grid.Container gap={0}
                                 css={{
@@ -1178,7 +1178,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#ed0293',
+                                                            borderColor: '#ff9f56',
                                                             color:'#163364'
                                                         }}>
                                                          Opening Night
@@ -1191,7 +1191,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                             fontWeight: '$bold',
                                                             borderStyle: 'solid',
                                                             borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#ed0293',
+                                                            borderColor: '#ff9f56',
                                                             color:'#163364'
                                                         }}>
                                                         Opening Night
