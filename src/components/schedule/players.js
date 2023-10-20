@@ -63,7 +63,7 @@ export default function Players() {
     // 8: Fouls
 
     const getTeamData = async () => {
-        await fetch('http://localhost:3001/aba7teams')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7teams')
             .then(response => response.json())
             .then((data) => {
                 // console.log(data)
@@ -72,7 +72,7 @@ export default function Players() {
     }
 
     const OnceTeamData = async (teams) => {
-        await fetch('http://localhost:3001/aba7players')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7players')
             .then(response => response.json())
             .then((data) => {
                 // console.log(data)
@@ -82,7 +82,7 @@ export default function Players() {
     }
 
     const OncePlayerData = async (players, teams) => {
-        await fetch('http://localhost:3001/aba7stats')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7stats')
             .then(response => response.json())
             .then((data) => {
                 // console.log(data)

@@ -40,7 +40,7 @@ const ABA5Gallery = () => {
 
     useEffect(() => {
         try {
-            fetch("http://localhost:3001/aba5images")
+            fetch("https://aba-backend-gr9t.onrender.com/aba5images")
                 .then(response => response.json()) 
                 .then(data => setABA5GalleryImages(data))
                 .catch(error => console.log(error));

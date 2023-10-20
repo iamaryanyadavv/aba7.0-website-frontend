@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Grid, Text, Col, Table, Image } from "@nextui-org/react";
-import APL from '../../assets/images/Grey.jpeg'
+import APL from '../../assets/images/gamerules.png'
 
 export default function TournamentRules() {
     return(

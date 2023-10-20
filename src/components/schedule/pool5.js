@@ -55,7 +55,7 @@ export default function Pool5(){
     ];
 
     async function getStandings(){
-        await fetch('https://aplapi.onrender.com/seasons/apl6/standings/e')
+        await fetch('https://aba-backend-gr9t.onrender.com/seasons/apl6/standings/e')
         .then(response=>response.json())
         .then(data=>{
             // console.log(data.values[0][0])
