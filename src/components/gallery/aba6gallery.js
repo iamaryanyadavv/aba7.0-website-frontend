@@ -40,7 +40,7 @@ const ABA6Gallery = () => {
 
     useEffect(() => {
         try {
-            fetch("http://localhost:3001/aba6images")
+            fetch("https://aba-backend-gr9t.onrender.com/aba6images")
                 .then(response => response.json())
                 .then(data => setABA6GalleryImages(data))
                 .catch(error => console.log(error));

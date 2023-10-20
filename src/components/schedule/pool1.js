@@ -55,7 +55,7 @@ export default function Pool1(){
     ];
 
     async function getStandings(){
-        await fetch('http://localhost:3001/aba7standings/a')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7standings/a')
         .then(response=>response.json())
         .then(data=>{
             // console.log(data.values[0][0])

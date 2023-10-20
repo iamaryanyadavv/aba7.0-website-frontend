@@ -50,7 +50,7 @@ export default function FanUpContent() {
         getAllPlayers()
         console.log(user)
         setLoginLoader(false)
-        await fetch('http://localhost:3001/aba7fantasy')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7fantasy')
             .then(response => response.json())
             .then((fantasydata) => {
                 console.log(fantasydata)
@@ -59,7 +59,7 @@ export default function FanUpContent() {
     }
 
     const getAllPlayers = async () => {
-        await fetch('http://localhost:3001/aba7players')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7players')
             .then(response => response.json())
             .then((players) => {
                 var tier1 = []
