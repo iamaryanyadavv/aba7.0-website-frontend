@@ -81,7 +81,8 @@ function Header() {
 
 
             <Navbar.Collapse showIn={"sm"}>
-                {items.map((item, index) => (
+                {items.map((item, index) => {
+                    if(item.name!="FanUpxABA Fantasy")return(
                     <Navbar.CollapseItem key={index} isActive={item.href === active.substring(0, item.href.length + 1)}>
                         <Link href={item.href}
                             css={{
@@ -90,8 +91,8 @@ function Header() {
                         >
                             {item.name}
                         </Link>
-                    </Navbar.CollapseItem>
-                ))}
+                    </Navbar.CollapseItem>)
+})}
 
             </Navbar.Collapse>
         </Navbar>
