@@ -26,7 +26,7 @@ export default function ImagePage() {
 
     const convertImageToBase64 = async (e) => {
         const options = {
-            maxSizeMB: 0.015,
+            maxSizeMB: 0.020,
             maxWidthOrHeight: 400,
             useWebWorker: true
         }
@@ -59,6 +59,7 @@ export default function ImagePage() {
                     console.log(event.target.files)
                     if (event.target.files[0].size > 2200000) {
                         window.alert('Maximum file size: 2mb!')
+                        setInitialImage(event.target.files)
                     }
                     else {
                         setInitialImage(event.target.files)
