@@ -540,45 +540,6 @@ export default function Players() {
                             </Text>
                         </Grid>
 
-                        <Grid
-                            css={{
-                                '@xsMin': {
-                                    padding: '16px'
-                                },
-                                '@xsMax': {
-                                    padding: '16px 42px'
-                                }
-                            }}>
-                            <Link id='sheetsbtn'
-                                css={{
-                                    fontSize: '$lg',
-                                    color: 'White',
-                                    fontWeight: '$semibold',
-                                    borderRadius: '20px',
-                                    backgroundColor: 'rgba(15, 157, 88, 0.8)',
-                                    textAlign: 'center',
-                                    padding: '2px 24px',
-                                    transition: 'padding 0.5s',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        backgroundColor: 'rgba(15, 157, 88, 0.9)',
-                                        padding: '2px 24px',
-                                    }
-                                }}
-                                onClick={() => {
-                                    document.getElementById('sheetsbtn').style.transform = 'scale(0.95)'
-                                    window.setTimeout(() => {
-                                        document.getElementById('sheetsbtn').style.transform = 'scale(1)'
-                                    }, 150)
-                                }}
-                                href='https://docs.google.com/spreadsheets/d/1Jl4oSC0BPjafsaBesmxV_vpcAvjiYrVxFiOhlk6_dZo/edit#gid=0'
-                                target='_blank'
-                                rel='noreferrer'
-                            >
-                                View in Sheets
-                            </Link>
-                        </Grid>
-
                         {/* <Grid
                             css={{
                                 padding: '10px'

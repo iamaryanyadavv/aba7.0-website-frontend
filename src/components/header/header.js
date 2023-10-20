@@ -1,6 +1,6 @@
 import React from "react";
 import "./header.css";
-import { Navbar, Link, Image } from "@nextui-org/react";
+import { Navbar, Link, Image, Popover, Text } from "@nextui-org/react";
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
 import Logo from '../../assets/images/LogoWhite.svg'
 
@@ -36,14 +36,34 @@ function Header() {
             </Navbar.Brand>
             <Navbar.Content hideIn="sm" variant="highlight-rounded">
                 {items.map((item, index) => {
-                    return (
-                        <Navbar.Link key={index} isActive={item.href === active.substring(0, item.href.length + 1)} href={item.href}
-                        css={{
-                            // fontFamily: 'MEregular'
-                        }}>
-                            {item.name}
-                        </Navbar.Link>
-                    )
+                    if (item.name == 'FanUpxABA Fantasy') {
+                        return (
+                            <Popover>
+                                <Popover.Trigger>
+                                    <Navbar.Link key={index} 
+                                    // isActive={item.href === active.substring(0, item.href.length + 1)} href={item.href}
+                                        css={{
+                                            // fontFamily: 'MEregular'
+                                        }}>
+                                        {item.name}
+                                    </Navbar.Link>
+                                </Popover.Trigger>
+                                <Popover.Content>
+                                    <Text css={{ p: "$10" }}>Coming soon!</Text>
+                                </Popover.Content>
+                            </Popover>
+                        )
+                    }
+                    else {
+                        return (
+                            <Navbar.Link key={index} isActive={item.href === active.substring(0, item.href.length + 1)} href={item.href}
+                                css={{
+                                    // fontFamily: 'MEregular'
+                                }}>
+                                {item.name}
+                            </Navbar.Link>
+                        )
+                    }
                 })}
 
             </Navbar.Content>
