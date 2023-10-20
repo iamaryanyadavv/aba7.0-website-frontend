@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Text, Col, Table, Image } from "@nextui-org/react";
-import Auction from '../../assets/images/Grey.jpeg'
+import Auction from '../../assets/images/auction.png'
 
 export default function AuctionRules() {
     return(
