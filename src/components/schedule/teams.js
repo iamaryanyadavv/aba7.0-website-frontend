@@ -7,7 +7,7 @@ export default function Teams() {
     const [TeamAccordions, setTeamAccordions] = useState();
 
     const getTeamBudgetsData = async () => {
-        await fetch('http://localhost:3001/aba7teamlist')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7teamlist')
             .then(response => response.json())
             .then((data) => {
                 OnceTeamBudgetsData(data);
@@ -16,7 +16,7 @@ export default function Teams() {
     }
 
     const OnceTeamBudgetsData = async (teamslists) => {
-        await fetch('http://localhost:3001/aba7teams')
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7teams')
             .then(response => response.json())
             .then((data) => {
                 createTeamAccordions(data, teamslists);
