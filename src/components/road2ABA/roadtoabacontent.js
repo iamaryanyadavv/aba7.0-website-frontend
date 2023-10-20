@@ -4,6 +4,15 @@ import React from "react";
 import {IoLocation, IoGameController} from 'react-icons/io5';
 import { AiOutlineTeam, AiOutlineClockCircle } from "react-icons/ai";
 import Grey from '../../assets/images/Grey.jpeg';
+import auction from '../../assets/images/roadtoabaauction.png';
+import openingnight from '../../assets/images/roadtoabaopeningnight.png';
+import questforthebest from '../../assets/images/roadtoabaquestforthebest.png';
+import registration from '../../assets/images/roadtoabaregistration.png';
+import scoutinggames from '../../assets/images/roadtoabascoutinggames.png';
+import practice from '../../assets/images/roadtoabapractice.png';
+
+
+
 
 export default function RoadToABAContents(){
     return(
@@ -128,7 +137,7 @@ export default function RoadToABAContents(){
                                                 borderRadius: '20px'
                                             },
                                             objectFit: 'cover',
-                                        }}src={Grey} />
+                                        }}src={registration} />
                                     </Grid>
 
                                     {/* Text side grid */}
@@ -357,7 +366,7 @@ Player Registration on 3rd October closed in less than an hour with over 12 peop
                                                 borderRadius: '20px'
                                             },
                                             objectFit: 'cover'
-                                        }} src={Grey} />
+                                        }} src={questforthebest} />
                                     </Grid>
 
                                     {/* Text side grid */}
@@ -556,7 +565,7 @@ There was a significant number of people in the audience who were also given a c
                                                 borderRadius: '20px'
                                             },
                                             objectFit: 'cover'
-                                        }} src={Grey} />
+                                        }} src={scoutinggames} />
                                     </Grid>
 
                                     {/* Text side grid */}
@@ -751,7 +760,7 @@ On the second day, ABA collabed with the Ashokan fashion club, CLAD, who set up 
                                                 borderRadius: '20px'
                                             },
                                             objectFit: 'cover'
-                                        }} src={Grey} />
+                                        }} src={auction} />
                                     </Grid>
 
                                     {/* Text side grid */}
@@ -945,7 +954,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                 borderRadius: '20px'
                                             },
                                             objectFit: 'cover'
-                                        }} src={Grey} />
+                                        }} src={practice} />
                                     </Grid>
 
                                     {/* Text side grid */}
@@ -1141,7 +1150,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                                                 borderRadius: '20px'
                                             },
                                             objectFit: 'cover'
-                                        }} src={Grey}  />
+                                        }} src={openingnight}  />
                                     </Grid>
 
                                     {/* Text side grid */}
