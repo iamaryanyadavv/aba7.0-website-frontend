@@ -144,8 +144,8 @@ export default function Players() {
                 <Image
                     src={player[0]}
                     css={{
-                        width: '200px',
-                        height: '300px',
+                        width: '300px',
+                        height: '450px',
                         objectFit: 'cover',
                         borderRadius: '8px'
                     }}
@@ -173,8 +173,8 @@ export default function Players() {
                 <Image
                     src={player[0]}
                     css={{
-                        width: '200px',
-                        height: '300px',
+                        width: '300px',
+                        height: '450px',
                         objectFit: 'cover',
                         borderRadius: '8px'
                     }}
@@ -202,8 +202,8 @@ export default function Players() {
                 <Image
                     src={player[0]}
                     css={{
-                        width: '200px',
-                        height: '300px',
+                        width: '300px',
+                        height: '450px',
                         objectFit: 'cover',
                         borderRadius: '8px'
                     }}
@@ -231,8 +231,8 @@ export default function Players() {
                 <Image
                     src={player[0]}
                     css={{
-                        width: '200px',
-                        height: '300px',
+                        width: '300px',
+                        height: '450px',
                         objectFit: 'cover',
                         borderRadius: '8px'
                     }}

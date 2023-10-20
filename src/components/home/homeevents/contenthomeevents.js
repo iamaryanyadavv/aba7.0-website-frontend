@@ -50,22 +50,22 @@ export default function EventsContent () {
                         src={Foosball}/>
                         <Text
                         css={{
-                            fontSize: '$3xl',
+                            fontSize: '$2xl',
                             fontWeight: '$bold',
                             borderStyle: 'solid',
                             borderWidth: '0px 0px 2px 0px',
                             borderColor: '#ff9f56',
                             padding: '2%'
                         }}>
-                            Stay Tuned
+                            Road To ABA 7.0
                         </Text>
                         <Text
                         css={{
-                            fontSize: '$2xl',
+                            fontSize: '$xl',
                             fontWeight: '$semibold',
                             padding: '2%'
                         }}>
-                            TBA
+                            Check out all events leading up to the coveted ABA tournament!
                         </Text>
                     </Col>
                 </Grid>
@@ -184,7 +184,7 @@ export default function EventsContent () {
                 <Grid className="hidden">
                     <Button className="mini-events-btn"
                     auto shadow rounded>
-                        <a href="/" className="mini-events-btn-2">Events Details </a> 
+                        <a href="/roadtoaba" className="mini-events-btn-2">Events Details</a> 
                     </Button>
                 </Grid>
             </Grid.Container>
