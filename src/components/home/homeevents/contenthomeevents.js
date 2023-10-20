@@ -57,7 +57,7 @@ export default function EventsContent () {
                             borderColor: '#ff9f56',
                             padding: '2%'
                         }}>
-                            Road To ABA 7.0
+                            Road To ABA
                         </Text>
                         <Text
                         css={{
