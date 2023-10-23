@@ -268,7 +268,9 @@ export default function Players() {
        
         for (const stat of stats) {
             var statArray = [stat[2], stat[3], stat[4], stat[5], stat[6], stat[7], stat[8]]
-            playerswithstats[stat[0]][0].push(statArray)
+            if (stat[0] in playerswithstats){
+                playerswithstats[stat[0]][0].push(statArray)
+            }
         }
 
         for (const player of players.values) {

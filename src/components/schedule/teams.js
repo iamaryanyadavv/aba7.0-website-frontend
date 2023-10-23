@@ -110,7 +110,7 @@ export default function Teams() {
                 
                 if (team[2] === teamslists[i][0]) {
                     
-                    var budgetBarValue = (parseInt(teamslists[i][26]) / 150) * 100
+                    var budgetBarValue = (parseInt(teamslists[i][26]) / 120) * 100
                     accMaterial =
                         <Grid.Container
                             css={{
@@ -235,7 +235,7 @@ export default function Teams() {
                                         fontWeight: '$medium',
                                         margin: '10px'
                                     }}>
-                                    {teamslists[i][26]} M Spent (Max. 150)
+                                    {teamslists[i][26]} M Spent (Max. 120)
                                 </Text>
                                 <Progress size='sm' color='warning' value={budgetBarValue} />
                             </Col>
