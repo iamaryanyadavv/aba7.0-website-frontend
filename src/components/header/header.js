@@ -10,14 +10,14 @@ function Header() {
         { name: 'Home', href: '/' },
         { name: 'FanUpxABA Fantasy', href: '/fanupabafantasy' },
         { name: 'RoadToABA', href: '/roadtoaba' },
-        { name: 'Schedule', href: '/schedule' },
+        { name: 'Game Time', href: '/schedule' },
         { name: 'Gallery', href: '/gallery' },
     ]
 
     var active = window.location.pathname
 
     return (
-        <Navbar className="navbar" variant="sticky" shouldHideOnScroll={true}>
+        <Navbar className="navbar" variant="sticky" shouldHideOnScroll={false}>
             <Navbar.Toggle color="inherit" showIn="sm" />
             <Navbar.Brand hideIn="sm" css={{ '&:hover': { transform: 'scale(1.25)' } }}>
                 <Image css={{
