@@ -24,7 +24,7 @@ const NewsTicker = () => {
           paddingLeft: '2px',
         }}
       >
-        The auction is now live! Head on over to the sports block and join in on the action!
+        It's Gametime! ABA Week is here :))
       </p>
     </Marquee>
   );
