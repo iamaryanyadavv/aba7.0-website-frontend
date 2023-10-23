@@ -21,13 +21,13 @@ export default function Teams() {
             .then((data) => {
                 createTeamAccordions(data, teamslists);
             })
-        setFetching(false);
     }
 
     async function createTeamAccordions(teams, teamslists) {
         if (teams.length > 1) {
             const response = await fetch('https://aba-backend-gr9t.onrender.com/aba7teamlist');
             const teamListsData = await response.json();
+            setFetching(false);
             const onlyteams = []
             for (var i = 1; i < teams.length; i++) {
                 onlyteams.push(teams[i])
