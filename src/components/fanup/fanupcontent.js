@@ -44,12 +44,10 @@ export default function FanUpContent() {
 
     const getUserTeam = async (user) => {
         getAllPlayers()
-        console.log(user)
         setLoginLoader(false)
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getTeam?email=${user.email}`)
             .then(response => response.json())
             .then((fantasydata) => {
-                console.log(fantasydata)
                 // use the response as the team data and set it accordingly
             })
         // get user's team and set player1-5, player1-5email IDS, and player 1-5 genders
@@ -125,14 +123,66 @@ export default function FanUpContent() {
         })
         if (res.status == 200) {
             setSavedSuccessfully(true)
+            sendFinalTeam()
+
         }
         else {
             setSavedSuccessfully(false)
+            alert("INVALID TEAM!")
         }
-        
-
-            }
+        }
             
+    }
+
+    async function sendFinalTeam()
+    {
+        if(selectedPlayers)
+            {
+                console.log(selectedPlayers)
+                const res = await fetch('https://aba-backend-gr9t.onrender.com/fantasy/saveTeam', {
+            method: 'POST',
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                picture:User.picture,
+                name: User.name,
+                email:User.email,
+                player1: selectedPlayers[0][1],
+                player1photo: selectedPlayers[0][0],
+                player1gender: selectedPlayers[0][9],
+                player1price: selectedPlayers[0][18],
+                player1team:selectedPlayers[0][7],
+                player2:selectedPlayers[1][1],
+                player2photo:selectedPlayers[1][0],
+                player2gender:selectedPlayers[1][9],
+                player2price:selectedPlayers[1][18],
+                player2team:selectedPlayers[1][7],
+                player3:selectedPlayers[2][1],
+                player3photo:selectedPlayers[2][0],
+                player3gender:selectedPlayers[2][9],
+                player3price:selectedPlayers[2][18],
+                player3team:selectedPlayers[2][7],
+                player4:selectedPlayers[3][1],
+                player4photo:selectedPlayers[3][0],
+                player4gender:selectedPlayers[3][9],
+                player4price:selectedPlayers[3][18],
+                player4team:selectedPlayers[3][7],
+                player5:selectedPlayers[4][1],
+                player5photo:selectedPlayers[4][0],
+                player5gender:selectedPlayers[4][9],
+                player5price:selectedPlayers[4][18],
+                player5team:selectedPlayers[4][7],
+                
+            })
+        })
+        if (res.status == 200) {
+            setSavedSuccessfully(true)
+        }
+        else {
+            setSavedSuccessfully(false)
+            alert("Failed to send team...")
+        }
+        }
+
     }
 
     async function saveTeam() {
@@ -167,26 +217,25 @@ export default function FanUpContent() {
             {
                 for(var i = 0;i<priceArr.length;i++)
                 {
-                    console.log("Im here")
-                    console.log(Tier1Players[i])
-                    sum+=parseFloat(Tier1Players[i][18])
-                    T1Players.push(Tier1Players[i])
-                    selectedPlayers.push(Tier1Players[i])
+                    sum+=parseFloat(Tier1Players[parseInt(priceArr[i])][18])
+                    T1Players.push(Tier1Players[parseInt(priceArr[i])])
+                    selectedPlayers.push(Tier1Players[parseInt(priceArr[i])])
                 }
             }   
-            setBudget(sum)  
+            
         }
         if(selectedPlayers2)
         {
+            
             var priceArr = Array.from(selectedPlayers2)
             if(priceArr.length>0)
             {
                 for(var i = 0;i<priceArr.length;i++)
                 {
-                    console.log("Im here")
-                    sum+=parseFloat(Tier2Players[i][18])
-                    T2Players.push(Tier2Players[i])
-                    selectedPlayers.push(Tier2Players[i])
+                    sum+=parseFloat(Tier2Players[parseInt(priceArr[i][priceArr[i].length-1])][18])
+                    T2Players.push(Tier2Players[parseInt(priceArr[i][priceArr[i].length-1])])
+                    selectedPlayers.push(Tier2Players[priceArr[i][priceArr[i].length-1]])
+                    console.log(Tier2Players[priceArr[i][priceArr[i].length-1]])
                 }
             }   
         }
@@ -197,24 +246,23 @@ export default function FanUpContent() {
             {
                 for(var i = 0;i<priceArr.length;i++)
                 {
-                    console.log("Im here")
-                    sum+=parseFloat(Tier3Players[i][18])
-                    T3Players.push(Tier3Players[i])
-                    selectedPlayers.push(Tier3Players[i])
+                    sum+=parseFloat(Tier3Players[priceArr[i][priceArr[i].length-1]][18])
+                    T3Players.push(Tier3Players[priceArr[i][priceArr[i].length-1]])
+                    selectedPlayers.push(Tier3Players[priceArr[i][priceArr[i].length-1]])
                 }
             }   
         }
         if(selectedPlayers4)
         {
             var priceArr = Array.from(selectedPlayers4)
+
             if(priceArr.length>0)
             {
                 for(var i = 0;i<priceArr.length;i++)
                 {
-                    console.log("Im here")
-                    sum+=parseFloat(Tier4Players[i][18])
-                    T4Players.push(Tier4Players[i])
-                    selectedPlayers.push(Tier4Players[i])
+                    sum+=parseFloat(Tier4Players[priceArr[i][priceArr[i].length-1]][18])
+                    T4Players.push(Tier4Players[priceArr[i][priceArr[i].length-1]])
+                    selectedPlayers.push(Tier4Players[priceArr[i][priceArr[i].length-1]])
                 }
             }   
         }
