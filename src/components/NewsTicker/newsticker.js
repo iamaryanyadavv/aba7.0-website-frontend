@@ -24,7 +24,7 @@ const NewsTicker = () => {
           paddingLeft: '2px',
         }}
       >
-        It's Gametime! ABA Week is here :))
+        It's Game Time! ABA Week is here :))
       </p>
     </Marquee>
   );
