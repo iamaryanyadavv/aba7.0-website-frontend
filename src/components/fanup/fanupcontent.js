@@ -11,23 +11,8 @@ export default function FanUpContent() {
     const [signedin, setSignedin] = useState(false)
 
     // Fantasy Team ------------------------------------------
-    const [Player1, setPlayer1] = useState('')
-    const [Player2, setPlayer2] = useState('')
-    const [Player3, setPlayer3] = useState('')
-    const [Player4, setPlayer4] = useState('')
-    const [Player5, setPlayer5] = useState('')
 
-    const [Player1Email, setPlayer1Email] = useState('')
-    const [Player2Email, setPlayer2Email] = useState('')
-    const [Player3Email, setPlayer3Email] = useState('')
-    const [Player4Email, setPlayer4Email] = useState('')
-    const [Player5Email, setPlayer5Email] = useState('')
-
-    const [Player1Gender, setPlayer1Gender] = useState('')
-    const [Player2Gender, setPlayer2Gender] = useState('')
-    const [Player3Gender, setPlayer3Gender] = useState('')
-    const [Player4Gender, setPlayer4Gender] = useState('')
-    const [Player5Gender, setPlayer5Gender] = useState('')
+    const [selectedPlayers, setSelectedPlayers] = useState([null, null, null, null, null])
 
     const [GridNo, setGridNo] = useState(0)
     const [ShowPlayersModal, setShowPlayersModal] = useState(false)
@@ -50,10 +35,11 @@ export default function FanUpContent() {
         getAllPlayers()
         console.log(user)
         setLoginLoader(false)
-        await fetch('https://aba-backend-gr9t.onrender.com/aba7fantasy')
+        await fetch(`http://localhost:3001/fantasy/getTeam?email=${user.email}`)
             .then(response => response.json())
             .then((fantasydata) => {
                 console.log(fantasydata)
+                // use the response as the team data and set it accordingly
             })
         // get user's team and set player1-5, player1-5email IDS, and player 1-5 genders
     }
@@ -88,7 +74,7 @@ export default function FanUpContent() {
     }
 
     const saveTeam = async (e) => {
-        const res = await fetch('https://localhost:3001/aba7fantasy', {
+        const res = await fetch('https://localhost:3001/fantasy/saveTeam', {
             method: 'POST',
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
@@ -146,6 +132,46 @@ export default function FanUpContent() {
         }, 2000)
 
     }, [isTimeUp])
+
+
+    function handlePlayerSelect(player) {
+        const newPlayer = {
+            name: player[1],
+            image: player[0],
+            gender: player[9],
+            price: player[18],
+            team: player[7]
+        };
+    
+        // Check if player is already selected
+        const isAlreadySelected = selectedPlayers.some(p => p && p.name === newPlayer.name);
+    
+        if (isAlreadySelected) {
+            // Remove player from selected players by setting the slot to null
+            const updatedPlayers = selectedPlayers.map(p => (p && p.name === newPlayer.name) ? null : p);
+            setSelectedPlayers(updatedPlayers);
+        } else {
+            // Find the first null slot to insert the player
+            const firstEmptySlotIndex = selectedPlayers.indexOf(null);
+    
+            if (firstEmptySlotIndex !== -1) {
+                // Replace the first null with the selected player
+                const updatedPlayers = [...selectedPlayers];
+                updatedPlayers[firstEmptySlotIndex] = newPlayer;
+                setSelectedPlayers(updatedPlayers);
+                localStorage.setItem('selectedPlayers', updatedPlayers);
+            } else {
+                alert("You've already selected 5 players!");
+            }
+        }
+    }
+
+    // useEffect(() => {
+    //     alert(selectedPlayers)
+
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
+    
 
     return (
         <>
@@ -536,6 +562,7 @@ export default function FanUpContent() {
                                 <Text css={{
                                     fontWeight: '$semibold',
                                 }}>
+                                    {/* Validate team --> if 200 OK --> save team */}
                                     Save Team
                                 </Text>
                             </Button>
@@ -742,6 +769,9 @@ export default function FanUpContent() {
                         <Table bordered={true}
                         color={'warning'}
                         selectionMode="multiple"
+                        onSelectionChange={(keys) => {
+                            [...keys].map((key) => handlePlayerSelect(Tier1Players[key]))
+                        }}
                             css={{
                                 height: "auto",
                                 minWidth: "100%",
@@ -758,9 +788,9 @@ export default function FanUpContent() {
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
                             </Table.Header>
                             <Table.Body>
-                                {Tier1Players.map((player) => {
+                                {Tier1Players.map((player, index) => {
                                     return (
-                                        <Table.Row>
+                                        <Table.Row key={index} onClick={() => alert("hi")}>
                                             <Table.Cell css={{ textAlign: 'center' }}>
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
@@ -801,7 +831,7 @@ export default function FanUpContent() {
                             <Table.Body>
                                 {Tier2Players.map((player) => {
                                     return (
-                                        <Table.Row>
+                                        <Table.Row onClick={() => alert("hi")}>
                                             <Table.Cell css={{ textAlign: 'center' }}>
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
@@ -842,7 +872,7 @@ export default function FanUpContent() {
                             <Table.Body>
                                 {Tier3Players.map((player) => {
                                     return (
-                                        <Table.Row>
+                                        <Table.Row onClick={() => alert("hi")}>
                                             <Table.Cell css={{ textAlign: 'center' }}>
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
@@ -883,7 +913,7 @@ export default function FanUpContent() {
                             <Table.Body>
                                 {Tier4Players.map((player) => {
                                     return (
-                                        <Table.Row>
+                                        <Table.Row onClick={() => alert("hi")}>
                                             <Table.Cell css={{ textAlign: 'center' }}>
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
