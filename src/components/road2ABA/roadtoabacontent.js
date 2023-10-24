@@ -34,7 +34,7 @@ export default function RoadToABAContents(){
                         color: '#163364'
                     }}>
 
-                        {/* Player Registration */}
+                        {/* Registration */}
                         <Row
                         css={{
                             jc: 'center',
@@ -267,7 +267,7 @@ Player Registration on 3rd October closed in less than an hour with over 12 peop
                             </Grid>
                         </Row>
 
-                        {/* Team Registration */}
+                        {/* Quest For the Best*/}
                         <Row
                         css={{
                             jc: 'center',
@@ -464,7 +464,7 @@ There was a significant number of people in the audience who were also given a c
                             </Grid>
                         </Row>
 
-                        {/* Foosball Event */}
+                        {/* Scouting Games */}
                         <Row
                         css={{
                             jc: 'center',
@@ -660,7 +660,7 @@ On the second day, ABA collabed with the Ashokan fashion club, CLAD, who set up 
                             </Grid>
                         </Row>
 
-                        {/* Fifa Event */}
+                        {/* Auction Night */}
                         <Row
                         css={{
                             jc: 'center',
@@ -852,7 +852,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                             </Grid>
                         </Row>
 
-                        {/* Predictions Event */}
+                        {/* Practice Games */}
                         <Row
                         css={{
                             jc: 'center',
@@ -1047,203 +1047,7 @@ Tensions run high as players are being bid on and teams are trying to bring out 
                             </Grid>
                         </Row>
 
-                        {/* Scouting Games */}
-                        <Row
-                        css={{
-                            jc: 'center',
-                            textAlign: 'center',
-                            alignItems: 'center'
-                        }}>
-                            {/* Date-Timeline */}
-                            <Grid hideIn={'sm'}
-                            css={{
-                                jc: 'center',
-                                textAlign: 'center',
-                                alignItems: 'center',
-                            }}>
-                                <Text hideIn={'sm'}
-                                css={{
-                                    fontSize: '$2xl',
-                                    fontWeight: '$semibold',
-                                    alignItems: 'baseline',
-                                    width: '180px',
-                                    color:'#163364'
-                                }}>
-                                    26th October 2023 
-                                    
-                                </Text>
-                            </Grid>
-                            <Grid showIn={'sm'}>
-                                <Col 
-                                css={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    jc: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    width: '70px',
-                                    color:'#163364'
-                                }}> 
-                                    <Text showIn={'sm'}
-                                    css={{
-                                        fontSize: '$lg',
-                                        fontWeight: '$semibold',
-                                        textAlign: 'center',
-                                        color:'#163364'
-                                    }}>
-                                        26th
-                                        
-                                    </Text>
-                                    <Text showIn={'sm'}
-                                    css={{
-                                        fontSize: '$lg',
-                                        fontWeight: '$semibold',
-                                        textAlign: 'center',
-                                        color:'#163364'
-                                    }}>
-                                        October
-                                        
-                                    </Text>
-                                    <Text showIn={'sm'}
-                                    css={{
-                                        fontSize: '$lg',
-                                        fontWeight: '$semibold',
-                                        textAlign: 'center',
-                                        color:'#163364'
-                                    }}>
-                                        2023 
-            
-                                    </Text>
-                                    
-                                </Col>
-
-                            </Grid>
-
-                            {/* Content Card */}
-                            <Grid
-                            css={{
-                                borderStyle: 'solid',
-                                borderWidth: '0px 0px 0px 2px',
-                                borderColor: '#ff9f56'
-                            }}>
-                                <Grid.Container gap={0}
-                                css={{
-                                    jc: 'flex-start',
-                                    textAlign: 'center',
-                                    alignItems: 'center',
-                                }}>
-                                    {/* Image side grid */}
-                                    <Grid
-                                    css={{
-                                        alignItems: 'center',
-                                        margin: '0px 10px 0px 10px'
-                                    }}>
-                                        <Image css={{
-                                            '@xsMin':{
-                                                width: '250px',
-                                                height: '250px',
-                                                borderRadius: '20px'
-                                            },
-                                            '@xsMax':{
-                                                width: '200px',
-                                                height: '200px',
-                                                borderRadius: '20px'
-                                            },
-                                            objectFit: 'cover'
-                                        }} src={openingnight}  />
-                                    </Grid>
-
-                                    {/* Text side grid */}
-                                    <Grid
-                                    css={{
-                                        jc: 'center',
-                                        textAlign: 'center',
-                                        alignItems: 'center',
-                                    }}>
-                                        <Col>
-                                                {/* Title */}
-                                                <Grid.Container gap={0.5}
-                                                css={{
-                                                    jc: 'center',
-                                                    maxWidth: 'fit-content',
-                                                    textAlign: 'center',
-                                                    alignItems: 'center',
-                                                }}>
-                                                    <Grid>
-                                                        <Text hideIn={'sm'}
-                                                        css={{
-                                                            jc: 'center',
-                                                            textAlign: 'center',
-                                                            fontSize: '$4xl',
-                                                            fontWeight: '$bold',
-                                                            borderStyle: 'solid',
-                                                            borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#ff9f56',
-                                                            color:'#163364'
-                                                        }}>
-                                                         Opening Night
-                                                        </Text>
-                                                        <Text showIn={'sm'}
-                                                        css={{
-                                                            jc: 'center',
-                                                            textAlign: 'center',
-                                                            fontSize: '$2xl',
-                                                            fontWeight: '$bold',
-                                                            borderStyle: 'solid',
-                                                            borderWidth: '0px 0px 2px 0px',
-                                                            borderColor: '#ff9f56',
-                                                            color:'#163364'
-                                                        }}>
-                                                        Opening Night
-                                                        </Text>
-                                                    </Grid>
-                                                </Grid.Container>
-                                                
-
-                                                {/* Description 2 */}
-                                                <Grid.Container gap={0.5}
-                                                css={{
-                                                    maxWidth: 'fit-content',
-                                                    jc: 'center',
-                                                    textAlign: 'center',
-                                                    alignItems: 'center',
-                                                }}>
-                                                    <Grid>
-                                                        <Text hideIn={'sm'}
-                                                        css={{
-                                                            jc: 'center',
-                                                            fontWeight: '$medium',
-                                                            textAlign: 'left',
-                                                            fontSize: '$md',
-                                                            width: '500px'
-                                                        }}>
-                                                            An All star game amongst ABA 6.0 and ABA 5.0 captains!! Winner gets the glory. Loser gets a forfeit. Come join us along with Vistaar and Abhinaya for the most fun Thursday night yet!!
-                                                        </Text>
-                                                        <Text showIn={'sm'}
-                                                        css={{
-                                                            jc: 'center',
-                                                            fontWeight: '$medium',
-                                                            textAlign: 'left',
-                                                            fontSize: '$sm',
-                                                            width: '250px'
-                                                        }}>
-                                                           An All star game amongst ABA 6.0 and ABA 5.0 captains!! Winner gets the glory. Loser gets a forfeit. Come join us along with Vistaar and Abhinaya for the most fun Thursday night yet!!
-                                                        </Text>
-                                                    </Grid>
-                                                </Grid.Container>
-
-                                            
-                                                
-
-                                               
-                                
-                                        </Col>
-                                    </Grid>
-
-                                </Grid.Container>
-                            </Grid>
-                        </Row>
-                        {/* Scouting Games */}
+                        {/* ABA 7.0 */}
                         <Row
                         css={{
                             jc: 'center',
