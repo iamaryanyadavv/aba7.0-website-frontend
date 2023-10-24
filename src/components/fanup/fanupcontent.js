@@ -264,6 +264,7 @@ export default function FanUpContent() {
                     sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
                     T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                     selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
                 }
             }
 
@@ -276,6 +277,8 @@ export default function FanUpContent() {
                     sum += parseFloat(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
                     T2Players.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                     selectedPlayers.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
+                    console.log(selectedPlayers[selectedPlayers.length-1])
                 }
             }
         }
@@ -286,17 +289,18 @@ export default function FanUpContent() {
                     sum += parseFloat(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
                     T3Players.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                     selectedPlayers.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
                 }
             }
         }
         if (selectedPlayers4) {
             var priceArr = Array.from(selectedPlayers4)
-
             if (priceArr.length > 0) {
                 for (var i = 0; i < priceArr.length; i++) {
                     sum += parseFloat(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
                     T4Players.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                     selectedPlayers.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
                 }
             }
         }
