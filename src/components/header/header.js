@@ -36,34 +36,14 @@ function Header() {
             </Navbar.Brand>
             <Navbar.Content hideIn="sm" variant="highlight-rounded">
                 {items.map((item, index) => {
-                    if (item.name == 'FanUpxABA Fantasy') {
-                        return (
-                            <Popover>
-                                <Popover.Trigger>
-                                    <Navbar.Link key={index} 
-                                    // isActive={item.href === active.substring(0, item.href.length + 1)} href={item.href}
-                                        css={{
-                                            // fontFamily: 'MEregular'
-                                        }}>
-                                        {item.name}
-                                    </Navbar.Link>
-                                </Popover.Trigger>
-                                <Popover.Content>
-                                    <Text css={{ p: "$10" }}>Coming soon!</Text>
-                                </Popover.Content>
-                            </Popover>
-                        )
-                    }
-                    else {
-                        return (
-                            <Navbar.Link key={index} isActive={item.href === active.substring(0, item.href.length + 1)} href={item.href}
-                                css={{
-                                    // fontFamily: 'MEregular'
-                                }}>
-                                {item.name}
-                            </Navbar.Link>
-                        )
-                    }
+                    return (
+                        <Navbar.Link key={index} isActive={item.href === active.substring(0, item.href.length + 1)} href={item.href}
+                            css={{
+                                // fontFamily: 'MEregular'
+                            }}>
+                            {item.name}
+                        </Navbar.Link>
+                    )
                 })}
 
             </Navbar.Content>
@@ -82,17 +62,17 @@ function Header() {
 
             <Navbar.Collapse showIn={"sm"}>
                 {items.map((item, index) => {
-                    if(item.name!="FanUpxABA Fantasy")return(
-                    <Navbar.CollapseItem key={index} isActive={item.href === active.substring(0, item.href.length + 1)}>
-                        <Link href={item.href}
-                            css={{
-                                minWidth: "100%",
-                            }}
-                        >
-                            {item.name}
-                        </Link>
-                    </Navbar.CollapseItem>)
-})}
+                    return (
+                        <Navbar.CollapseItem key={index} isActive={item.href === active.substring(0, item.href.length + 1)}>
+                            <Link href={item.href}
+                                css={{
+                                    minWidth: "100%",
+                                }}
+                            >
+                                {item.name}
+                            </Link>
+                        </Navbar.CollapseItem>)
+                })}
 
             </Navbar.Collapse>
         </Navbar>
