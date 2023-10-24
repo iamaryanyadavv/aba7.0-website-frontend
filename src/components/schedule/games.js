@@ -20,10 +20,10 @@ export default function Games() {
                 const day1games = []
                 const day2games = []
                 const day3games = []
-                for (var i = 1; i < 11; i++) {
+                for (var i = 1; i < 12; i++) {
                     day1games.push(data.values[i])
                 }
-                for (var i = 13; i < 25; i++) {
+                for (var i = 13; i < 26; i++) {
                     day2games.push(data.values[i])
                 }
                 for (var i = 27; i <= 34; i++) {
