@@ -100,10 +100,10 @@ export default function FanUpContent() {
                         }
                         console.log(usersPlayers[i])
                     }
-                    setSelectedPlayers1(t1p)
-                    setSelectedPlayers2(t2p)
-                    setSelectedPlayers3(t3p)
-                    setSelectedPlayers4(t4p)
+                    // setSelectedPlayers1(t1p)
+                    // setSelectedPlayers2(t2p)
+                    // setSelectedPlayers3(t3p)
+                    // setSelectedPlayers4(t4p)
                     setSelectedPlayers(usersPlayers)
                     setBudget(sum)
                 }
@@ -1063,6 +1063,7 @@ export default function FanUpContent() {
                             selectedKeys={selectedPlayers1}
                             onSelectionChange={setSelectedPlayers1}
                         >
+
                             <Table.Header>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
