@@ -295,7 +295,8 @@ export default function FanUpContent() {
     }
 
     function calculatePrice() {
-        var sum = 0;
+        if(gotUserTeam)
+        {var sum = 0;
         var T1Players = []
         var T2Players = []
         var T3Players = []
@@ -397,7 +398,7 @@ export default function FanUpContent() {
         // console.log('final', finalPlayers)
         setSelectedPlayers(finalPlayers)
 
-        return true;
+        return true;}
     }
 
 
