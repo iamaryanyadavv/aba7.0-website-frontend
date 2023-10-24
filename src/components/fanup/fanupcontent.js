@@ -48,7 +48,6 @@ export default function FanUpContent() {
     // ---------------------------------------------------------
 
     const getUserTeam = async (user) => {
-        getAllPlayers()
         setLoginLoader(false)
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getTeam?email=${user.email}`)
             .then(response => response.json())
@@ -117,7 +116,7 @@ export default function FanUpContent() {
         // get user's team and set player1-5, player1-5email IDS, and player 1-5 genders
     }
 
-    const getAllPlayers = async () => {
+    const getAllPlayers = async (user) => {
         await fetch('https://aba-backend-gr9t.onrender.com/aba7players')
             .then(response => response.json())
             .then((players) => {
@@ -145,6 +144,7 @@ export default function FanUpContent() {
                 setTier4Players(tier4)
                 setGotAllPlayers(true)
             })
+        await getUserTeam(user)
     }
 
     // VALIDATION
@@ -293,11 +293,11 @@ export default function FanUpContent() {
         document.getElementById("GoogleButton").hidden = true;
         setUser(userObject)
         setSignedin(true)
-        getUserTeam(userObject)
+        getAllPlayers(userObject)
     }
 
     function calculatePrice() {
-        if (gotUserTeam && gotAllPlayers) {
+        // if (gotUserTeam) {
             var sum = 0;
             var T1Players = []
             var T2Players = []
@@ -393,7 +393,7 @@ export default function FanUpContent() {
             setSelectedPlayers(finalPlayers)
 
             return true;
-        }
+        // }
     }
 
 
@@ -520,6 +520,8 @@ export default function FanUpContent() {
 
                 </Modal>
             }
+
+            {console.log(selectedPlayers)}
 
             {signedin && !LoginLoader &&
                 <Grid.Container css={{
