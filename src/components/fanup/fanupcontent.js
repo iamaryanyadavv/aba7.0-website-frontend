@@ -1116,7 +1116,7 @@ export default function FanUpContent() {
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
                             </Table.Header>
@@ -1134,7 +1134,7 @@ export default function FanUpContent() {
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
                                         </Table.Row>
@@ -1163,7 +1163,7 @@ export default function FanUpContent() {
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
                             </Table.Header>
@@ -1179,7 +1179,7 @@ export default function FanUpContent() {
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
                                         </Table.Row>
@@ -1207,7 +1207,7 @@ export default function FanUpContent() {
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
                             </Table.Header>
@@ -1223,7 +1223,7 @@ export default function FanUpContent() {
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
                                         </Table.Row>
@@ -1251,7 +1251,7 @@ export default function FanUpContent() {
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Auction Price</Table.Column>
+                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
                             </Table.Header>
@@ -1267,7 +1267,7 @@ export default function FanUpContent() {
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
                                         </Table.Row>
