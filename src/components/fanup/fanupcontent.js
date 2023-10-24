@@ -7,6 +7,7 @@ import './fanup.css'
 
 export default function FanUpContent() {
     const [LoginLoader, setLoginLoader] = useState(false);
+    const [SaveBTNLoader, setSaveBTNLoader] = useState(false);
     const [User, setUser] = useState({})
     const [signedin, setSignedin] = useState(false)
     const [selectedRows, setSelectedRows] = useState([]);
@@ -21,7 +22,9 @@ export default function FanUpContent() {
 
     const [GridNo, setGridNo] = useState(0)
     const [ShowPlayersModal, setShowPlayersModal] = useState(false)
-    const [SavedSuccessfully, setSavedSuccessfully] = useState()
+    const [ShowResModal, setShowResModal] = useState(false)
+    const [ValidatedSuccessfully, setValidatedSuccessfully] = useState(false)
+    const [SavedSuccessfully, setSavedSuccessfully] = useState(false)
     // -------------------------------------------------------
 
     // Select Player Modal -------------------------------------
@@ -48,7 +51,38 @@ export default function FanUpContent() {
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getTeam?email=${user.email}`)
             .then(response => response.json())
             .then((fantasydata) => {
-                // use the response as the team data and set it accordingly
+                console.log(fantasydata)
+                if (fantasydata[0].length > 0) {
+                    var player1 = []
+                    var player2 = []
+                    var player3 = []
+                    var player4 = []
+                    var player5 = []
+                    var sum = parseFloat(fantasydata[6]) + parseFloat(fantasydata[11]) + parseFloat(fantasydata[16]) + parseFloat(fantasydata[21]) + parseFloat(fantasydata[26])
+
+                    for (var i = 0; i < fantasydata.length; i++) {
+                        if (i >= 3 && i <= 7) {
+                            player1.push(fantasydata[i])
+                        }
+                        if (i >= 8 && i <= 12) {
+                            player2.push(fantasydata[i])
+                        }
+                        if (i >= 13 && i <= 17) {
+                            player3.push(fantasydata[i])
+                        }
+                        if (i >= 18 && i <= 22) {
+                            player4.push(fantasydata[i])
+                        }
+                        if (i >= 23 && i <= 27) {
+                            player5.push(fantasydata[i])
+                        }
+                    }
+
+                    var usersPlayers = [player1, player2, player3, player4, player5]
+                    setSelectedPlayers(usersPlayers)
+                    setBudget(sum)
+                }
+
             })
         // get user's team and set player1-5, player1-5email IDS, and player 1-5 genders
     }
@@ -82,111 +116,123 @@ export default function FanUpContent() {
             })
     }
 
-    async function sendTeam() {
-            if(selectedPlayers)
-            {
-                console.log(selectedPlayers)
-                const res = await fetch('https://aba-backend-gr9t.onrender.com/fantasy/validateTeam', {
-            method: 'POST',
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({
-                picture:User.picture,
-                name: User.name,
-                email:User.email,
-                player1: selectedPlayers[0][1],
-                player1photo: selectedPlayers[0][0],
-                player1gender: selectedPlayers[0][9],
-                player1price: selectedPlayers[0][18],
-                player1team:selectedPlayers[0][7],
-                player2:selectedPlayers[1][1],
-                player2photo:selectedPlayers[1][0],
-                player2gender:selectedPlayers[1][9],
-                player2price:selectedPlayers[1][18],
-                player2team:selectedPlayers[1][7],
-                player3:selectedPlayers[2][1],
-                player3photo:selectedPlayers[2][0],
-                player3gender:selectedPlayers[2][9],
-                player3price:selectedPlayers[2][18],
-                player3team:selectedPlayers[2][7],
-                player4:selectedPlayers[3][1],
-                player4photo:selectedPlayers[3][0],
-                player4gender:selectedPlayers[3][9],
-                player4price:selectedPlayers[3][18],
-                player4team:selectedPlayers[3][7],
-                player5:selectedPlayers[4][1],
-                player5photo:selectedPlayers[4][0],
-                player5gender:selectedPlayers[4][9],
-                player5price:selectedPlayers[4][18],
-                player5team:selectedPlayers[4][7],
-                
-            })
-        })
-        if (res.status == 200) {
-            setSavedSuccessfully(true)
-            sendFinalTeam()
+    // VALIDATION
+    async function validateTeam() {
+        if (selectedPlayers) {
+            console.log(selectedPlayers)
+            const res = await fetch('https://aba-backend-gr9t.onrender.com/fantasy/validateTeam', {
+                method: 'POST',
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                    picture: User.picture,
+                    name: User.name,
+                    email: User.email,
 
-        }
-        else {
-            setSavedSuccessfully(false)
-            alert("INVALID TEAM!")
-        }
-        }
-            
-    }
+                    player1photo: selectedPlayers[0][0],
+                    player1: selectedPlayers[0][1],
+                    player1gender: selectedPlayers[0][9],
+                    player1price: selectedPlayers[0][18],
+                    player1team: selectedPlayers[0][7],
 
-    async function sendFinalTeam()
-    {
-        if(selectedPlayers)
-            {
-                console.log(selectedPlayers)
-                const res = await fetch('https://aba-backend-gr9t.onrender.com/fantasy/saveTeam', {
-            method: 'POST',
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({
-                picture:User.picture,
-                name: User.name,
-                email:User.email,
-                player1: selectedPlayers[0][1],
-                player1photo: selectedPlayers[0][0],
-                player1gender: selectedPlayers[0][9],
-                player1price: selectedPlayers[0][18],
-                player1team:selectedPlayers[0][7],
-                player2:selectedPlayers[1][1],
-                player2photo:selectedPlayers[1][0],
-                player2gender:selectedPlayers[1][9],
-                player2price:selectedPlayers[1][18],
-                player2team:selectedPlayers[1][7],
-                player3:selectedPlayers[2][1],
-                player3photo:selectedPlayers[2][0],
-                player3gender:selectedPlayers[2][9],
-                player3price:selectedPlayers[2][18],
-                player3team:selectedPlayers[2][7],
-                player4:selectedPlayers[3][1],
-                player4photo:selectedPlayers[3][0],
-                player4gender:selectedPlayers[3][9],
-                player4price:selectedPlayers[3][18],
-                player4team:selectedPlayers[3][7],
-                player5:selectedPlayers[4][1],
-                player5photo:selectedPlayers[4][0],
-                player5gender:selectedPlayers[4][9],
-                player5price:selectedPlayers[4][18],
-                player5team:selectedPlayers[4][7],
-                
+                    player2photo: selectedPlayers[1][0],
+                    player2: selectedPlayers[1][1],
+                    player2gender: selectedPlayers[1][9],
+                    player2price: selectedPlayers[1][18],
+                    player2team: selectedPlayers[1][7],
+
+                    player3photo: selectedPlayers[2][0],
+                    player3: selectedPlayers[2][1],
+                    player3gender: selectedPlayers[2][9],
+                    player3price: selectedPlayers[2][18],
+                    player3team: selectedPlayers[2][7],
+
+                    player4photo: selectedPlayers[3][0],
+                    player4: selectedPlayers[3][1],
+                    player4gender: selectedPlayers[3][9],
+                    player4price: selectedPlayers[3][18],
+                    player4team: selectedPlayers[3][7],
+
+                    player5photo: selectedPlayers[4][0],
+                    player5: selectedPlayers[4][1],
+                    player5gender: selectedPlayers[4][9],
+                    player5price: selectedPlayers[4][18],
+                    player5team: selectedPlayers[4][7],
+
+                })
             })
-        })
-        if (res.status == 200) {
-            setSavedSuccessfully(true)
-        }
-        else {
-            setSavedSuccessfully(false)
-            alert("Failed to send team...")
-        }
+            if (res.status == 200) {
+                setValidatedSuccessfully(true)
+                saveTeam()
+            }
+            else {
+                setSaveBTNLoader(false)
+                setValidatedSuccessfully(false)
+                setShowResModal(true)
+            }
         }
 
     }
 
+    // SAVE TEAM
     async function saveTeam() {
-        await sendTeam();
+        if (selectedPlayers) {
+            console.log(selectedPlayers)
+            const res = await fetch('https://aba-backend-gr9t.onrender.com/fantasy/saveTeam', {
+                method: 'POST',
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                    picture: User.picture,
+                    name: User.name,
+                    email: User.email,
+                    player1photo: selectedPlayers[0][0],
+                    player1: selectedPlayers[0][1],
+                    player1gender: selectedPlayers[0][9],
+                    player1price: selectedPlayers[0][18],
+                    player1team: selectedPlayers[0][7],
+
+                    player2photo: selectedPlayers[1][0],
+                    player2: selectedPlayers[1][1],
+                    player2gender: selectedPlayers[1][9],
+                    player2price: selectedPlayers[1][18],
+                    player2team: selectedPlayers[1][7],
+
+                    player3photo: selectedPlayers[2][0],
+                    player3: selectedPlayers[2][1],
+                    player3gender: selectedPlayers[2][9],
+                    player3price: selectedPlayers[2][18],
+                    player3team: selectedPlayers[2][7],
+
+                    player4photo: selectedPlayers[3][0],
+                    player4: selectedPlayers[3][1],
+                    player4gender: selectedPlayers[3][9],
+                    player4price: selectedPlayers[3][18],
+                    player4team: selectedPlayers[3][7],
+
+                    player5photo: selectedPlayers[4][0],
+                    player5: selectedPlayers[4][1],
+                    player5gender: selectedPlayers[4][9],
+                    player5price: selectedPlayers[4][18],
+                    player5team: selectedPlayers[4][7],
+
+
+                })
+            })
+            if (res.status == 200) {
+                setSaveBTNLoader(false)
+                setSavedSuccessfully(true)
+                setShowResModal(true)
+            }
+            else {
+                setSaveBTNLoader(false)
+                setSavedSuccessfully(false)
+                setShowResModal(true)
+            }
+        }
+
+    }
+
+    async function checkTeam() {
+        await validateTeam();
     }
 
     //12:30pm on 27th October, 2023 GMT or 6pm on 27th October, 2023 IST
@@ -203,6 +249,7 @@ export default function FanUpContent() {
         setSignedin(true)
         getUserTeam(userObject)
     }
+
     function calculatePrice() {
         var sum = 0;
         var T1Players = []
@@ -210,71 +257,68 @@ export default function FanUpContent() {
         var T3Players = []
         var T4Players = []
         var selectedPlayers = []
-        if(selectedPlayers1)
-        {
+        if (selectedPlayers1) {
             var priceArr = Array.from(selectedPlayers1)
-            if(priceArr.length>0)
-            {
-                for(var i = 0;i<priceArr.length;i++)
-                {
-                    sum+=parseFloat(Tier1Players[parseInt(priceArr[i])][18])
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    sum += parseFloat(Tier1Players[parseInt(priceArr[i])][18])
                     T1Players.push(Tier1Players[parseInt(priceArr[i])])
                     selectedPlayers.push(Tier1Players[parseInt(priceArr[i])])
                 }
-            }   
-            
+            }
+
         }
-        if(selectedPlayers2)
-        {
-            
+        if (selectedPlayers2) {
+
             var priceArr = Array.from(selectedPlayers2)
-            if(priceArr.length>0)
-            {
-                for(var i = 0;i<priceArr.length;i++)
-                {
-                    sum+=parseFloat(Tier2Players[parseInt(priceArr[i][priceArr[i].length-1])][18])
-                    T2Players.push(Tier2Players[parseInt(priceArr[i][priceArr[i].length-1])])
-                    selectedPlayers.push(Tier2Players[priceArr[i][priceArr[i].length-1]])
-                    console.log(Tier2Players[priceArr[i][priceArr[i].length-1]])
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    sum += parseFloat(Tier2Players[parseInt(priceArr[i][priceArr[i].length - 1])][18])
+                    T2Players.push(Tier2Players[parseInt(priceArr[i][priceArr[i].length - 1])])
+                    selectedPlayers.push(Tier2Players[priceArr[i][priceArr[i].length - 1]])
+                    // console.log(Tier2Players[priceArr[i][priceArr[i].length-1]])
                 }
-            }   
+            }
         }
-        if(selectedPlayers3)
-        {
+        if (selectedPlayers3) {
             var priceArr = Array.from(selectedPlayers3)
-            if(priceArr.length>0)
-            {
-                for(var i = 0;i<priceArr.length;i++)
-                {
-                    sum+=parseFloat(Tier3Players[priceArr[i][priceArr[i].length-1]][18])
-                    T3Players.push(Tier3Players[priceArr[i][priceArr[i].length-1]])
-                    selectedPlayers.push(Tier3Players[priceArr[i][priceArr[i].length-1]])
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    sum += parseFloat(Tier3Players[priceArr[i][priceArr[i].length - 1]][18])
+                    T3Players.push(Tier3Players[priceArr[i][priceArr[i].length - 1]])
+                    selectedPlayers.push(Tier3Players[priceArr[i][priceArr[i].length - 1]])
                 }
-            }   
+            }
         }
-        if(selectedPlayers4)
-        {
+        if (selectedPlayers4) {
             var priceArr = Array.from(selectedPlayers4)
 
-            if(priceArr.length>0)
-            {
-                for(var i = 0;i<priceArr.length;i++)
-                {
-                    sum+=parseFloat(Tier4Players[priceArr[i][priceArr[i].length-1]][18])
-                    T4Players.push(Tier4Players[priceArr[i][priceArr[i].length-1]])
-                    selectedPlayers.push(Tier4Players[priceArr[i][priceArr[i].length-1]])
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    sum += parseFloat(Tier4Players[priceArr[i][priceArr[i].length - 1]][18])
+                    T4Players.push(Tier4Players[priceArr[i][priceArr[i].length - 1]])
+                    selectedPlayers.push(Tier4Players[priceArr[i][priceArr[i].length - 1]])
                 }
-            }   
+            }
         }
-        setBudget(sum)  
+        setBudget(sum)
         setselectedTier1Players(T1Players)
         setselectedTier2Players(T2Players)
         setselectedTier3Players(T3Players)
         setselectedTier4Players(T4Players)
-        setSelectedPlayers(selectedPlayers)
+
+        var finalPlayers = []
+        selectedPlayers.map((player, index) => {
+            if (index < 5) {
+                finalPlayers.push(player)
+            }
+        })
+        // console.log('final', finalPlayers)
+        setSelectedPlayers(finalPlayers)
+
         return true;
     }
-    
+
 
     useEffect(() => {
         setLoginLoader(true)
@@ -289,13 +333,13 @@ export default function FanUpContent() {
                 { theme: 'outlined', size: 'large', shape: 'pill', }
             );
             setLoginLoader(false)
-        }, 2000)
+        }, 3000)
 
     }, [isTimeUp])
 
-    useEffect(()=>{
+    useEffect(() => {
         calculatePrice()
-    }, [selectedPlayers1,selectedPlayers2, selectedPlayers3, selectedPlayers4])
+    }, [selectedPlayers1, selectedPlayers2, selectedPlayers3, selectedPlayers4])
 
     return (
         <>
@@ -321,6 +365,8 @@ export default function FanUpContent() {
                 <Grid.Container
                     css={{
                         jc: 'center',
+                        backgroundColor: '#faf7ea',
+                        borderRadius: '20px 20px 0px 0px'
                     }}>
                     <Col css={{
                         display: 'flex',
@@ -328,7 +374,7 @@ export default function FanUpContent() {
                         justifyContent: 'center',
                         textAlign: 'center',
                         alignItems: 'center',
-                        margin: '20vh 0px 40vh 0px'
+                        margin: '20vh 0px 30vh 0px'
                     }}>
                         <div className="GoogleButton" id='GoogleButton'></div>
                         <Text css={{
@@ -446,7 +492,7 @@ export default function FanUpContent() {
                                 },
                                 margin: '0px 0px 0px 8px'
                             }}>
-                                {budget}
+                                ${budget} Mil
                             </Text>
                         </Row>
                         <Col css={{
@@ -459,7 +505,6 @@ export default function FanUpContent() {
                         }}
                             className="fantasy-court"
                         >
-
                             <Row css={{
                                 justifyContent: 'center',
                             }}>
@@ -475,17 +520,31 @@ export default function FanUpContent() {
                                         setShowPlayersModal(true)
                                         setGridNo(1)
                                     }}>
-                                    <Image
-                                        src={Blank}
-                                        css={{
-                                            // borderStyle: 'solid',
-                                            // borderWidth: '2px',
-                                            // borderColor: '#ff9f56',
-                                            borderRadius: '4px',
-                                        }}
-                                        width={100}
-                                        height={150}
-                                    />
+                                    {selectedPlayers[0] ?
+                                        <Image
+                                            src={selectedPlayers[0][0]}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                        :
+                                        <Image
+                                            src={Blank}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                    }
                                 </Grid>
                                 <Grid css={{
                                     margin: '24px 24px',
@@ -499,18 +558,31 @@ export default function FanUpContent() {
                                         setShowPlayersModal(true)
                                         setGridNo(2)
                                     }}>
-                                    <Image
-                                        src={Blank}
-                                        css={{
-                                            // borderStyle: 'solid',
-                                            // borderWidth: '2px',
-                                            // borderColor: '#ff9f56',
-                                            borderRadius: '4px',
-
-                                        }}
-                                        width={100}
-                                        height={150}
-                                    />
+                                    {selectedPlayers[1] ?
+                                        <Image
+                                            src={selectedPlayers[1][0]}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                        :
+                                        <Image
+                                            src={Blank}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                    }
                                 </Grid>
                             </Row>
 
@@ -529,18 +601,31 @@ export default function FanUpContent() {
                                         setShowPlayersModal(true)
                                         setGridNo(3)
                                     }}>
-                                    <Image
-                                        src={Blank}
-                                        css={{
-                                            // borderStyle: 'solid',
-                                            // borderWidth: '2px',
-                                            // borderColor: '#ff9f56',
-                                            borderRadius: '4px',
-
-                                        }}
-                                        width={100}
-                                        height={150}
-                                    />
+                                    {selectedPlayers[2] ?
+                                        <Image
+                                            src={selectedPlayers[2][0]}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                        :
+                                        <Image
+                                            src={Blank}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                    }
                                 </Grid>
                             </Row>
 
@@ -559,18 +644,31 @@ export default function FanUpContent() {
                                         setShowPlayersModal(true)
                                         setGridNo(4)
                                     }}>
-                                    <Image
-                                        src={Blank}
-                                        css={{
-                                            // borderStyle: 'solid',
-                                            // borderWidth: '2px',
-                                            // borderColor: '#ff9f56',
-                                            borderRadius: '4px',
-
-                                        }}
-                                        width={100}
-                                        height={150}
-                                    />
+                                    {selectedPlayers[3] ?
+                                        <Image
+                                            src={selectedPlayers[3][0]}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                        :
+                                        <Image
+                                            src={Blank}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                    }
                                 </Grid>
                                 <Grid css={{
                                     margin: '24px 24px',
@@ -584,18 +682,31 @@ export default function FanUpContent() {
                                         setShowPlayersModal(true)
                                         setGridNo(5)
                                     }}>
-                                    <Image
-                                        src={Blank}
-                                        css={{
-                                            // borderStyle: 'solid',
-                                            // borderWidth: '2px',
-                                            // borderColor: '#ff9f56',
-                                            borderRadius: '4px',
-
-                                        }}
-                                        width={100}
-                                        height={150}
-                                    />
+                                    {selectedPlayers[4] ?
+                                        <Image
+                                            src={selectedPlayers[4][0]}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                        :
+                                        <Image
+                                            src={Blank}
+                                            css={{
+                                                // borderStyle: 'solid',
+                                                // borderWidth: '2px',
+                                                // borderColor: '#ff9f56',
+                                                borderRadius: '4px',
+                                            }}
+                                            width={100}
+                                            height={150}
+                                        />
+                                    }
                                 </Grid>
                             </Row>
                         </Col>
@@ -644,7 +755,7 @@ export default function FanUpContent() {
                                 },
                                 fontWeight: '$medium'
                             }}>
-                                2. Minimum number of players to save your team = 5
+                                2. Number of players to save your team = 5
                             </Text>
                             <Text css={{
                                 '@xsMin': {
@@ -655,7 +766,7 @@ export default function FanUpContent() {
                                 },
                                 fontWeight: '$medium'
                             }}>
-                                3. Minimum number of women in your team = 2
+                                3. Number of non-cis men in your team &gt;= 2
                             </Text>
                             <Text css={{
                                 '@xsMin': {
@@ -666,7 +777,7 @@ export default function FanUpContent() {
                                 },
                                 fontWeight: '$medium'
                             }}>
-                                4. Cannot have more than 2 players from one team
+                                4. Number of players from one team &lt;= 2
                             </Text>
                             <Text css={{
                                 '@xsMin': {
@@ -679,16 +790,21 @@ export default function FanUpContent() {
                             }}>
                                 5. Cannot have the same player more than once in your team.
                             </Text>
-                            <Button auto flat color={'warning'} onClick={saveTeam}
+                            <Button auto flat color={'warning'} onClick={checkTeam}
+                                disabled={SaveBTNLoader}
                                 css={{
                                     margin: '12px 0px'
                                 }}>
-                                <Text css={{
-                                    fontWeight: '$semibold',
-                                }}>
-                                    {/* Validate team --> if 200 OK --> save team */}
-                                    Save Team
-                                </Text>
+                                {SaveBTNLoader ?
+                                    <Loading type="points-opacity" color="warning" size="sm" />
+                                    :
+                                    <Text css={{
+                                        fontWeight: '$semibold',
+                                    }}>
+                                        {/* Validate team --> if 200 OK --> save team */}
+                                        Save Team
+                                    </Text>
+                                }
                             </Button>
                         </Col>
                     </Grid>
@@ -698,12 +814,14 @@ export default function FanUpContent() {
             }
 
             <Modal
-                fullScreen={true}
+                fullScreen={false}
+                width="950px"
                 closeButton
                 open={ShowPlayersModal}
-                onClose={()=>{
+                onClose={() => {
                     setShowPlayersModal(false)
-                }}>
+                }}
+            >
                 <Modal.Header>
                     <Text
                         css={{
@@ -891,8 +1009,9 @@ export default function FanUpContent() {
 
                     {OneReady && Tier1Players &&
                         <Table bordered={true}
-                        color={'warning'}
-                        selectionMode="multiple"                     
+                            color={'warning'}
+                            selectionMode="multiple"
+                            aria-label="Tier 1 Table"
                             css={{
                                 height: "auto",
                                 minWidth: "100%",
@@ -916,7 +1035,7 @@ export default function FanUpContent() {
                                     return (
                                         <Table.Row
                                             key={index}
-                                            >   
+                                        >
                                             <Table.Cell css={{ textAlign: 'center' }}>
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
@@ -937,15 +1056,16 @@ export default function FanUpContent() {
 
                     {TwoReady && Tier2Players &&
                         <Table bordered={true}
-                        color={'warning'}
-                        selectionMode="multiple"
+                            color={'warning'}
+                            selectionMode="multiple"
+                            aria-label="Tier 2 Table"
                             css={{
                                 height: "auto",
                                 minWidth: "100%",
                             }}
                             selectedKeys={selectedPlayers2}
                             onSelectionChange={setSelectedPlayers2}
-                            >
+                        >
                             <Table.Header>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
                                 <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
@@ -981,8 +1101,9 @@ export default function FanUpContent() {
 
                     {ThreeReady && Tier3Players &&
                         <Table bordered={true}
-                        color={'warning'}
-                        selectionMode="multiple"
+                            color={'warning'}
+                            selectionMode="multiple"
+                            aria-label="Tier 3 Table"
                             css={{
                                 height: "auto",
                                 minWidth: "100%",
@@ -1024,8 +1145,9 @@ export default function FanUpContent() {
 
                     {FourReady && Tier4Players &&
                         <Table bordered={true}
-                        color={'warning'}
-                        selectionMode="multiple"
+                            color={'warning'}
+                            selectionMode="multiple"
+                            aria-label="Tier 4 Table"
                             css={{
                                 height: "auto",
                                 minWidth: "100%",
@@ -1066,6 +1188,138 @@ export default function FanUpContent() {
                     }
 
                 </Modal.Body>
+            </Modal>
+
+            <Modal
+                fullScreen={false}
+                closeButton
+                open={ShowResModal}
+                onClose={() => {
+                    setShowResModal(false)
+                }}
+            >
+                {/* Not validated */}
+                {ValidatedSuccessfully == false && SavedSuccessfully == false &&
+                    <>
+                        <Modal.Header>
+                            <Text
+                                css={{
+                                    '@xsMax': {
+                                        fontSize: '$md',
+                                        fontWeight: '$medium'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$xl',
+                                        fontWeight: '$medium'
+                                    },
+                                    border: 'solid',
+                                    borderColor: '#faf7ea',
+                                    borderWidth: '0px 0px 2px 0px',
+                                    color: '$red600'
+                                }}>
+                                Unsuccessful save...!
+                            </Text>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Text
+                                css={{
+                                    '@xsMax': {
+                                        fontSize: '$sm',
+                                        fontWeight: '$medium'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$base',
+                                        fontWeight: '$medium'
+                                    },
+                                }}>
+                                Invalid team! Please check the rules and try again.
+                                If error persists, please email a screenshot of your team and error message to aba@ashoka.edu.in
+                            </Text>
+                        </Modal.Body>
+                    </>
+                }
+
+                {/* Validated but not saved */}
+                {ValidatedSuccessfully == true && SavedSuccessfully == false &&
+                    <>
+                        <Modal.Header >
+                            <Text
+                                css={{
+                                    '@xsMax': {
+                                        fontSize: '$md',
+                                        fontWeight: '$medium'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$xl',
+                                        fontWeight: '$medium'
+                                    },
+                                    border: 'solid',
+                                    borderColor: '#faf7ea',
+                                    borderWidth: '0px 0px 2px 0px',
+                                    color: '$red600'
+                                }}>
+                                Unsuccessful save...!
+                            </Text>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Text
+                                css={{
+                                    '@xsMax': {
+                                        fontSize: '$sm',
+                                        fontWeight: '$medium'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$base',
+                                        fontWeight: '$medium'
+                                    },
+                                }}>
+                                Valid team but unable to save. Please check your internet connection and try again.
+                                If error persists, please email a screenshot of your team and error message to aba@ashoka.edu.in
+                            </Text>
+                        </Modal.Body>
+                    </>
+                }
+
+                {/* Validated and saved */}
+                {ValidatedSuccessfully == true && SavedSuccessfully == true &&
+                    <>
+                        <Modal.Header>
+                            <Text
+                                css={{
+                                    '@xsMax': {
+                                        fontSize: '$md',
+                                        fontWeight: '$medium'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$xl',
+                                        fontWeight: '$medium'
+                                    },
+                                    border: 'solid',
+                                    borderColor: '#faf7ea',
+                                    borderWidth: '0px 0px 2px 0px',
+                                    color: '$green600'
+                                }}>
+                                Successful save...!
+                            </Text>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Text
+                                css={{
+                                    '@xsMax': {
+                                        fontSize: '$sm',
+                                        fontWeight: '$medium'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$base',
+                                        fontWeight: '$medium'
+                                    },
+                                }}>
+                                Your team has been successfully saved in the database! Thank you.
+                            </Text>
+                        </Modal.Body>
+                    </>
+                }
+
             </Modal>
         </>
     )

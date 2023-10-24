@@ -27,7 +27,7 @@ function Header() {
                     transitionProperty: 'transform',
                     '&:hover': {
                         cursor: 'pointer',
-                        transform: 'rotate(180deg)',
+                        transform: 'rotate(360deg)',
                     }
                 }} src={Logo}
                     onClick={() => {
