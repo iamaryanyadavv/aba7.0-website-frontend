@@ -355,8 +355,12 @@ export default function FanUpContent() {
 
 
     useEffect(() => {
-        setLoginLoader(true)
-        window.setTimeout(() => {
+        const script = document.createElement('script');
+        script.src = 'https://accounts.google.com/gsi/client';
+        script.async = true;
+        script.onload = () => {
+            setLoginLoader(false);
+
             window.google.accounts.id.initialize({
                 client_id: "361029505972-bds31bk8tege2lhk8eec4iftajlgp5om.apps.googleusercontent.com",
                 callback: handleCallbackresponse
@@ -366,10 +370,14 @@ export default function FanUpContent() {
                 document.getElementById("GoogleButton"),
                 { theme: 'outlined', size: 'large', shape: 'pill', }
             );
-            setLoginLoader(false)
-        }, 2000)
+        };
+        document.head.appendChild(script);
 
-    }, [isTimeUp])
+        return () => {
+            // Cleanup: remove the script if component is unmounted
+            document.head.removeChild(script);
+        };
+    }, []);
 
     useEffect(() => {
         calculatePrice()
