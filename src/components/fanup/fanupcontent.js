@@ -58,27 +58,52 @@ export default function FanUpContent() {
                     var player3 = []
                     var player4 = []
                     var player5 = []
-                    var sum = parseFloat(fantasydata[6]) + parseFloat(fantasydata[11]) + parseFloat(fantasydata[16]) + parseFloat(fantasydata[21]) + parseFloat(fantasydata[26])
+
+                    var t1p = []
+                    var t2p = []
+                    var t3p = []
+                    var t4p = []
+                    var sum = parseFloat(fantasydata[6]) + parseFloat(fantasydata[12]) + parseFloat(fantasydata[18]) + parseFloat(fantasydata[24]) + parseFloat(fantasydata[30])
 
                     for (var i = 0; i < fantasydata.length; i++) {
-                        if (i >= 3 && i <= 7) {
+                        if (i >= 3 && i <= 8) {
                             player1.push(fantasydata[i])
                         }
-                        if (i >= 8 && i <= 12) {
+                        if (i >= 9 && i <= 14) {
                             player2.push(fantasydata[i])
                         }
-                        if (i >= 13 && i <= 17) {
+                        if (i >= 15 && i <= 20) {
                             player3.push(fantasydata[i])
                         }
-                        if (i >= 18 && i <= 22) {
+                        if (i >= 21 && i <= 26) {
                             player4.push(fantasydata[i])
                         }
-                        if (i >= 23 && i <= 27) {
+                        if (i >= 27 && i <= 32) {
                             player5.push(fantasydata[i])
                         }
                     }
 
                     var usersPlayers = [player1, player2, player3, player4, player5]
+                    console.log(usersPlayers)
+                    for(var i=0; i<usersPlayers.length; i++){
+                        if(usersPlayers[i][5]=='1'){
+                            t1p.push(usersPlayers[i])
+                        }
+                        if(usersPlayers[i][5]=='2'){
+                            t2p.push(usersPlayers[i])
+                        }
+                        if(usersPlayers[i][5]=='3'){
+                            t3p.push(usersPlayers[i])
+                        }
+                        if(usersPlayers[i][5]=='4'){
+                            t4p.push(usersPlayers[i])
+                        }
+                        console.log(usersPlayers[i])
+                    }
+                    setSelectedPlayers1(t1p)
+                    setSelectedPlayers2(t2p)
+                    setSelectedPlayers3(t3p)
+                    setSelectedPlayers4(t4p)
                     setSelectedPlayers(usersPlayers)
                     setBudget(sum)
                 }
@@ -133,30 +158,35 @@ export default function FanUpContent() {
                     player1gender: selectedPlayers[0][9],
                     player1price: selectedPlayers[0][18],
                     player1team: selectedPlayers[0][7],
+                    player1tier: selectedPlayers[0][5],
 
                     player2photo: selectedPlayers[1][0],
                     player2: selectedPlayers[1][1],
                     player2gender: selectedPlayers[1][9],
                     player2price: selectedPlayers[1][18],
                     player2team: selectedPlayers[1][7],
+                    player5tier: selectedPlayers[1][5],
 
                     player3photo: selectedPlayers[2][0],
                     player3: selectedPlayers[2][1],
                     player3gender: selectedPlayers[2][9],
                     player3price: selectedPlayers[2][18],
                     player3team: selectedPlayers[2][7],
+                    player5tier: selectedPlayers[2][5],
 
                     player4photo: selectedPlayers[3][0],
                     player4: selectedPlayers[3][1],
                     player4gender: selectedPlayers[3][9],
                     player4price: selectedPlayers[3][18],
                     player4team: selectedPlayers[3][7],
+                    player5tier: selectedPlayers[3][5],
 
                     player5photo: selectedPlayers[4][0],
                     player5: selectedPlayers[4][1],
                     player5gender: selectedPlayers[4][9],
                     player5price: selectedPlayers[4][18],
                     player5team: selectedPlayers[4][7],
+                    player5tier: selectedPlayers[4][5],
 
                 })
             })
@@ -189,30 +219,35 @@ export default function FanUpContent() {
                     player1gender: selectedPlayers[0][9],
                     player1price: selectedPlayers[0][18],
                     player1team: selectedPlayers[0][7],
+                    player1tier: selectedPlayers[0][5],
 
                     player2photo: selectedPlayers[1][0],
                     player2: selectedPlayers[1][1],
                     player2gender: selectedPlayers[1][9],
                     player2price: selectedPlayers[1][18],
                     player2team: selectedPlayers[1][7],
+                    player2tier: selectedPlayers[1][5],
 
                     player3photo: selectedPlayers[2][0],
                     player3: selectedPlayers[2][1],
                     player3gender: selectedPlayers[2][9],
                     player3price: selectedPlayers[2][18],
                     player3team: selectedPlayers[2][7],
+                    player3tier: selectedPlayers[2][5],
 
                     player4photo: selectedPlayers[3][0],
                     player4: selectedPlayers[3][1],
                     player4gender: selectedPlayers[3][9],
                     player4price: selectedPlayers[3][18],
                     player4team: selectedPlayers[3][7],
+                    player4tier: selectedPlayers[3][5],
 
                     player5photo: selectedPlayers[4][0],
                     player5: selectedPlayers[4][1],
                     player5gender: selectedPlayers[4][9],
                     player5price: selectedPlayers[4][18],
                     player5team: selectedPlayers[4][7],
+                    player5tier: selectedPlayers[4][5],
 
 
                 })
@@ -823,6 +858,8 @@ export default function FanUpContent() {
 
                 </Grid.Container>
             }
+
+            {/* {console.log(selectedPlayers)} */}
 
             <Modal
                 fullScreen={false}
