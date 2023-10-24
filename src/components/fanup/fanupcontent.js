@@ -103,10 +103,10 @@ export default function FanUpContent() {
                         }
                         console.log(usersPlayers[i])
                     }
-                    // setSelectedPlayers1(t1p)
-                    // setSelectedPlayers2(t2p)
-                    // setSelectedPlayers3(t3p)
-                    // setSelectedPlayers4(t4p)
+                    setSelectedPlayers1(t1p)
+                    setSelectedPlayers2(t2p)
+                    setSelectedPlayers3(t3p)
+                    setSelectedPlayers4(t4p)
                     setSelectedPlayers(usersPlayers)
                     setBudget(sum)
                     setGotUserTeam(true)
