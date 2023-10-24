@@ -261,9 +261,9 @@ export default function FanUpContent() {
             var priceArr = Array.from(selectedPlayers1)
             if (priceArr.length > 0) {
                 for (var i = 0; i < priceArr.length; i++) {
-                    sum += parseFloat(Tier1Players[parseInt(priceArr[i])][18])
-                    T1Players.push(Tier1Players[parseInt(priceArr[i])])
-                    selectedPlayers.push(Tier1Players[parseInt(priceArr[i])])
+                    sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
+                    T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                 }
             }
 
@@ -273,10 +273,9 @@ export default function FanUpContent() {
             var priceArr = Array.from(selectedPlayers2)
             if (priceArr.length > 0) {
                 for (var i = 0; i < priceArr.length; i++) {
-                    sum += parseFloat(Tier2Players[parseInt(priceArr[i][priceArr[i].length - 1])][18])
-                    T2Players.push(Tier2Players[parseInt(priceArr[i][priceArr[i].length - 1])])
-                    selectedPlayers.push(Tier2Players[priceArr[i][priceArr[i].length - 1]])
-                    // console.log(Tier2Players[priceArr[i][priceArr[i].length-1]])
+                    sum += parseFloat(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
+                    T2Players.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                 }
             }
         }
@@ -284,9 +283,9 @@ export default function FanUpContent() {
             var priceArr = Array.from(selectedPlayers3)
             if (priceArr.length > 0) {
                 for (var i = 0; i < priceArr.length; i++) {
-                    sum += parseFloat(Tier3Players[priceArr[i][priceArr[i].length - 1]][18])
-                    T3Players.push(Tier3Players[priceArr[i][priceArr[i].length - 1]])
-                    selectedPlayers.push(Tier3Players[priceArr[i][priceArr[i].length - 1]])
+                    sum += parseFloat(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
+                    T3Players.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                 }
             }
         }
@@ -295,9 +294,9 @@ export default function FanUpContent() {
 
             if (priceArr.length > 0) {
                 for (var i = 0; i < priceArr.length; i++) {
-                    sum += parseFloat(Tier4Players[priceArr[i][priceArr[i].length - 1]][18])
-                    T4Players.push(Tier4Players[priceArr[i][priceArr[i].length - 1]])
-                    selectedPlayers.push(Tier4Players[priceArr[i][priceArr[i].length - 1]])
+                    sum += parseFloat(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
+                    T4Players.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
+                    selectedPlayers.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                 }
             }
         }
