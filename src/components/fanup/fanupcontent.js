@@ -33,7 +33,8 @@ export default function FanUpContent() {
     const [ThreeReady, setThreeReady] = useState(false);
     const [FourReady, setFourReady] = useState(false);
     const [budget, setBudget] = useState(0)
-    const [gotUserTeam,setGotUserTeam] = useState(false)
+    const [gotUserTeam, setGotUserTeam] = useState(false)
+    const [gotAllPlayers, setGotAllPlayers] = useState(false)
 
     const [Tier1Players, setTier1Players] = useState([])
     const [Tier2Players, setTier2Players] = useState([])
@@ -86,19 +87,19 @@ export default function FanUpContent() {
 
                     var usersPlayers = [player1, player2, player3, player4, player5]
                     console.log(usersPlayers)
-                    for(var i=0; i<usersPlayers.length; i++){
-                        if(usersPlayers[i][5]=='1'){
+                    for (var i = 0; i < usersPlayers.length; i++) {
+                        if (usersPlayers[i][5] == '1') {
                             t1p.push(usersPlayers[i][6])
                             console.log("im here")
                             console.log(usersPlayers[i][6])
                         }
-                        if(usersPlayers[i][5]=='2'){
+                        if (usersPlayers[i][5] == '2') {
                             t2p.push(usersPlayers[i][6])
                         }
-                        if(usersPlayers[i][5]=='3'){
+                        if (usersPlayers[i][5] == '3') {
                             t3p.push(usersPlayers[i][6])
                         }
-                        if(usersPlayers[i][5]=='4'){
+                        if (usersPlayers[i][5] == '4') {
                             t4p.push(usersPlayers[i][6])
                         }
                         console.log(usersPlayers[i])
@@ -142,6 +143,7 @@ export default function FanUpContent() {
                 setTier2Players(tier2)
                 setTier3Players(tier3)
                 setTier4Players(tier4)
+                setGotAllPlayers(true)
             })
     }
 
@@ -232,7 +234,7 @@ export default function FanUpContent() {
                     player2price: selectedPlayers[1][18],
                     player2team: selectedPlayers[1][7],
                     player2tier: selectedPlayers[1][5],
-                    player2key: ".1."+selectedPlayers[1][19],
+                    player2key: ".1." + selectedPlayers[1][19],
 
                     player3photo: selectedPlayers[2][0],
                     player3: selectedPlayers[2][1],
@@ -240,7 +242,7 @@ export default function FanUpContent() {
                     player3price: selectedPlayers[2][18],
                     player3team: selectedPlayers[2][7],
                     player3tier: selectedPlayers[2][5],
-                    player3key: ".1."+selectedPlayers[2][19],
+                    player3key: ".1." + selectedPlayers[2][19],
 
                     player4photo: selectedPlayers[3][0],
                     player4: selectedPlayers[3][1],
@@ -248,7 +250,7 @@ export default function FanUpContent() {
                     player4price: selectedPlayers[3][18],
                     player4team: selectedPlayers[3][7],
                     player4tier: selectedPlayers[3][5],
-                    player4key: ".1."+selectedPlayers[3][19],
+                    player4key: ".1." + selectedPlayers[3][19],
 
                     player5photo: selectedPlayers[4][0],
                     player5: selectedPlayers[4][1],
@@ -256,7 +258,7 @@ export default function FanUpContent() {
                     player5price: selectedPlayers[4][18],
                     player5team: selectedPlayers[4][7],
                     player5tier: selectedPlayers[4][5],
-                    player5key: ".1."+selectedPlayers[4][19],
+                    player5key: ".1." + selectedPlayers[4][19],
 
 
                 })
@@ -295,110 +297,103 @@ export default function FanUpContent() {
     }
 
     function calculatePrice() {
-        if(gotUserTeam)
-        {var sum = 0;
-        var T1Players = []
-        var T2Players = []
-        var T3Players = []
-        var T4Players = []
-        var selectedPlayers = []
-        console.log(selectedPlayers1)
-        if (selectedPlayers1) {
-            
-            if(typeof(priceArr)!=="Array")
-            {
-                var priceArr = Array.from(selectedPlayers1)
-                
-            }
-            else
-            {
-                priceArr = selectedPlayers1
-            }
-            
-            if (priceArr.length > 0) {
-                for (var i = 0; i < priceArr.length; i++) {
-                    console.log(parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1)))
-                    sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
-                    T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
-                }
-            }
+        if (gotUserTeam && gotAllPlayers) {
+            var sum = 0;
+            var T1Players = []
+            var T2Players = []
+            var T3Players = []
+            var T4Players = []
+            var selectedPlayers = []
+            // console.log(selectedPlayers1)
+            if (selectedPlayers1) {
 
-        }
-        if (selectedPlayers2) {
-            if(typeof(priceArr)!=="Array")
-            {
-                var priceArr = Array.from(selectedPlayers2)
-            }
-            else
-            {
-                priceArr = selectedPlayers2
-            }
+                if (typeof (priceArr) !== "Array") {
+                    var priceArr = Array.from(selectedPlayers1)
 
-            if (priceArr.length > 0) {
-                for (var i = 0; i < priceArr.length; i++) {
-                    sum += parseFloat(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
-                    T2Players.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
-                    console.log(selectedPlayers[selectedPlayers.length-1])
+                }
+                else {
+                    priceArr = selectedPlayers1
+                }
+
+                if (priceArr.length > 0) {
+                    for (var i = 0; i < priceArr.length; i++) {
+                        console.log(parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1)))
+                        sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][18])
+                        T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                    }
+                }
+
+            }
+            if (selectedPlayers2) {
+                if (typeof (priceArr) !== "Array") {
+                    var priceArr = Array.from(selectedPlayers2)
+                }
+                else {
+                    priceArr = selectedPlayers2
+                }
+
+                if (priceArr.length > 0) {
+                    for (var i = 0; i < priceArr.length; i++) {
+                        sum += parseFloat(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][18])
+                        T2Players.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                        console.log(selectedPlayers[selectedPlayers.length - 1])
+                    }
                 }
             }
-        }
-        if (selectedPlayers3) {
-            if(typeof(priceArr)!=="Array")
-            {
-                var priceArr = Array.from(selectedPlayers3)
-            }
-            else
-            {
-                priceArr = selectedPlayers3
-            }         
-            if (priceArr.length > 0) {
-                for (var i = 0; i < priceArr.length; i++) {
-                    sum += parseFloat(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
-                    T3Players.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
+            if (selectedPlayers3) {
+                if (typeof (priceArr) !== "Array") {
+                    var priceArr = Array.from(selectedPlayers3)
+                }
+                else {
+                    priceArr = selectedPlayers3
+                }
+                if (priceArr.length > 0) {
+                    for (var i = 0; i < priceArr.length; i++) {
+                        sum += parseFloat(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][18])
+                        T3Players.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                    }
                 }
             }
-        }
-        if (selectedPlayers4) {
-            if(typeof(priceArr)!=="Array")
-            {
+            if (selectedPlayers4) {
+                if (typeof (priceArr) !== "Array") {
+                    var priceArr = Array.from(selectedPlayers4)
+                }
+                else {
+                    priceArr = selectedPlayers4
+                }
                 var priceArr = Array.from(selectedPlayers4)
-            }
-            else
-            {
-                priceArr = selectedPlayers4
-            }
-            var priceArr = Array.from(selectedPlayers4)
-            if (priceArr.length > 0) {
-                for (var i = 0; i < priceArr.length; i++) {
-                    sum += parseFloat(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
-                    T4Players.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
-                    selectedPlayers[selectedPlayers.length-1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))
+                if (priceArr.length > 0) {
+                    for (var i = 0; i < priceArr.length; i++) {
+                        sum += parseFloat(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][18])
+                        T4Players.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                    }
                 }
             }
+            setBudget(sum)
+            setselectedTier1Players(T1Players)
+            setselectedTier2Players(T2Players)
+            setselectedTier3Players(T3Players)
+            setselectedTier4Players(T4Players)
+
+            var finalPlayers = []
+            selectedPlayers.map((player, index) => {
+                if (index < 5) {
+                    finalPlayers.push(player)
+                }
+            })
+            // console.log('final', finalPlayers)
+            setSelectedPlayers(finalPlayers)
+
+            return true;
         }
-        setBudget(sum)
-        setselectedTier1Players(T1Players)
-        setselectedTier2Players(T2Players)
-        setselectedTier3Players(T3Players)
-        setselectedTier4Players(T4Players)
-
-        var finalPlayers = []
-        selectedPlayers.map((player, index) => {
-            if (index < 5) {
-                finalPlayers.push(player)
-            }
-        })
-        // console.log('final', finalPlayers)
-        setSelectedPlayers(finalPlayers)
-
-        return true;}
     }
 
 
@@ -881,7 +876,7 @@ export default function FanUpContent() {
                                 5. Cannot have the same player more than once in your team.
                             </Text>
                             <Button auto flat color={'warning'} onClick={checkTeam}
-                                disabled={selectedPlayers.length<5}
+                                disabled={selectedPlayers.length < 5}
                                 css={{
                                     margin: '12px 0px'
                                 }}>
