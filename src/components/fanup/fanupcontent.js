@@ -33,6 +33,7 @@ export default function FanUpContent() {
     const [ThreeReady, setThreeReady] = useState(false);
     const [FourReady, setFourReady] = useState(false);
     const [budget, setBudget] = useState(0)
+    const [gotUserTeam,setGotUserTeam] = useState(false)
 
     const [Tier1Players, setTier1Players] = useState([])
     const [Tier2Players, setTier2Players] = useState([])
@@ -108,6 +109,7 @@ export default function FanUpContent() {
                     setSelectedPlayers4(t4p)
                     setSelectedPlayers(usersPlayers)
                     setBudget(sum)
+                    setGotUserTeam(true)
                 }
 
             })
@@ -314,6 +316,7 @@ export default function FanUpContent() {
             
             if (priceArr.length > 0) {
                 for (var i = 0; i < priceArr.length; i++) {
+                    console.log(parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1)))
                     sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))][18])
                     T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
                     selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".")+1))])
@@ -482,7 +485,7 @@ export default function FanUpContent() {
 
             {Object.keys(User).length !== 0 &&
                 <Modal
-                    open={signedin}
+                    open={signedin && gotUserTeam}
                     closeButton
                 >
                     <Modal.Header
