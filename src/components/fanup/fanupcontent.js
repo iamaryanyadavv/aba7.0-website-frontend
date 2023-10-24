@@ -220,6 +220,7 @@ export default function FanUpContent() {
                     player1price: selectedPlayers[0][18],
                     player1team: selectedPlayers[0][7],
                     player1tier: selectedPlayers[0][5],
+                    player1key: selectedPlayers[0][19],
 
                     player2photo: selectedPlayers[1][0],
                     player2: selectedPlayers[1][1],
@@ -227,6 +228,7 @@ export default function FanUpContent() {
                     player2price: selectedPlayers[1][18],
                     player2team: selectedPlayers[1][7],
                     player2tier: selectedPlayers[1][5],
+                    player2key: selectedPlayers[1][19],
 
                     player3photo: selectedPlayers[2][0],
                     player3: selectedPlayers[2][1],
@@ -234,6 +236,7 @@ export default function FanUpContent() {
                     player3price: selectedPlayers[2][18],
                     player3team: selectedPlayers[2][7],
                     player3tier: selectedPlayers[2][5],
+                    player3key: selectedPlayers[2][19],
 
                     player4photo: selectedPlayers[3][0],
                     player4: selectedPlayers[3][1],
@@ -241,6 +244,7 @@ export default function FanUpContent() {
                     player4price: selectedPlayers[3][18],
                     player4team: selectedPlayers[3][7],
                     player4tier: selectedPlayers[3][5],
+                    player4key: selectedPlayers[3][19],
 
                     player5photo: selectedPlayers[4][0],
                     player5: selectedPlayers[4][1],
@@ -248,6 +252,7 @@ export default function FanUpContent() {
                     player5price: selectedPlayers[4][18],
                     player5team: selectedPlayers[4][7],
                     player5tier: selectedPlayers[4][5],
+                    player5key: selectedPlayers[4][19],
 
 
                 })
