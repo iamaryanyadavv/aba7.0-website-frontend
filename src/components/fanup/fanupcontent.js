@@ -89,8 +89,8 @@ export default function FanUpContent() {
                     for (var i = 0; i < usersPlayers.length; i++) {
                         if (usersPlayers[i][5] == '1') {
                             t1p.push(usersPlayers[i][6])
-                            console.log("im here")
-                            console.log(usersPlayers[i][6])
+                            // console.log("im here")
+                            // console.log(usersPlayers[i][6])
                         }
                         if (usersPlayers[i][5] == '2') {
                             t2p.push(usersPlayers[i][6])
@@ -226,7 +226,7 @@ export default function FanUpContent() {
                     player1price: selectedPlayers[0][20],
                     player1team: selectedPlayers[0][7],
                     player1tier: selectedPlayers[0][5],
-                    player1key: selectedPlayers[0][19],
+                    player1key: selectedPlayers[0][5]=='1' ? (selectedPlayers[0][21]) : (".1." + selectedPlayers[0][21]),
 
                     player2photo: selectedPlayers[1][0],
                     player2: selectedPlayers[1][1],
@@ -234,7 +234,7 @@ export default function FanUpContent() {
                     player2price: selectedPlayers[1][20],
                     player2team: selectedPlayers[1][7],
                     player2tier: selectedPlayers[1][5],
-                    player2key: ".1." + selectedPlayers[1][19],
+                    player2key: selectedPlayers[1][5]=='1' ? (selectedPlayers[1][21]) : (".1." + selectedPlayers[1][21]),
 
                     player3photo: selectedPlayers[2][0],
                     player3: selectedPlayers[2][1],
@@ -242,7 +242,7 @@ export default function FanUpContent() {
                     player3price: selectedPlayers[2][20],
                     player3team: selectedPlayers[2][7],
                     player3tier: selectedPlayers[2][5],
-                    player3key: ".1." + selectedPlayers[2][19],
+                    player3key: selectedPlayers[2][5]=='1' ? (selectedPlayers[2][21]) : (".1." + selectedPlayers[2][21]),
 
                     player4photo: selectedPlayers[3][0],
                     player4: selectedPlayers[3][1],
@@ -250,7 +250,7 @@ export default function FanUpContent() {
                     player4price: selectedPlayers[3][20],
                     player4team: selectedPlayers[3][7],
                     player4tier: selectedPlayers[3][5],
-                    player4key: ".1." + selectedPlayers[3][19],
+                    player4key: selectedPlayers[3][5]=='1' ? (selectedPlayers[3][21]) : (".1." + selectedPlayers[3][21]),
 
                     player5photo: selectedPlayers[4][0],
                     player5: selectedPlayers[4][1],
@@ -258,7 +258,7 @@ export default function FanUpContent() {
                     player5price: selectedPlayers[4][20],
                     player5team: selectedPlayers[4][7],
                     player5tier: selectedPlayers[4][5],
-                    player5key: ".1." + selectedPlayers[4][19],
+                    player5key: selectedPlayers[4][5]=='1' ? (selectedPlayers[4][21]) : (".1." + selectedPlayers[4][21]),
 
 
                 })
@@ -321,7 +321,7 @@ export default function FanUpContent() {
                         sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
                         T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
                         selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
                     }
                 }
 
@@ -339,7 +339,7 @@ export default function FanUpContent() {
                         sum += parseFloat(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
                         T2Players.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
                         selectedPlayers.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
                         console.log(selectedPlayers[selectedPlayers.length - 1])
                     }
                 }
@@ -356,7 +356,7 @@ export default function FanUpContent() {
                         sum += parseFloat(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
                         T3Players.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
                         selectedPlayers.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
                     }
                 }
             }
@@ -373,7 +373,7 @@ export default function FanUpContent() {
                         sum += parseFloat(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
                         T4Players.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
                         selectedPlayers.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][19] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
                     }
                 }
             }
@@ -382,6 +382,8 @@ export default function FanUpContent() {
             setselectedTier2Players(T2Players)
             setselectedTier3Players(T3Players)
             setselectedTier4Players(T4Players)
+
+            console.log('inside func',selectedPlayers)
 
             var finalPlayers = []
             selectedPlayers.map((player, index) => {
@@ -519,8 +521,6 @@ export default function FanUpContent() {
 
                 </Modal>
             }
-
-            {console.log(selectedPlayers)}
 
             {signedin && !LoginLoader &&
                 <Grid.Container css={{
@@ -1094,6 +1094,8 @@ export default function FanUpContent() {
                             </Text>
                         </Grid>
                     </Grid.Container>
+
+                    {console.log(selectedPlayers1)}
 
                     {OneReady && Tier1Players &&
                         <Table bordered={true}
