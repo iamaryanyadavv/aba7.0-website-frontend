@@ -1129,7 +1129,7 @@ export default function FanUpContent() {
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
@@ -1174,7 +1174,7 @@ export default function FanUpContent() {
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
@@ -1218,7 +1218,7 @@ export default function FanUpContent() {
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
@@ -1262,7 +1262,7 @@ export default function FanUpContent() {
                                                 <Avatar src={player[0]} size={'md'} />
                                             </Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[18]}</Table.Cell>
+                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
                                             <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
