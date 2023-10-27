@@ -396,7 +396,6 @@ export default function FanUpContent() {
         // }
     }
 
-
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://accounts.google.com/gsi/client';

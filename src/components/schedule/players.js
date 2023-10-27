@@ -262,19 +262,23 @@ export default function Players() {
                 return "th";
             }
         }
+
+        console.log('stats', stats)
         for (const player of players.values) {
             playerswithstats[player[1]] = [[], player[2], player[3], player[10]]
         }
+
+        console.log(playerswithstats)
        
         for (const stat of stats) {
-            var statArray = [stat[2], stat[3], stat[4], stat[5], stat[6], stat[7], stat[8]]
+            var statArray = [stat[2], stat[3], stat[4], stat[5], stat[6], stat[7], stat[8], stat[12], stat[13]]
             if (stat[0] in playerswithstats){
                 playerswithstats[stat[0]][0].push(statArray)
             }
         }
 
         for (const player of players.values) {
-            const statIndices = [12, 13, 14, 15, 16, 17];
+            const statIndices = [12, 13, 14, 15, 16, 17,18,19];
         
             const rankArray = ['Rank'];
         
@@ -285,7 +289,7 @@ export default function Players() {
                 rankArray.push(rank);
             }
         
-            playerswithstats[player[1]][0].push(['Average', ...player.slice(12, 18)]);
+            playerswithstats[player[1]][0].push(['Average', ...player.slice(12, 20)]);
             playerswithstats[player[1]][0].push(rankArray);
         }
         
@@ -714,12 +718,13 @@ export default function Players() {
                                         }}>
                                         <Table.Header>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'start'}}>Against</Table.Column>
-                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Minutes</Table.Column>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Points</Table.Column>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Rebounds</Table.Column>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Assists</Table.Column>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Steals</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Blocks</Table.Column>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Fouls</Table.Column>
+                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Fantasy Points</Table.Column>
                                         </Table.Header>
                                         <Table.Body>
                                             {PlayersWithStats[StatsPlayer][0].map((row) => {
@@ -737,12 +742,17 @@ export default function Players() {
                                                         )}
 
                                                         </Table.Cell>
-                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[1]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[2]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[3]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[4]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[7]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[6]}</Table.Cell>
+                                                        {row[0] == 'Average' ?
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[8]} (Total) </Table.Cell>
+                                                        :
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{row[8]}</Table.Cell>
+                                                        }
                                                     </Table.Row>
                                                 )
                                             })}

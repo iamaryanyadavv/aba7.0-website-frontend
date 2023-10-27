@@ -20,13 +20,13 @@ export default function Games() {
                 const day1games = []
                 const day2games = []
                 const day3games = []
-                for (var i = 1; i < 12; i++) {
+                for (var i = 1; i < 10; i++) {
                     day1games.push(data.values[i])
                 }
-                for (var i = 13; i < 26; i++) {
+                for (var i = 11; i < 26; i++) {
                     day2games.push(data.values[i])
                 }
-                for (var i = 27; i <= 34; i++) {
+                for (var i = 27; i <= 35; i++) {
                     day3games.push(data.values[i])
                 }
                 setDay1Games(day1games)
@@ -205,6 +205,7 @@ export default function Games() {
                                                                     css={{
                                                                         fontSize: '$2xl',
                                                                         fontWeight: '$semibold',
+                                                                        padding: '0px 10px'
                                                                     }}>
                                                                     {game[1]}
                                                                 </Text>
@@ -363,6 +364,7 @@ export default function Games() {
                                                                     css={{
                                                                         fontSize: '$2xl',
                                                                         fontWeight: '$semibold',
+                                                                        padding: '0px 10px'
                                                                     }}>
                                                                     {game[1]}
                                                                 </Text>
