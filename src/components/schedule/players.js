@@ -724,7 +724,7 @@ export default function Players() {
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Steals</Table.Column>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Blocks</Table.Column>
                                             <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Fouls</Table.Column>
-                                            <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Fantasy Points</Table.Column>
+                                            {/* <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Fantasy Points</Table.Column> */}
                                         </Table.Header>
                                         <Table.Body>
                                             {PlayersWithStats[StatsPlayer][0].map((row) => {
@@ -748,11 +748,11 @@ export default function Players() {
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[5]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[7]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[6]}</Table.Cell>
-                                                        {row[0] == 'Average' ?
+                                                        {/* {row[0] == 'Average' ?
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[8]} (Total) </Table.Cell>
                                                         :
                                                         <Table.Cell css={{ textAlign: 'center' }}>{row[8]}</Table.Cell>
-                                                        }
+                                                        } */}
                                                     </Table.Row>
                                                 )
                                             })}
