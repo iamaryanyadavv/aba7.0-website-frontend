@@ -469,7 +469,7 @@ export default function FanUpContent() {
                                 fontSize: '$md',
                                 fontWeight: '$semibold',
                             }}>
-                            My Fantasy Team
+                            MyFantasyTeam
                         </Text>
                     </Button>
                 </Grid>
@@ -490,7 +490,7 @@ export default function FanUpContent() {
                                 fontSize: '$md',
                                 fontWeight: '$semibold',
                             }}>
-                            Leading Teams
+                            Top50 Fantasy Teams
                         </Text>
                     </Button>
                 </Grid>
@@ -499,27 +499,20 @@ export default function FanUpContent() {
                     css={{
                         padding: '10px'
                     }}>
-                    <Popover>
-                        <Popover.Trigger>
-                            <Button auto className="games-btn" rounded flat
-                                onClick={() => {
-                                    setFantasyPage(false)
-                                    setTeamLeaderboard(false)
-                                    setPlayersLeaderboard(true)
-                                }}>
-                                <Text className="games-btn-text"
-                                    css={{
-                                        fontSize: '$md',
-                                        fontWeight: '$semibold',
-                                    }}>
-                                    Performing Players
-                                </Text>
-                            </Button>
-                        </Popover.Trigger>
-                        <Popover.Content>
-                            <Text css={{ p: "$10" }}> Will be released once fantasy teams get locked.</Text>
-                        </Popover.Content>
-                    </Popover>
+                    <Button auto className="games-btn" rounded flat
+                        onClick={() => {
+                            setFantasyPage(false)
+                            setTeamLeaderboard(false)
+                            setPlayersLeaderboard(true)
+                        }}>
+                        <Text className="games-btn-text"
+                            css={{
+                                fontSize: '$md',
+                                fontWeight: '$semibold',
+                            }}>
+                            Top50 Fantasy Players
+                        </Text>
+                    </Button>
                 </Grid>
             </Grid.Container>
 
@@ -862,7 +855,7 @@ export default function FanUpContent() {
                         <Modal
                             open={ShowTimeLockModal}
                             closeButton
-                            onClose={()=>{
+                            onClose={() => {
                                 setShowTimeLockModal(false)
                             }}
                         >
