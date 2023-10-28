@@ -32,11 +32,55 @@ export default function PlayersLeaderboard() {
                     finalPlayersData.push(playersdata[key])
                 }
                 // console.log(finalPlayersData)
-                finalPlayersData.sort((a, b) => b[8] - a[8])
-                setPlayersData(finalPlayersData)
+                // setPlayersData(finalPlayersData)
+                preparePlayerTierData(finalPlayersData)
                 setLoginLoader(false)
             })
     }
+    function getRankSubscript(rank) {
+        if (rank % 10 === 1 && rank % 100 !== 11) {
+            return "st";
+        } else if (rank % 10 === 2 && rank % 100 !== 12) {
+            return "nd";
+        } else if (rank % 10 === 3 && rank % 100 !== 13) {
+            return "rd";
+        } else {
+            return "th";
+        }
+    }
+
+    const preparePlayerTierData = (finalPlayersData) => {
+        for (let i = 0; i < finalPlayersData.length; i++) {
+          const sortedArray1 = finalPlayersData.slice().sort((a, b) => b[2] - a[2]);
+          const rank1 = sortedArray1.findIndex((player) => player === finalPlayersData[i]) + 1;
+          finalPlayersData[i].push(rank1+getRankSubscript(rank1));
+      
+          const sortedArray2 = finalPlayersData.slice().sort((a, b) => b[3] - a[3]);
+          const rank2 = sortedArray2.findIndex((player) => player === finalPlayersData[i]) + 1;
+          finalPlayersData[i].push(rank2+getRankSubscript(rank2));
+      
+          const sortedArray3 = finalPlayersData.slice().sort((a, b) => b[4] - a[4]);
+          const rank3 = sortedArray3.findIndex((player) => player === finalPlayersData[i]) + 1;
+          finalPlayersData[i].push(rank3+getRankSubscript(rank3));
+      
+          const sortedArray4 = finalPlayersData.slice().sort((a, b) => b[5] - a[5]);
+          const rank4 = sortedArray4.findIndex((player) => player === finalPlayersData[i]) + 1;
+          finalPlayersData[i].push(rank4+getRankSubscript(rank4));
+      
+          const sortedArray5 = finalPlayersData.slice().sort((a, b) => b[6] - a[6]);
+          const rank5 = sortedArray5.findIndex((player) => player === finalPlayersData[i]) + 1;
+          finalPlayersData[i].push(rank5+getRankSubscript(rank5));
+      
+          const sortedArray6 = finalPlayersData.slice().sort((a, b) => b[7] - a[7]);
+          const rank6 = sortedArray6.findIndex((player) => player === finalPlayersData[i]) + 1;
+          finalPlayersData[i].push(rank6+getRankSubscript(rank6));
+        }
+      
+        finalPlayersData.sort((a, b) => b[8] - a[8]);
+        console.log(finalPlayersData);
+        setPlayersData(finalPlayersData);
+      }
+      
 
     useEffect(() => {
         setLoginLoader(true)
@@ -70,7 +114,7 @@ export default function PlayersLeaderboard() {
                     paddingBottom: '24px',
                     borderRadius: '24px 24px 0px 0px'
                 }}>
-                    {console.log(PlayersData)}
+                    {}
                     {PlayersData.map((player, index) => {
                         if (index < 50) {
                             return (
@@ -214,6 +258,34 @@ export default function PlayersLeaderboard() {
                                                             </Table.Row>
                                                         )
                                                     })}
+                                                        <Table.Row>
+                                                                    <Table.Cell css={{ textAlign: 'start' }}>
+                                                                        <Text >
+                                                                        <b>Average</b>
+                                                                        </Text>
+                                                                    </Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[4]}</Table.Cell>      
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
+                                                                </Table.Row>
+                                                                <Table.Row>
+                                                                    <Table.Cell css={{ textAlign: 'start' }}>
+                                                                        <Text >
+                                                                            
+                                                                            <i>Rank</i>
+                                                                        </Text>
+                                                                    </Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[11]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[12]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[13]}</Table.Cell>      
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[14]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[15]}</Table.Cell>
+                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[16]}</Table.Cell>
+                                                                </Table.Row>
+
                                                 </Table.Body>
                                             </Table>
 
