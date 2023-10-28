@@ -51,8 +51,8 @@ export default function FanUpContent() {
     // ---------------------------------------------------------
 
     // NAV BTNS
-    const [fantasyPage, setFantasyPage] = useState(true)
-    const [teamLeaderboard, setTeamLeaderboard] = useState(false)
+    const [fantasyPage, setFantasyPage] = useState(false)
+    const [teamLeaderboard, setTeamLeaderboard] = useState(true)
     const [playersLeaderboard, setPlayersLeaderboard] = useState(false)
 
     // ----------------------------------------------------------
@@ -503,9 +503,9 @@ export default function FanUpContent() {
                         <Popover.Trigger>
                             <Button auto className="games-btn" rounded flat
                                 onClick={() => {
-                                    // setFantasyPage(false)
-                                    // setTeamLeaderboard(false)
-                                    // setPlayersLeaderboard(true)
+                                    setFantasyPage(false)
+                                    setTeamLeaderboard(false)
+                                    setPlayersLeaderboard(true)
                                 }}>
                                 <Text className="games-btn-text"
                                     css={{
