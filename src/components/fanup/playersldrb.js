@@ -50,6 +50,16 @@ export default function PlayersLeaderboard() {
     }
 
     const preparePlayerTierData = (finalPlayersData) => {
+
+        for (let i = 0; i < finalPlayersData.length; i++) {
+            let sum =0;
+            let count = 0;
+            finalPlayersData[i][10].map((match) => {
+                sum+=parseInt(match[9])
+                count++
+            })
+            finalPlayersData[i][7] = parseFloat((sum / count).toFixed(1));
+        }
         for (let i = 0; i < finalPlayersData.length; i++) {
           const sortedArray1 = finalPlayersData.slice().sort((a, b) => b[2] - a[2]);
           const rank1 = sortedArray1.findIndex((player) => player === finalPlayersData[i]) + 1;
