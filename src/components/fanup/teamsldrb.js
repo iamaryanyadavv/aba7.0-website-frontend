@@ -9,19 +9,11 @@ export default function TeamsLeaderboard() {
 
     const getAllTeams = async () => {
 
+        // await fetch(`http://localhost:3001/fantasy/getAllTeams`)
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getAllTeams`)
             .then(response => response.json())
             .then((teamsData) => {
-                var teams = []
-                for (const key in teamsData) {
-                    if(teamsData[key][1]!=''){
-                        teams.push(teamsData[key])
-                    }
-                }
-                teams.sort((a, b) => a[23] - b[23])
-                teams.reverse()
-                console.log(teams)
-                setTeamsData(teams)
+                setTeamsData(teamsData)
                 setLoginLoader(false)
             })
     }

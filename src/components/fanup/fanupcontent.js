@@ -13,6 +13,7 @@ export default function FanUpContent() {
     const [User, setUser] = useState({})
     const [signedin, setSignedin] = useState(false)
     const [selectedRows, setSelectedRows] = useState([]);
+    const [ShowTimeLockModal, setShowTimeLockModal] = useState(false)
 
     // Fantasy Team ------------------------------------------
 
@@ -291,8 +292,8 @@ export default function FanUpContent() {
         await validateTeam();
     }
 
-    //12:00pm on 27th October, 2023 GMT or 5:30pm on 27th October, 2023 IST
-    const endDate = "2023-10-28T12:00:00.000Z"
+    //11:30pm on 28th October, 2023 GMT or 5:30pm on 28th October, 2023 IST
+    const endDate = "2023-10-28T11:30:00.000Z"
 
     const { days, hours, minutes, seconds, isTimeUp } = useTicker(endDate);
 
@@ -301,9 +302,14 @@ export default function FanUpContent() {
         var userObject = jwt_decode(response.credential)
         setLoginLoader(true);
         document.getElementById("GoogleButton").hidden = true;
-        setUser(userObject)
-        setSignedin(true)
-        getAllPlayers(userObject)
+        if (!isTimeUp) {
+            setUser(userObject)
+            setSignedin(true)
+            getAllPlayers(userObject)
+        }
+        else {
+            setShowTimeLockModal(true)
+        }
     }
 
     function calculatePrice() {
@@ -786,6 +792,30 @@ export default function FanUpContent() {
                         </Grid.Container>
                     }
 
+                    {isTimeUp &&
+                        <>
+                            <Grid.Container
+                                css={{
+                                    jc: 'center',
+                                    backgroundColor: '#faf7ea',
+                                    borderRadius: '20px 20px 0px 0px',
+                                    textAlign: 'center',
+                                    padding: '20vh 4px 20vh 4px'
+                                }}>
+                                <Text css={{
+                                    '@xsMin': {
+                                        fontSize: '$xl'
+                                    },
+                                    '@xsMax': {
+                                        fontSize: '$base'
+                                    }
+                                }}>
+                                    Fantasy teams are locked. Check out the leaderboards under 'Leading Teams'!
+                                </Text>
+                            </Grid.Container>
+                        </>
+                    }
+
                     {Object.keys(User).length !== 0 &&
                         <Modal
                             open={signedin && gotUserTeam}
@@ -822,6 +852,51 @@ export default function FanUpContent() {
                                         color: 'black',
                                     }}>
                                     Welcome to the official ABA 7.0 FanUp fantasy {User.name}!
+                                </Text>
+                            </Modal.Body>
+
+                        </Modal>
+                    }
+
+                    {ShowTimeLockModal &&
+                        <Modal
+                            open={ShowTimeLockModal}
+                            closeButton
+                            onClose={()=>{
+                                setShowTimeLockModal(false)
+                            }}
+                        >
+                            <Modal.Header
+                                css={{
+                                    paddingTop: '0px',
+                                }}>
+                                <Col>
+                                    <Text
+                                        css={{
+                                            textAlign: 'center',
+                                            fontSize: '$3xl',
+                                            fontWeight: '$medium',
+                                            color: '#ff9f56',
+                                            borderStyle: 'solid',
+                                            borderWidth: '0px 0px 2px 0px',
+                                            borderColor: '#faf7ea'
+                                        }}>
+                                        Too late ;(
+                                    </Text>
+                                </Col>
+                            </Modal.Header>
+                            <Modal.Body
+                                css={{
+                                    paddingTop: '0px'
+                                }}>
+                                <Text
+                                    css={{
+                                        textAlign: 'center',
+                                        fontSize: '$xl',
+                                        fontWeight: '$medium',
+                                        color: 'black',
+                                    }}>
+                                    It's too late now to make your fantasy team, sorry!
                                 </Text>
                             </Modal.Body>
 

@@ -11,7 +11,7 @@ export default function Games() {
     const [Day1, setDay1] = useState(true);
     const [Day2, setDay2] = useState(false);
     const [Day3, setDay3] = useState(false);
-    const [i, seti] = useState(25);
+    // const [i, seti] = useState(25);
 
     async function getGames() {
         await fetch('https://aba-backend-gr9t.onrender.com/aba7games')
@@ -332,7 +332,7 @@ export default function Games() {
                                             }}>
                                             <Card isHoverable css={{ mw: "max-content" }}>
                                                 <Card.Header>
-                                                    <Text b>Game {i + index}</Text>
+                                                    <Text b>{game[4]}</Text>
                                                 </Card.Header>
 
                                                 <Card.Divider />
