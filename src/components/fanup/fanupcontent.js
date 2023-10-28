@@ -537,7 +537,7 @@ export default function FanUpContent() {
                     }
 
                     {/* GOOGLE LOGIN BTN */}
-                    {Object.keys(User).length == 0 && !LoginLoader &&
+                    {Object.keys(User).length == 0 && !LoginLoader && !isTimeUp &&
                         <Grid.Container
                             css={{
                                 jc: 'center',
