@@ -17,7 +17,7 @@ function Header() {
     var active = window.location.pathname
 
     return (
-        <Navbar className="navbar" variant="sticky" shouldHideOnScroll={false}>
+        <Navbar className="navbar" variant="sticky" shouldHideOnScroll={true}>
             <Navbar.Toggle color="inherit" showIn="sm" />
             <Navbar.Brand hideIn="sm" css={{ '&:hover': { transform: 'scale(1.25)' } }}>
                 <Image css={{

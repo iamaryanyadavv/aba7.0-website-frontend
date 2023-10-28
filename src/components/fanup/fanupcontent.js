@@ -1,9 +1,11 @@
-import { Text, Grid, Col, Modal, Loading, Row, Image, Avatar, Button, Table } from "@nextui-org/react";
+import { Text, Grid, Col, Modal, Loading, Row, Image, Avatar, Button, Table, Popover } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useTicker } from "../../hooks";
 import Blank from '../../assets/images/blankplayer.jpg'
 import './fanup.css'
+import TeamsLeaderboard from "./teamsldrb";
+import PlayersLeaderboard from "./playersldrb";
 
 export default function FanUpContent() {
     const [LoginLoader, setLoginLoader] = useState(false);
@@ -46,6 +48,14 @@ export default function FanUpContent() {
     const [selectedTier3Players, setselectedTier3Players] = useState([])
     const [selectedTier4Players, setselectedTier4Players] = useState([])
     // ---------------------------------------------------------
+
+    // NAV BTNS
+    const [fantasyPage, setFantasyPage] = useState(true)
+    const [teamLeaderboard, setTeamLeaderboard] = useState(false)
+    const [playersLeaderboard, setPlayersLeaderboard] = useState(false)
+
+    // ----------------------------------------------------------
+
 
     const getUserTeam = async (user) => {
         setLoginLoader(false)
@@ -226,7 +236,7 @@ export default function FanUpContent() {
                     player1price: selectedPlayers[0][20],
                     player1team: selectedPlayers[0][7],
                     player1tier: selectedPlayers[0][5],
-                    player1key: selectedPlayers[0][5]=='1' ? (selectedPlayers[0][21]) : (".1." + selectedPlayers[0][21]),
+                    player1key: selectedPlayers[0][5] == '1' ? (selectedPlayers[0][21]) : (".1." + selectedPlayers[0][21]),
 
                     player2photo: selectedPlayers[1][0],
                     player2: selectedPlayers[1][1],
@@ -234,7 +244,7 @@ export default function FanUpContent() {
                     player2price: selectedPlayers[1][20],
                     player2team: selectedPlayers[1][7],
                     player2tier: selectedPlayers[1][5],
-                    player2key: selectedPlayers[1][5]=='1' ? (selectedPlayers[1][21]) : (".1." + selectedPlayers[1][21]),
+                    player2key: selectedPlayers[1][5] == '1' ? (selectedPlayers[1][21]) : (".1." + selectedPlayers[1][21]),
 
                     player3photo: selectedPlayers[2][0],
                     player3: selectedPlayers[2][1],
@@ -242,7 +252,7 @@ export default function FanUpContent() {
                     player3price: selectedPlayers[2][20],
                     player3team: selectedPlayers[2][7],
                     player3tier: selectedPlayers[2][5],
-                    player3key: selectedPlayers[2][5]=='1' ? (selectedPlayers[2][21]) : (".1." + selectedPlayers[2][21]),
+                    player3key: selectedPlayers[2][5] == '1' ? (selectedPlayers[2][21]) : (".1." + selectedPlayers[2][21]),
 
                     player4photo: selectedPlayers[3][0],
                     player4: selectedPlayers[3][1],
@@ -250,7 +260,7 @@ export default function FanUpContent() {
                     player4price: selectedPlayers[3][20],
                     player4team: selectedPlayers[3][7],
                     player4tier: selectedPlayers[3][5],
-                    player4key: selectedPlayers[3][5]=='1' ? (selectedPlayers[3][21]) : (".1." + selectedPlayers[3][21]),
+                    player4key: selectedPlayers[3][5] == '1' ? (selectedPlayers[3][21]) : (".1." + selectedPlayers[3][21]),
 
                     player5photo: selectedPlayers[4][0],
                     player5: selectedPlayers[4][1],
@@ -258,7 +268,7 @@ export default function FanUpContent() {
                     player5price: selectedPlayers[4][20],
                     player5team: selectedPlayers[4][7],
                     player5tier: selectedPlayers[4][5],
-                    player5key: selectedPlayers[4][5]=='1' ? (selectedPlayers[4][21]) : (".1." + selectedPlayers[4][21]),
+                    player5key: selectedPlayers[4][5] == '1' ? (selectedPlayers[4][21]) : (".1." + selectedPlayers[4][21]),
 
 
                 })
@@ -281,8 +291,8 @@ export default function FanUpContent() {
         await validateTeam();
     }
 
-    //12:30pm on 27th October, 2023 GMT or 6pm on 27th October, 2023 IST
-    const endDate = "2023-10-27T12:30:00.000Z"
+    //12:00pm on 27th October, 2023 GMT or 5:30pm on 27th October, 2023 IST
+    const endDate = "2023-10-28T12:00:00.000Z"
 
     const { days, hours, minutes, seconds, isTimeUp } = useTicker(endDate);
 
@@ -298,103 +308,103 @@ export default function FanUpContent() {
 
     function calculatePrice() {
         // if (gotUserTeam) {
-            var sum = 0;
-            var T1Players = []
-            var T2Players = []
-            var T3Players = []
-            var T4Players = []
-            var selectedPlayers = []
-            // console.log(selectedPlayers1)
-            if (selectedPlayers1) {
+        var sum = 0;
+        var T1Players = []
+        var T2Players = []
+        var T3Players = []
+        var T4Players = []
+        var selectedPlayers = []
+        // console.log(selectedPlayers1)
+        if (selectedPlayers1) {
 
-                if (typeof (priceArr) !== "Array") {
-                    var priceArr = Array.from(selectedPlayers1)
-
-                }
-                else {
-                    priceArr = selectedPlayers1
-                }
-
-                if (priceArr.length > 0) {
-                    for (var i = 0; i < priceArr.length; i++) {
-                        console.log(parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1)))
-                        sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
-                        T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
-                    }
-                }
+            if (typeof (priceArr) !== "Array") {
+                var priceArr = Array.from(selectedPlayers1)
 
             }
-            if (selectedPlayers2) {
-                if (typeof (priceArr) !== "Array") {
-                    var priceArr = Array.from(selectedPlayers2)
-                }
-                else {
-                    priceArr = selectedPlayers2
-                }
+            else {
+                priceArr = selectedPlayers1
+            }
 
-                if (priceArr.length > 0) {
-                    for (var i = 0; i < priceArr.length; i++) {
-                        sum += parseFloat(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
-                        T2Players.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
-                        console.log(selectedPlayers[selectedPlayers.length - 1])
-                    }
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    console.log(parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1)))
+                    sum += parseFloat(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
+                    T1Players.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers.push(Tier1Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
                 }
             }
-            if (selectedPlayers3) {
-                if (typeof (priceArr) !== "Array") {
-                    var priceArr = Array.from(selectedPlayers3)
-                }
-                else {
-                    priceArr = selectedPlayers3
-                }
-                if (priceArr.length > 0) {
-                    for (var i = 0; i < priceArr.length; i++) {
-                        sum += parseFloat(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
-                        T3Players.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
-                    }
+
+        }
+        if (selectedPlayers2) {
+            if (typeof (priceArr) !== "Array") {
+                var priceArr = Array.from(selectedPlayers2)
+            }
+            else {
+                priceArr = selectedPlayers2
+            }
+
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    sum += parseFloat(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
+                    T2Players.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers.push(Tier2Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
+                    console.log(selectedPlayers[selectedPlayers.length - 1])
                 }
             }
-            if (selectedPlayers4) {
-                if (typeof (priceArr) !== "Array") {
-                    var priceArr = Array.from(selectedPlayers4)
+        }
+        if (selectedPlayers3) {
+            if (typeof (priceArr) !== "Array") {
+                var priceArr = Array.from(selectedPlayers3)
+            }
+            else {
+                priceArr = selectedPlayers3
+            }
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    sum += parseFloat(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
+                    T3Players.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers.push(Tier3Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
                 }
-                else {
-                    priceArr = selectedPlayers4
-                }
+            }
+        }
+        if (selectedPlayers4) {
+            if (typeof (priceArr) !== "Array") {
                 var priceArr = Array.from(selectedPlayers4)
-                if (priceArr.length > 0) {
-                    for (var i = 0; i < priceArr.length; i++) {
-                        sum += parseFloat(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
-                        T4Players.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
-                        selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
-                    }
+            }
+            else {
+                priceArr = selectedPlayers4
+            }
+            var priceArr = Array.from(selectedPlayers4)
+            if (priceArr.length > 0) {
+                for (var i = 0; i < priceArr.length; i++) {
+                    sum += parseFloat(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))][20])
+                    T4Players.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers.push(Tier4Players[parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))])
+                    selectedPlayers[selectedPlayers.length - 1][21] = parseInt(priceArr[i].substring(priceArr[i].lastIndexOf(".") + 1))
                 }
             }
-            setBudget(sum)
-            setselectedTier1Players(T1Players)
-            setselectedTier2Players(T2Players)
-            setselectedTier3Players(T3Players)
-            setselectedTier4Players(T4Players)
+        }
+        setBudget(sum)
+        setselectedTier1Players(T1Players)
+        setselectedTier2Players(T2Players)
+        setselectedTier3Players(T3Players)
+        setselectedTier4Players(T4Players)
 
-            console.log('inside func',selectedPlayers)
+        console.log('inside func', selectedPlayers)
 
-            var finalPlayers = []
-            selectedPlayers.map((player, index) => {
-                if (index < 5) {
-                    finalPlayers.push(player)
-                }
-            })
-            // console.log('final', finalPlayers)
-            setSelectedPlayers(finalPlayers)
+        var finalPlayers = []
+        selectedPlayers.map((player, index) => {
+            if (index < 5) {
+                finalPlayers.push(player)
+            }
+        })
+        // console.log('final', finalPlayers)
+        setSelectedPlayers(finalPlayers)
 
-            return true;
+        return true;
         // }
     }
 
@@ -429,989 +439,1296 @@ export default function FanUpContent() {
 
     return (
         <>
-            {LoginLoader && //Show loader when LoginLoader===true - for the lag between loggin in and shoing welcome message
-                <Grid.Container
-                    css={{
-                        jc: 'center',
-                        alignItems: 'center',
-                    }}>
-                    <Grid css={{
-                        margin: '20vh 0px 40vh 0px'
-                    }}>
-                        <Loading
-                            size="md"
-                            color='warning'
-                        />
-                    </Grid>
-                </Grid.Container>
-            }
 
-            {/* GOOGLE LOGIN BTN */}
-            {Object.keys(User).length == 0 && !LoginLoader &&
-                <Grid.Container
-                    css={{
-                        jc: 'center',
-                        backgroundColor: '#faf7ea',
-                        borderRadius: '20px 20px 0px 0px'
-                    }}>
-                    <Col css={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        textAlign: 'center',
-                        alignItems: 'center',
-                        margin: '20vh 0px 30vh 0px'
-                    }}>
-                        <div className="GoogleButton" id='GoogleButton'></div>
-                        <Text css={{
-                            '@xsMax': {
-                                fontSize: '$base'
-                            },
-                            '@xsMin': {
-                                fontSize: '$lg'
-                            },
-                            fontWeight: '$normal',
-                            color: '#163364',
-                            paddingTop: '12px'
-                        }}>
-                            Login with your ashoka email ID to make your ABA 7.0 Fantasy team!
-                        </Text>
-                    </Col>
-                </Grid.Container>
-            }
-
-            {Object.keys(User).length !== 0 &&
-                <Modal
-                    open={signedin && gotUserTeam}
-                    closeButton
-                >
-                    <Modal.Header
-                        css={{
-                            paddingTop: '0px',
-                        }}>
-                        <Col>
-                            <Text
-                                css={{
-                                    textAlign: 'center',
-                                    fontSize: '$3xl',
-                                    fontWeight: '$medium',
-                                    color: '#ff9f56',
-                                    borderStyle: 'solid',
-                                    borderWidth: '0px 0px 2px 0px',
-                                    borderColor: '#faf7ea'
-                                }}>
-                                Success!
-                            </Text>
-                        </Col>
-                    </Modal.Header>
-                    <Modal.Body
-                        css={{
-                            paddingTop: '0px'
-                        }}>
-                        <Text
-                            css={{
-                                textAlign: 'center',
-                                fontSize: '$xl',
-                                fontWeight: '$medium',
-                                color: 'black',
-                            }}>
-                            Welcome to the official ABA 7.0 FanUp fantasy {User.name}!
-                        </Text>
-                    </Modal.Body>
-
-                </Modal>
-            }
-
-            {signedin && !LoginLoader &&
-                <Grid.Container css={{
-                    backgroundColor: '#faf7ea',
-                    justifyContent: 'center',
+            <Grid.Container
+                css={{
+                    jc: 'center',
                     alignItems: 'center',
-                    paddingBottom: '24px',
-                    borderRadius: '24px 24px 0px 0px'
+                    paddingBottom: '20px'
                 }}>
-                    {/* Team PLayers Grid */}
-                    <Grid css={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        textAlign: 'center'
+
+                <Grid
+                    css={{
+                        padding: '10px'
                     }}>
-                        <Row css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                            margin: '0px 0px 12px 0px',
-                            padding: '12px',
-                            borderStyle: 'solid',
-                            borderWidth: '0px 0px 2px 0px',
-                            borderColor: '#ff9f56'
-                        }}>
-                            {User.picture ?
-                                <Avatar
-                                    src={User.picture}
-                                    size={'md'}
-                                />
-                                :
-                                <Avatar
-                                    text={User.given_name[0].toUppper()}
-                                    size={'xl'}
-                                />
-                            }
-                            <Text css={{
-                                fontWeight: '$medium',
-                                '@xsMin': {
-                                    fontSize: '$xl',
-                                },
-                                '@xsMax': {
-                                    fontSize: '$base'
-                                },
-                                margin: '0px 0px 0px 8px'
-                            }}>
-                                {User.given_name}'s Team:
-                            </Text>
-                            <Text css={{
-                                fontWeight: '$medium',
-                                '@xsMin': {
-                                    fontSize: '$xl',
-                                },
-                                '@xsMax': {
-                                    fontSize: '$base'
-                                },
-                                margin: '0px 0px 0px 8px'
-                            }}>
-                                ${budget} Mil
-                            </Text>
-                        </Row>
-                        <Col css={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            width: 'max-content',
-                            borderRadius: '8px',
-                            padding: '0% 12px'
+                    <Button auto className="games-btn" rounded flat
+                        onClick={() => {
+                            setFantasyPage(true)
+                            setTeamLeaderboard(false)
+                            setPlayersLeaderboard(false)
                         }}
-                            className="fantasy-court"
-                        >
-                            <Row css={{
-                                justifyContent: 'center',
+                    >
+                        <Text className="games-btn-text"
+                            css={{
+                                fontSize: '$md',
+                                fontWeight: '$semibold',
                             }}>
-                                <Grid css={{
-                                    margin: '24px 24px',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        opacity: '0.95',
-                                        transform: 'scale(1.025)'
-                                    }
-                                }}
-                                    onClick={() => {
-                                        setShowPlayersModal(true)
-                                        setGridNo(1)
-                                    }}>
-                                    {selectedPlayers[0] ?
-                                        <Image
-                                            src={selectedPlayers[0][0]}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                        :
-                                        <Image
-                                            src={Blank}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                    }
-                                </Grid>
-                                <Grid css={{
-                                    margin: '24px 24px',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        opacity: '0.95',
-                                        transform: 'scale(1.025)'
-                                    }
-                                }}
-                                    onClick={() => {
-                                        setShowPlayersModal(true)
-                                        setGridNo(2)
-                                    }}>
-                                    {selectedPlayers[1] ?
-                                        <Image
-                                            src={selectedPlayers[1][0]}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                        :
-                                        <Image
-                                            src={Blank}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                    }
-                                </Grid>
-                            </Row>
+                            My Fantasy Team
+                        </Text>
+                    </Button>
+                </Grid>
 
-                            <Row css={{
-                                justifyContent: 'center',
-                            }}>
-                                <Grid css={{
-                                    margin: '12px 12px',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        opacity: '0.95',
-                                        transform: 'scale(1.025)'
-                                    }
-                                }}
-                                    onClick={() => {
-                                        setShowPlayersModal(true)
-                                        setGridNo(3)
-                                    }}>
-                                    {selectedPlayers[2] ?
-                                        <Image
-                                            src={selectedPlayers[2][0]}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                        :
-                                        <Image
-                                            src={Blank}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                    }
-                                </Grid>
-                            </Row>
-
-                            <Row css={{
-                                justifyContent: 'center',
-                            }}>
-                                <Grid css={{
-                                    margin: '24px 24px',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        opacity: '0.95',
-                                        transform: 'scale(1.025)'
-                                    }
-                                }}
-                                    onClick={() => {
-                                        setShowPlayersModal(true)
-                                        setGridNo(4)
-                                    }}>
-                                    {selectedPlayers[3] ?
-                                        <Image
-                                            src={selectedPlayers[3][0]}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                        :
-                                        <Image
-                                            src={Blank}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                    }
-                                </Grid>
-                                <Grid css={{
-                                    margin: '24px 24px',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        opacity: '0.95',
-                                        transform: 'scale(1.025)'
-                                    }
-                                }}
-                                    onClick={() => {
-                                        setShowPlayersModal(true)
-                                        setGridNo(5)
-                                    }}>
-                                    {selectedPlayers[4] ?
-                                        <Image
-                                            src={selectedPlayers[4][0]}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                        :
-                                        <Image
-                                            src={Blank}
-                                            css={{
-                                                // borderStyle: 'solid',
-                                                // borderWidth: '2px',
-                                                // borderColor: '#ff9f56',
-                                                borderRadius: '4px',
-                                            }}
-                                            width={100}
-                                            height={150}
-                                        />
-                                    }
-                                </Grid>
-                            </Row>
-                        </Col>
-                    </Grid>
-
-                    {/* Rules Grid */}
-                    <Grid css={{
-                        jc: 'center',
-                        alignItems: 'center',
-                        margin: '24px'
+                <Grid
+                    css={{
+                        padding: '10px'
                     }}>
-                        <Col css={{
-                            borderStyle: 'solid',
-                            borderWidth: '0px 0px 0px 2px',
-                            borderColor: '#ff9f56',
-                            paddingLeft: '12px'
-                        }}>
-                            <Text css={{
-                                '@xsMin': {
-                                    fontSize: '$xl'
-                                },
-                                '@xsMax': {
-                                    fontSize: '$lg'
-                                },
-                                fontWeight: '$medium'
+                    <Button auto className="games-btn" rounded flat
+                        onClick={() => {
+                            setFantasyPage(false)
+                            setTeamLeaderboard(true)
+                            setPlayersLeaderboard(false)
+                        }}
+                    >
+                        <Text className="games-btn-text"
+                            css={{
+                                fontSize: '$md',
+                                fontWeight: '$semibold',
                             }}>
-                                Validity Conditions
-                            </Text>
-                            <Text css={{
-                                '@xsMin': {
-                                    fontSize: '$base'
-                                },
-                                '@xsMax': {
-                                    fontSize: '$md'
-                                },
-                                fontWeight: '$medium'
-                            }}>
-                                1. Maximum team value &lt;= $50Mil
-                            </Text>
-                            <Text css={{
-                                '@xsMin': {
-                                    fontSize: '$base'
-                                },
-                                '@xsMax': {
-                                    fontSize: '$md'
-                                },
-                                fontWeight: '$medium'
-                            }}>
-                                2. Number of players to save your team = 5
-                            </Text>
-                            <Text css={{
-                                '@xsMin': {
-                                    fontSize: '$base'
-                                },
-                                '@xsMax': {
-                                    fontSize: '$md'
-                                },
-                                fontWeight: '$medium'
-                            }}>
-                                3. Number of non-cis men in your team &gt;= 2
-                            </Text>
-                            <Text css={{
-                                '@xsMin': {
-                                    fontSize: '$base'
-                                },
-                                '@xsMax': {
-                                    fontSize: '$md'
-                                },
-                                fontWeight: '$medium'
-                            }}>
-                                4. Number of players from one team &lt;= 2
-                            </Text>
-                            <Text css={{
-                                '@xsMin': {
-                                    fontSize: '$base'
-                                },
-                                '@xsMax': {
-                                    fontSize: '$md'
-                                },
-                                fontWeight: '$medium'
-                            }}>
-                                5. Cannot have the same player more than once in your team.
-                            </Text>
-                            <Button auto flat color={'warning'} onClick={checkTeam}
-                                disabled={selectedPlayers.length < 5}
-                                css={{
-                                    margin: '12px 0px'
+                            Leading Teams
+                        </Text>
+                    </Button>
+                </Grid>
+
+                <Grid
+                    css={{
+                        padding: '10px'
+                    }}>
+                    <Popover>
+                        <Popover.Trigger>
+                            <Button auto className="games-btn" rounded flat
+                                onClick={() => {
+                                    // setFantasyPage(false)
+                                    // setTeamLeaderboard(false)
+                                    // setPlayersLeaderboard(true)
                                 }}>
-                                {SaveBTNLoader ?
-                                    <Loading type="points-opacity" color="warning" size="sm" />
-                                    :
-                                    <Text css={{
+                                <Text className="games-btn-text"
+                                    css={{
+                                        fontSize: '$md',
                                         fontWeight: '$semibold',
                                     }}>
-                                        {/* Validate team --> if 200 OK --> save team */}
-                                        Save Team
-                                    </Text>
-                                }
+                                    Performing Players
+                                </Text>
                             </Button>
-                        </Col>
-                    </Grid>
+                        </Popover.Trigger>
+                        <Popover.Content>
+                            <Text css={{ p: "$10" }}> Will be released once fantasy teams get locked.</Text>
+                        </Popover.Content>
+                    </Popover>
+                </Grid>
+            </Grid.Container>
+
+            {fantasyPage &&
+                <>
+                    {LoginLoader && //Show loader when LoginLoader===true - for the lag between loggin in and shoing welcome message
+                        <Grid.Container
+                            css={{
+                                jc: 'center',
+                                alignItems: 'center',
+                            }}>
+                            <Grid css={{
+                                margin: '20vh 0px 40vh 0px'
+                            }}>
+                                <Loading
+                                    size="md"
+                                    color='warning'
+                                />
+                            </Grid>
+                        </Grid.Container>
+                    }
+
+                    {/* GOOGLE LOGIN BTN */}
+                    {Object.keys(User).length == 0 && !LoginLoader &&
+                        <Grid.Container
+                            css={{
+                                jc: 'center',
+                                backgroundColor: '#faf7ea',
+                                borderRadius: '20px 20px 0px 0px'
+                            }}>
+                            <Col css={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                alignItems: 'center',
+                                margin: '20vh 0px 30vh 0px'
+                            }}>
+                                <Text>
+                                    Locking in...
+                                </Text>
+                                <Row
+                                    css={{
+                                        jc: 'center',
+                                        paddingBottom: '24px'
+                                    }}>
+
+                                    <Col
+                                        css={{
+                                            width: 'max-content'
+                                        }}>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$3xl'
+                                                }}>
+                                                {days}
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                {days}
+                                            </Text>
+                                        </Grid.Container>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                Days
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$md'
+                                                }}>
+                                                Days
+                                            </Text>
+                                        </Grid.Container>
+                                    </Col>
+
+                                    <Text hideIn={'xs'}
+                                        css={{
+                                            fontSize: '$3xl',
+                                            padding: '0% 5%'
+                                        }}>
+                                        :
+                                    </Text>
+                                    <Text showIn={'xs'}
+                                        css={{
+                                            fontSize: '$xl',
+                                            padding: '0% 2.5%'
+                                        }}>
+                                        :
+                                    </Text>
+
+                                    <Col
+                                        css={{
+                                            width: 'max-content'
+                                        }}>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$3xl'
+                                                }}>
+                                                {hours}
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                {hours}
+                                            </Text>
+                                        </Grid.Container>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                Hours
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$md'
+                                                }}>
+                                                Hours
+                                            </Text>
+                                        </Grid.Container>
+                                    </Col>
+
+                                    <Text hideIn={'xs'}
+                                        css={{
+                                            fontSize: '$3xl',
+                                            padding: '0% 5%'
+                                        }}>
+                                        :
+                                    </Text>
+                                    <Text showIn={'xs'}
+                                        css={{
+                                            fontSize: '$xl',
+                                            padding: '0% 2.5%'
+                                        }}>
+                                        :
+                                    </Text>
+
+                                    <Col
+                                        css={{
+                                            width: 'max-content'
+                                        }}>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$3xl'
+                                                }}>
+                                                {minutes}
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                {minutes}
+                                            </Text>
+                                        </Grid.Container>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                Minutes
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$md'
+                                                }}>
+                                                Minutes
+                                            </Text>
+                                        </Grid.Container>
+                                    </Col>
+
+                                    <Text hideIn={'xs'}
+                                        css={{
+                                            fontSize: '$3xl',
+                                            padding: '0% 5%'
+                                        }}>
+                                        :
+                                    </Text>
+                                    <Text showIn={'xs'}
+                                        css={{
+                                            fontSize: '$xl',
+                                            padding: '0% 2.5%'
+                                        }}>
+                                        :
+                                    </Text>
+
+                                    <Col
+                                        css={{
+                                            width: 'max-content'
+                                        }}>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$3xl'
+                                                }}>
+                                                {seconds}
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                {seconds}
+                                            </Text>
+                                        </Grid.Container>
+                                        <Grid.Container
+                                            css={{
+                                                jc: 'center',
+                                            }}>
+                                            <Text hideIn={'xs'}
+                                                css={{
+                                                    fontSize: '$xl'
+                                                }}>
+                                                Seconds
+                                            </Text>
+                                            <Text showIn={'xs'}
+                                                css={{
+                                                    fontSize: '$md'
+                                                }}>
+                                                Seconds
+                                            </Text>
+                                        </Grid.Container>
+                                    </Col>
+
+                                </Row>
+
+                                <div className="GoogleButton" id='GoogleButton'></div>
+                                <Text css={{
+                                    '@xsMax': {
+                                        fontSize: '$base'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$lg'
+                                    },
+                                    fontWeight: '$normal',
+                                    color: '#163364',
+                                    paddingTop: '12px'
+                                }}>
+                                    Login with your ashoka email ID to make your ABA 7.0 Fantasy team!
+                                </Text>
+                            </Col>
+                        </Grid.Container>
+                    }
+
+                    {Object.keys(User).length !== 0 &&
+                        <Modal
+                            open={signedin && gotUserTeam}
+                            closeButton
+                        >
+                            <Modal.Header
+                                css={{
+                                    paddingTop: '0px',
+                                }}>
+                                <Col>
+                                    <Text
+                                        css={{
+                                            textAlign: 'center',
+                                            fontSize: '$3xl',
+                                            fontWeight: '$medium',
+                                            color: '#ff9f56',
+                                            borderStyle: 'solid',
+                                            borderWidth: '0px 0px 2px 0px',
+                                            borderColor: '#faf7ea'
+                                        }}>
+                                        Success!
+                                    </Text>
+                                </Col>
+                            </Modal.Header>
+                            <Modal.Body
+                                css={{
+                                    paddingTop: '0px'
+                                }}>
+                                <Text
+                                    css={{
+                                        textAlign: 'center',
+                                        fontSize: '$xl',
+                                        fontWeight: '$medium',
+                                        color: 'black',
+                                    }}>
+                                    Welcome to the official ABA 7.0 FanUp fantasy {User.name}!
+                                </Text>
+                            </Modal.Body>
+
+                        </Modal>
+                    }
+
+                    {signedin && !LoginLoader &&
+                        <Grid.Container css={{
+                            backgroundColor: '#faf7ea',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingBottom: '24px',
+                            borderRadius: '24px 24px 0px 0px'
+                        }}>
+                            {/* Team PLayers Grid */}
+                            <Grid css={{
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center'
+                            }}>
+                                <Row css={{
+                                    jc: 'center',
+                                    alignItems: 'center',
+                                    margin: '0px 0px 12px 0px',
+                                    padding: '12px',
+                                    borderStyle: 'solid',
+                                    borderWidth: '0px 0px 2px 0px',
+                                    borderColor: '#ff9f56'
+                                }}>
+                                    {User.picture ?
+                                        <Avatar
+                                            src={User.picture}
+                                            size={'md'}
+                                        />
+                                        :
+                                        <Avatar
+                                            text={User.given_name[0].toUppper()}
+                                            size={'xl'}
+                                        />
+                                    }
+                                    <Text css={{
+                                        fontWeight: '$medium',
+                                        '@xsMin': {
+                                            fontSize: '$xl',
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$base'
+                                        },
+                                        margin: '0px 0px 0px 8px'
+                                    }}>
+                                        {User.given_name}'s Team:
+                                    </Text>
+                                    <Text css={{
+                                        fontWeight: '$medium',
+                                        '@xsMin': {
+                                            fontSize: '$xl',
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$base'
+                                        },
+                                        margin: '0px 0px 0px 8px'
+                                    }}>
+                                        ${budget} Mil
+                                    </Text>
+                                </Row>
+                                <Col css={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    width: 'max-content',
+                                    borderRadius: '8px',
+                                    padding: '0% 12px'
+                                }}
+                                    className="fantasy-court"
+                                >
+                                    <Row css={{
+                                        justifyContent: 'center',
+                                    }}>
+                                        <Grid css={{
+                                            margin: '24px 24px',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                opacity: '0.95',
+                                                transform: 'scale(1.025)'
+                                            }
+                                        }}
+                                            onClick={() => {
+                                                setShowPlayersModal(true)
+                                                setGridNo(1)
+                                            }}>
+                                            {selectedPlayers[0] ?
+                                                <Image
+                                                    src={selectedPlayers[0][0]}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                                :
+                                                <Image
+                                                    src={Blank}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                            }
+                                        </Grid>
+                                        <Grid css={{
+                                            margin: '24px 24px',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                opacity: '0.95',
+                                                transform: 'scale(1.025)'
+                                            }
+                                        }}
+                                            onClick={() => {
+                                                setShowPlayersModal(true)
+                                                setGridNo(2)
+                                            }}>
+                                            {selectedPlayers[1] ?
+                                                <Image
+                                                    src={selectedPlayers[1][0]}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                                :
+                                                <Image
+                                                    src={Blank}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                            }
+                                        </Grid>
+                                    </Row>
+
+                                    <Row css={{
+                                        justifyContent: 'center',
+                                    }}>
+                                        <Grid css={{
+                                            margin: '12px 12px',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                opacity: '0.95',
+                                                transform: 'scale(1.025)'
+                                            }
+                                        }}
+                                            onClick={() => {
+                                                setShowPlayersModal(true)
+                                                setGridNo(3)
+                                            }}>
+                                            {selectedPlayers[2] ?
+                                                <Image
+                                                    src={selectedPlayers[2][0]}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                                :
+                                                <Image
+                                                    src={Blank}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                            }
+                                        </Grid>
+                                    </Row>
+
+                                    <Row css={{
+                                        justifyContent: 'center',
+                                    }}>
+                                        <Grid css={{
+                                            margin: '24px 24px',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                opacity: '0.95',
+                                                transform: 'scale(1.025)'
+                                            }
+                                        }}
+                                            onClick={() => {
+                                                setShowPlayersModal(true)
+                                                setGridNo(4)
+                                            }}>
+                                            {selectedPlayers[3] ?
+                                                <Image
+                                                    src={selectedPlayers[3][0]}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                                :
+                                                <Image
+                                                    src={Blank}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                            }
+                                        </Grid>
+                                        <Grid css={{
+                                            margin: '24px 24px',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                opacity: '0.95',
+                                                transform: 'scale(1.025)'
+                                            }
+                                        }}
+                                            onClick={() => {
+                                                setShowPlayersModal(true)
+                                                setGridNo(5)
+                                            }}>
+                                            {selectedPlayers[4] ?
+                                                <Image
+                                                    src={selectedPlayers[4][0]}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                                :
+                                                <Image
+                                                    src={Blank}
+                                                    css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                    width={100}
+                                                    height={150}
+                                                />
+                                            }
+                                        </Grid>
+                                    </Row>
+                                </Col>
+                            </Grid>
+
+                            {/* Rules Grid */}
+                            <Grid css={{
+                                jc: 'center',
+                                alignItems: 'center',
+                                margin: '24px'
+                            }}>
+                                <Col css={{
+                                    borderStyle: 'solid',
+                                    borderWidth: '0px 0px 0px 2px',
+                                    borderColor: '#ff9f56',
+                                    paddingLeft: '12px'
+                                }}>
+                                    <Text css={{
+                                        '@xsMin': {
+                                            fontSize: '$xl'
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$lg'
+                                        },
+                                        fontWeight: '$medium'
+                                    }}>
+                                        Validity Conditions
+                                    </Text>
+                                    <Text css={{
+                                        '@xsMin': {
+                                            fontSize: '$base'
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$md'
+                                        },
+                                        fontWeight: '$medium'
+                                    }}>
+                                        1. Maximum team value &lt;= $50Mil
+                                    </Text>
+                                    <Text css={{
+                                        '@xsMin': {
+                                            fontSize: '$base'
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$md'
+                                        },
+                                        fontWeight: '$medium'
+                                    }}>
+                                        2. Number of players to save your team = 5
+                                    </Text>
+                                    <Text css={{
+                                        '@xsMin': {
+                                            fontSize: '$base'
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$md'
+                                        },
+                                        fontWeight: '$medium'
+                                    }}>
+                                        3. Number of non-cis men in your team &gt;= 2
+                                    </Text>
+                                    <Text css={{
+                                        '@xsMin': {
+                                            fontSize: '$base'
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$md'
+                                        },
+                                        fontWeight: '$medium'
+                                    }}>
+                                        4. Number of players from one team &lt;= 2
+                                    </Text>
+                                    <Text css={{
+                                        '@xsMin': {
+                                            fontSize: '$base'
+                                        },
+                                        '@xsMax': {
+                                            fontSize: '$md'
+                                        },
+                                        fontWeight: '$medium'
+                                    }}>
+                                        5. Cannot have the same player more than once in your team.
+                                    </Text>
+                                    <Button auto flat color={'warning'} onClick={checkTeam}
+                                        disabled={selectedPlayers.length < 5}
+                                        css={{
+                                            margin: '12px 0px'
+                                        }}>
+                                        {SaveBTNLoader ?
+                                            <Loading type="points-opacity" color="warning" size="sm" />
+                                            :
+                                            <Text css={{
+                                                fontWeight: '$semibold',
+                                            }}>
+                                                {/* Validate team --> if 200 OK --> save team */}
+                                                Save Team
+                                            </Text>
+                                        }
+                                    </Button>
+                                </Col>
+                            </Grid>
 
 
-                </Grid.Container>
+                        </Grid.Container>
+                    }
+
+                    {/* {console.log(selectedPlayers)} */}
+
+                    <Modal
+                        fullScreen={false}
+                        width="950px"
+                        closeButton
+                        open={ShowPlayersModal}
+                        onClose={() => {
+                            setShowPlayersModal(false)
+                        }}
+                    >
+                        <Modal.Header>
+                            <Text
+                                css={{
+                                    '@xsMax': {
+                                        fontSize: '$md',
+                                        fontWeight: '$medium'
+                                    },
+                                    '@xsMin': {
+                                        fontSize: '$xl',
+                                        fontWeight: '$medium'
+                                    },
+                                    border: 'solid',
+                                    borderColor: '#faf7ea',
+                                    borderWidth: '0px 0px 2px 0px'
+                                }}>
+                                Choose your player, {User.given_name}
+                            </Text>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Grid.Container
+                                css={{
+                                    jc: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                <Grid
+                                    css={{
+                                        '@xsMin': {
+                                            padding: '16px'
+                                        },
+                                        '@xsMax': {
+                                            padding: '8px 24px'
+                                        }
+                                    }}>
+                                    <Text id='tier1btn'
+                                        css={{
+                                            fontSize: '$lg',
+                                            color: '#E6BE8A',
+                                            fontWeight: '$semibold',
+                                            borderRadius: '20px',
+                                            backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                                            textAlign: 'center',
+                                            padding: '2px 24px',
+                                            transition: 'padding 0.5s',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                backgroundColor: 'rgba(255, 215, 0, 0.25)',
+                                                padding: '2px 24px',
+                                            }
+                                        }}
+                                        onClick={() => {
+                                            setOneReady(true)
+                                            setTwoReady(false)
+                                            setThreeReady(false)
+                                            setFourReady(false)
+                                            document.getElementById('tier1btn').style.transform = 'scale(0.95)'
+                                            window.setTimeout(() => {
+                                                document.getElementById('tier1btn').style.transform = 'scale(1)'
+                                            }, 150)
+                                        }}
+                                    >
+                                        Tier 1
+                                    </Text>
+                                </Grid>
+
+                                <Grid
+                                    css={{
+                                        '@xsMin': {
+                                            padding: '16px'
+                                        },
+                                        '@xsMax': {
+                                            padding: '8px 24px'
+                                        }
+                                    }}>
+                                    <Text id='tier2btn'
+                                        css={{
+                                            fontSize: '$lg',
+                                            color: 'rgb(157, 171, 187)',
+                                            fontWeight: '$semibold',
+                                            borderRadius: '20px',
+                                            backgroundColor: 'rgba(192, 192, 192, 0.2)',
+                                            textAlign: 'center',
+                                            padding: '2px 24px',
+                                            transition: 'padding 0.5s',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                backgroundColor: 'rgba(192, 192, 192, 0.25)',
+                                                padding: '2px 24px',
+                                            }
+                                        }}
+                                        onClick={() => {
+                                            setOneReady(false)
+                                            setTwoReady(true)
+                                            setThreeReady(false)
+                                            setFourReady(false)
+                                            document.getElementById('tier2btn').style.transform = 'scale(0.95)'
+                                            window.setTimeout(() => {
+                                                document.getElementById('tier2btn').style.transform = 'scale(1)'
+                                            }, 150)
+                                        }}
+                                    >
+                                        Tier 2
+                                    </Text>
+                                </Grid>
+
+                                <Grid
+                                    css={{
+                                        '@xsMin': {
+                                            padding: '16px'
+                                        },
+                                        '@xsMax': {
+                                            padding: '8px 24px 24px 24px'
+                                        }
+                                    }}>
+                                    <Text id='tier3btn'
+                                        css={{
+                                            fontSize: '$lg',
+                                            color: '#CD7F32',
+                                            fontWeight: '$semibold',
+                                            borderRadius: '20px',
+                                            backgroundColor: 'rgba(190, 159, 103, 0.2)',
+                                            textAlign: 'center',
+                                            padding: '2px 24px',
+                                            transition: 'padding 0.5s',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                backgroundColor: 'rgba(205, 127, 50, 0.25)',
+                                                padding: '2px 24px',
+                                            }
+                                        }}
+                                        onClick={() => {
+                                            setOneReady(false)
+                                            setTwoReady(false)
+                                            setThreeReady(true)
+                                            setFourReady(false)
+                                            document.getElementById('tier3btn').style.transform = 'scale(0.95)'
+                                            window.setTimeout(() => {
+                                                document.getElementById('tier3btn').style.transform = 'scale(1)'
+                                            }, 150)
+                                        }}
+                                    >
+                                        Tier 3
+                                    </Text>
+                                </Grid>
+
+                                <Grid
+                                    css={{
+                                        '@xsMin': {
+                                            padding: '16px'
+                                        },
+                                        '@xsMax': {
+                                            padding: '8px 24px 24px 24px'
+                                        }
+                                    }}>
+                                    <Text id='tier4btn'
+                                        css={{
+                                            fontSize: '$lg',
+                                            color: 'rgb(183, 110, 121)',
+                                            fontWeight: '$semibold',
+                                            borderRadius: '20px',
+                                            backgroundColor: 'rgba(183, 110, 121, 0.2)',
+                                            textAlign: 'center',
+                                            padding: '2px 24px',
+                                            transition: 'padding 0.5s',
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                                backgroundColor: 'rgba(183, 110, 121, 0.25)',
+                                                padding: '2px 24px',
+                                            }
+                                        }}
+                                        onClick={() => {
+                                            setOneReady(false)
+                                            setTwoReady(false)
+                                            setThreeReady(false)
+                                            setFourReady(true)
+                                            document.getElementById('tier4btn').style.transform = 'scale(0.95)'
+                                            window.setTimeout(() => {
+                                                document.getElementById('tier4btn').style.transform = 'scale(1)'
+                                            }, 150)
+                                        }}
+                                    >
+                                        Tier 4
+                                    </Text>
+                                </Grid>
+                            </Grid.Container>
+
+                            {console.log(selectedPlayers1)}
+
+                            {OneReady && Tier1Players &&
+                                <Table bordered={true}
+                                    color={'warning'}
+                                    selectionMode="multiple"
+                                    aria-label="Tier 1 Table"
+                                    css={{
+                                        height: "auto",
+                                        minWidth: "100%",
+                                    }}
+                                    selectedKeys={selectedPlayers1}
+                                    onSelectionChange={setSelectedPlayers1}
+                                >
+
+                                    <Table.Header>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        {Tier1Players.map((player, index) => {
+                                            return (
+                                                <Table.Row
+                                                    key={index}
+                                                >
+                                                    <Table.Cell css={{ textAlign: 'center' }}>
+                                                        <Avatar src={player[0]} size={'md'} />
+                                                    </Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                                </Table.Row>
+                                            )
+                                        })}
+                                    </Table.Body>
+                                </Table>
+                            }
+
+                            {TwoReady && Tier2Players &&
+                                <Table bordered={true}
+                                    color={'warning'}
+                                    selectionMode="multiple"
+                                    aria-label="Tier 2 Table"
+                                    css={{
+                                        height: "auto",
+                                        minWidth: "100%",
+                                    }}
+                                    selectedKeys={selectedPlayers2}
+                                    onSelectionChange={setSelectedPlayers2}
+                                >
+                                    <Table.Header>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        {Tier2Players.map((player) => {
+                                            return (
+                                                <Table.Row onClick={() => alert("hi")}>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>
+                                                        <Avatar src={player[0]} size={'md'} />
+                                                    </Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                                </Table.Row>
+                                            )
+                                        })}
+                                    </Table.Body>
+                                </Table>
+                            }
+
+                            {ThreeReady && Tier3Players &&
+                                <Table bordered={true}
+                                    color={'warning'}
+                                    selectionMode="multiple"
+                                    aria-label="Tier 3 Table"
+                                    css={{
+                                        height: "auto",
+                                        minWidth: "100%",
+                                    }}
+                                    selectedKeys={selectedPlayers3}
+                                    onSelectionChange={setSelectedPlayers3}>
+                                    <Table.Header>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        {Tier3Players.map((player) => {
+                                            return (
+                                                <Table.Row onClick={() => alert("hi")}>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>
+                                                        <Avatar src={player[0]} size={'md'} />
+                                                    </Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                                </Table.Row>
+                                            )
+                                        })}
+                                    </Table.Body>
+                                </Table>
+                            }
+
+                            {FourReady && Tier4Players &&
+                                <Table bordered={true}
+                                    color={'warning'}
+                                    selectionMode="multiple"
+                                    aria-label="Tier 4 Table"
+                                    css={{
+                                        height: "auto",
+                                        minWidth: "100%",
+                                    }}
+                                    selectedKeys={selectedPlayers4}
+                                    onSelectionChange={setSelectedPlayers4}>
+                                    <Table.Header>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
+                                        <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        {Tier4Players.map((player) => {
+                                            return (
+                                                <Table.Row onClick={() => alert("hi")}>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>
+                                                        <Avatar src={player[0]} size={'md'} />
+                                                    </Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
+                                                </Table.Row>
+                                            )
+                                        })}
+                                    </Table.Body>
+                                </Table>
+                            }
+
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal
+                        fullScreen={false}
+                        closeButton
+                        open={ShowResModal}
+                        onClose={() => {
+                            setShowResModal(false)
+                        }}
+                    >
+                        {/* Not validated */}
+                        {ValidatedSuccessfully == false && SavedSuccessfully == false &&
+                            <>
+                                <Modal.Header>
+                                    <Text
+                                        css={{
+                                            '@xsMax': {
+                                                fontSize: '$md',
+                                                fontWeight: '$medium'
+                                            },
+                                            '@xsMin': {
+                                                fontSize: '$xl',
+                                                fontWeight: '$medium'
+                                            },
+                                            border: 'solid',
+                                            borderColor: '#faf7ea',
+                                            borderWidth: '0px 0px 2px 0px',
+                                            color: '$red600'
+                                        }}>
+                                        Unsuccessful save...!
+                                    </Text>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Text
+                                        css={{
+                                            '@xsMax': {
+                                                fontSize: '$sm',
+                                                fontWeight: '$medium'
+                                            },
+                                            '@xsMin': {
+                                                fontSize: '$base',
+                                                fontWeight: '$medium'
+                                            },
+                                        }}>
+                                        Invalid team! Please check the rules and try again.
+                                        If error persists, please email a screenshot of your team and error message to aba@ashoka.edu.in
+                                    </Text>
+                                </Modal.Body>
+                            </>
+                        }
+
+                        {/* Validated but not saved */}
+                        {ValidatedSuccessfully == true && SavedSuccessfully == false &&
+                            <>
+                                <Modal.Header >
+                                    <Text
+                                        css={{
+                                            '@xsMax': {
+                                                fontSize: '$md',
+                                                fontWeight: '$medium'
+                                            },
+                                            '@xsMin': {
+                                                fontSize: '$xl',
+                                                fontWeight: '$medium'
+                                            },
+                                            border: 'solid',
+                                            borderColor: '#faf7ea',
+                                            borderWidth: '0px 0px 2px 0px',
+                                            color: '$red600'
+                                        }}>
+                                        Unsuccessful save...!
+                                    </Text>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Text
+                                        css={{
+                                            '@xsMax': {
+                                                fontSize: '$sm',
+                                                fontWeight: '$medium'
+                                            },
+                                            '@xsMin': {
+                                                fontSize: '$base',
+                                                fontWeight: '$medium'
+                                            },
+                                        }}>
+                                        Valid team but unable to save. Please check your internet connection and try again.
+                                        If error persists, please email a screenshot of your team and error message to aba@ashoka.edu.in
+                                    </Text>
+                                </Modal.Body>
+                            </>
+                        }
+
+                        {/* Validated and saved */}
+                        {ValidatedSuccessfully == true && SavedSuccessfully == true &&
+                            <>
+                                <Modal.Header>
+                                    <Text
+                                        css={{
+                                            '@xsMax': {
+                                                fontSize: '$md',
+                                                fontWeight: '$medium'
+                                            },
+                                            '@xsMin': {
+                                                fontSize: '$xl',
+                                                fontWeight: '$medium'
+                                            },
+                                            border: 'solid',
+                                            borderColor: '#faf7ea',
+                                            borderWidth: '0px 0px 2px 0px',
+                                            color: '$green600'
+                                        }}>
+                                        Successful save...!
+                                    </Text>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Text
+                                        css={{
+                                            '@xsMax': {
+                                                fontSize: '$sm',
+                                                fontWeight: '$medium'
+                                            },
+                                            '@xsMin': {
+                                                fontSize: '$base',
+                                                fontWeight: '$medium'
+                                            },
+                                        }}>
+                                        Your team has been successfully saved in the database! Thank you.
+                                    </Text>
+                                </Modal.Body>
+                            </>
+                        }
+
+                    </Modal>
+                </>
             }
 
-            {/* {console.log(selectedPlayers)} */}
+            {teamLeaderboard &&
+                <TeamsLeaderboard />
+            }
 
-            <Modal
-                fullScreen={false}
-                width="950px"
-                closeButton
-                open={ShowPlayersModal}
-                onClose={() => {
-                    setShowPlayersModal(false)
-                }}
-            >
-                <Modal.Header>
-                    <Text
-                        css={{
-                            '@xsMax': {
-                                fontSize: '$md',
-                                fontWeight: '$medium'
-                            },
-                            '@xsMin': {
-                                fontSize: '$xl',
-                                fontWeight: '$medium'
-                            },
-                            border: 'solid',
-                            borderColor: '#faf7ea',
-                            borderWidth: '0px 0px 2px 0px'
-                        }}>
-                        Choose your player, {User.given_name}
-                    </Text>
-                </Modal.Header>
-                <Modal.Body>
-                    <Grid.Container
-                        css={{
-                            jc: 'center',
-                            alignItems: 'center',
-                        }}>
-                        <Grid
-                            css={{
-                                '@xsMin': {
-                                    padding: '16px'
-                                },
-                                '@xsMax': {
-                                    padding: '8px 24px'
-                                }
-                            }}>
-                            <Text id='tier1btn'
-                                css={{
-                                    fontSize: '$lg',
-                                    color: '#E6BE8A',
-                                    fontWeight: '$semibold',
-                                    borderRadius: '20px',
-                                    backgroundColor: 'rgba(255, 215, 0, 0.2)',
-                                    textAlign: 'center',
-                                    padding: '2px 24px',
-                                    transition: 'padding 0.5s',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        backgroundColor: 'rgba(255, 215, 0, 0.25)',
-                                        padding: '2px 24px',
-                                    }
-                                }}
-                                onClick={() => {
-                                    setOneReady(true)
-                                    setTwoReady(false)
-                                    setThreeReady(false)
-                                    setFourReady(false)
-                                    document.getElementById('tier1btn').style.transform = 'scale(0.95)'
-                                    window.setTimeout(() => {
-                                        document.getElementById('tier1btn').style.transform = 'scale(1)'
-                                    }, 150)
-                                }}
-                            >
-                                Tier 1
-                            </Text>
-                        </Grid>
+            {playersLeaderboard &&
+                <PlayersLeaderboard />
+            }
 
-                        <Grid
-                            css={{
-                                '@xsMin': {
-                                    padding: '16px'
-                                },
-                                '@xsMax': {
-                                    padding: '8px 24px'
-                                }
-                            }}>
-                            <Text id='tier2btn'
-                                css={{
-                                    fontSize: '$lg',
-                                    color: 'rgb(157, 171, 187)',
-                                    fontWeight: '$semibold',
-                                    borderRadius: '20px',
-                                    backgroundColor: 'rgba(192, 192, 192, 0.2)',
-                                    textAlign: 'center',
-                                    padding: '2px 24px',
-                                    transition: 'padding 0.5s',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        backgroundColor: 'rgba(192, 192, 192, 0.25)',
-                                        padding: '2px 24px',
-                                    }
-                                }}
-                                onClick={() => {
-                                    setOneReady(false)
-                                    setTwoReady(true)
-                                    setThreeReady(false)
-                                    setFourReady(false)
-                                    document.getElementById('tier2btn').style.transform = 'scale(0.95)'
-                                    window.setTimeout(() => {
-                                        document.getElementById('tier2btn').style.transform = 'scale(1)'
-                                    }, 150)
-                                }}
-                            >
-                                Tier 2
-                            </Text>
-                        </Grid>
-
-                        <Grid
-                            css={{
-                                '@xsMin': {
-                                    padding: '16px'
-                                },
-                                '@xsMax': {
-                                    padding: '8px 24px 24px 24px'
-                                }
-                            }}>
-                            <Text id='tier3btn'
-                                css={{
-                                    fontSize: '$lg',
-                                    color: '#CD7F32',
-                                    fontWeight: '$semibold',
-                                    borderRadius: '20px',
-                                    backgroundColor: 'rgba(190, 159, 103, 0.2)',
-                                    textAlign: 'center',
-                                    padding: '2px 24px',
-                                    transition: 'padding 0.5s',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        backgroundColor: 'rgba(205, 127, 50, 0.25)',
-                                        padding: '2px 24px',
-                                    }
-                                }}
-                                onClick={() => {
-                                    setOneReady(false)
-                                    setTwoReady(false)
-                                    setThreeReady(true)
-                                    setFourReady(false)
-                                    document.getElementById('tier3btn').style.transform = 'scale(0.95)'
-                                    window.setTimeout(() => {
-                                        document.getElementById('tier3btn').style.transform = 'scale(1)'
-                                    }, 150)
-                                }}
-                            >
-                                Tier 3
-                            </Text>
-                        </Grid>
-
-                        <Grid
-                            css={{
-                                '@xsMin': {
-                                    padding: '16px'
-                                },
-                                '@xsMax': {
-                                    padding: '8px 24px 24px 24px'
-                                }
-                            }}>
-                            <Text id='tier4btn'
-                                css={{
-                                    fontSize: '$lg',
-                                    color: 'rgb(183, 110, 121)',
-                                    fontWeight: '$semibold',
-                                    borderRadius: '20px',
-                                    backgroundColor: 'rgba(183, 110, 121, 0.2)',
-                                    textAlign: 'center',
-                                    padding: '2px 24px',
-                                    transition: 'padding 0.5s',
-                                    '&:hover': {
-                                        cursor: 'pointer',
-                                        backgroundColor: 'rgba(183, 110, 121, 0.25)',
-                                        padding: '2px 24px',
-                                    }
-                                }}
-                                onClick={() => {
-                                    setOneReady(false)
-                                    setTwoReady(false)
-                                    setThreeReady(false)
-                                    setFourReady(true)
-                                    document.getElementById('tier4btn').style.transform = 'scale(0.95)'
-                                    window.setTimeout(() => {
-                                        document.getElementById('tier4btn').style.transform = 'scale(1)'
-                                    }, 150)
-                                }}
-                            >
-                                Tier 4
-                            </Text>
-                        </Grid>
-                    </Grid.Container>
-
-                    {console.log(selectedPlayers1)}
-
-                    {OneReady && Tier1Players &&
-                        <Table bordered={true}
-                            color={'warning'}
-                            selectionMode="multiple"
-                            aria-label="Tier 1 Table"
-                            css={{
-                                height: "auto",
-                                minWidth: "100%",
-                            }}
-                            selectedKeys={selectedPlayers1}
-                            onSelectionChange={setSelectedPlayers1}
-                        >
-
-                            <Table.Header>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
-                            </Table.Header>
-                            <Table.Body>
-                                {Tier1Players.map((player, index) => {
-                                    return (
-                                        <Table.Row
-                                            key={index}
-                                        >
-                                            <Table.Cell css={{ textAlign: 'center' }}>
-                                                <Avatar src={player[0]} size={'md'} />
-                                            </Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
-                                        </Table.Row>
-                                    )
-                                })}
-                            </Table.Body>
-                        </Table>
-                    }
-
-                    {TwoReady && Tier2Players &&
-                        <Table bordered={true}
-                            color={'warning'}
-                            selectionMode="multiple"
-                            aria-label="Tier 2 Table"
-                            css={{
-                                height: "auto",
-                                minWidth: "100%",
-                            }}
-                            selectedKeys={selectedPlayers2}
-                            onSelectionChange={setSelectedPlayers2}
-                        >
-                            <Table.Header>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
-                            </Table.Header>
-                            <Table.Body>
-                                {Tier2Players.map((player) => {
-                                    return (
-                                        <Table.Row onClick={() => alert("hi")}>
-                                            <Table.Cell css={{ textAlign: 'center' }}>
-                                                <Avatar src={player[0]} size={'md'} />
-                                            </Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
-                                        </Table.Row>
-                                    )
-                                })}
-                            </Table.Body>
-                        </Table>
-                    }
-
-                    {ThreeReady && Tier3Players &&
-                        <Table bordered={true}
-                            color={'warning'}
-                            selectionMode="multiple"
-                            aria-label="Tier 3 Table"
-                            css={{
-                                height: "auto",
-                                minWidth: "100%",
-                            }}
-                            selectedKeys={selectedPlayers3}
-                            onSelectionChange={setSelectedPlayers3}>
-                            <Table.Header>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
-                            </Table.Header>
-                            <Table.Body>
-                                {Tier3Players.map((player) => {
-                                    return (
-                                        <Table.Row onClick={() => alert("hi")}>
-                                            <Table.Cell css={{ textAlign: 'center' }}>
-                                                <Avatar src={player[0]} size={'md'} />
-                                            </Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
-                                        </Table.Row>
-                                    )
-                                })}
-                            </Table.Body>
-                        </Table>
-                    }
-
-                    {FourReady && Tier4Players &&
-                        <Table bordered={true}
-                            color={'warning'}
-                            selectionMode="multiple"
-                            aria-label="Tier 4 Table"
-                            css={{
-                                height: "auto",
-                                minWidth: "100%",
-                            }}
-                            selectedKeys={selectedPlayers4}
-                            onSelectionChange={setSelectedPlayers4}>
-                            <Table.Header>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Picture</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Name</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }} >Fantasy Price</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Tier</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Type</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Height</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Team</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Gender</Table.Column>
-                                <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Batch</Table.Column>
-                            </Table.Header>
-                            <Table.Body>
-                                {Tier4Players.map((player) => {
-                                    return (
-                                        <Table.Row onClick={() => alert("hi")}>
-                                            <Table.Cell css={{ textAlign: 'center' }}>
-                                                <Avatar src={player[0]} size={'md'} />
-                                            </Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[9]}</Table.Cell>
-                                            <Table.Cell css={{ textAlign: 'center' }}>{player[10]}</Table.Cell>
-                                        </Table.Row>
-                                    )
-                                })}
-                            </Table.Body>
-                        </Table>
-                    }
-
-                </Modal.Body>
-            </Modal>
-
-            <Modal
-                fullScreen={false}
-                closeButton
-                open={ShowResModal}
-                onClose={() => {
-                    setShowResModal(false)
-                }}
-            >
-                {/* Not validated */}
-                {ValidatedSuccessfully == false && SavedSuccessfully == false &&
-                    <>
-                        <Modal.Header>
-                            <Text
-                                css={{
-                                    '@xsMax': {
-                                        fontSize: '$md',
-                                        fontWeight: '$medium'
-                                    },
-                                    '@xsMin': {
-                                        fontSize: '$xl',
-                                        fontWeight: '$medium'
-                                    },
-                                    border: 'solid',
-                                    borderColor: '#faf7ea',
-                                    borderWidth: '0px 0px 2px 0px',
-                                    color: '$red600'
-                                }}>
-                                Unsuccessful save...!
-                            </Text>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Text
-                                css={{
-                                    '@xsMax': {
-                                        fontSize: '$sm',
-                                        fontWeight: '$medium'
-                                    },
-                                    '@xsMin': {
-                                        fontSize: '$base',
-                                        fontWeight: '$medium'
-                                    },
-                                }}>
-                                Invalid team! Please check the rules and try again.
-                                If error persists, please email a screenshot of your team and error message to aba@ashoka.edu.in
-                            </Text>
-                        </Modal.Body>
-                    </>
-                }
-
-                {/* Validated but not saved */}
-                {ValidatedSuccessfully == true && SavedSuccessfully == false &&
-                    <>
-                        <Modal.Header >
-                            <Text
-                                css={{
-                                    '@xsMax': {
-                                        fontSize: '$md',
-                                        fontWeight: '$medium'
-                                    },
-                                    '@xsMin': {
-                                        fontSize: '$xl',
-                                        fontWeight: '$medium'
-                                    },
-                                    border: 'solid',
-                                    borderColor: '#faf7ea',
-                                    borderWidth: '0px 0px 2px 0px',
-                                    color: '$red600'
-                                }}>
-                                Unsuccessful save...!
-                            </Text>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Text
-                                css={{
-                                    '@xsMax': {
-                                        fontSize: '$sm',
-                                        fontWeight: '$medium'
-                                    },
-                                    '@xsMin': {
-                                        fontSize: '$base',
-                                        fontWeight: '$medium'
-                                    },
-                                }}>
-                                Valid team but unable to save. Please check your internet connection and try again.
-                                If error persists, please email a screenshot of your team and error message to aba@ashoka.edu.in
-                            </Text>
-                        </Modal.Body>
-                    </>
-                }
-
-                {/* Validated and saved */}
-                {ValidatedSuccessfully == true && SavedSuccessfully == true &&
-                    <>
-                        <Modal.Header>
-                            <Text
-                                css={{
-                                    '@xsMax': {
-                                        fontSize: '$md',
-                                        fontWeight: '$medium'
-                                    },
-                                    '@xsMin': {
-                                        fontSize: '$xl',
-                                        fontWeight: '$medium'
-                                    },
-                                    border: 'solid',
-                                    borderColor: '#faf7ea',
-                                    borderWidth: '0px 0px 2px 0px',
-                                    color: '$green600'
-                                }}>
-                                Successful save...!
-                            </Text>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Text
-                                css={{
-                                    '@xsMax': {
-                                        fontSize: '$sm',
-                                        fontWeight: '$medium'
-                                    },
-                                    '@xsMin': {
-                                        fontSize: '$base',
-                                        fontWeight: '$medium'
-                                    },
-                                }}>
-                                Your team has been successfully saved in the database! Thank you.
-                            </Text>
-                        </Modal.Body>
-                    </>
-                }
-
-            </Modal>
         </>
     )
 }
