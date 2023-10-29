@@ -37,6 +37,7 @@ export default function PlayersLeaderboard() {
                 setLoginLoader(false)
             })
     }
+
     function getRankSubscript(rank) {
         if (rank % 10 === 1 && rank % 100 !== 11) {
             return "st";
@@ -224,6 +225,7 @@ export default function PlayersLeaderboard() {
 
                                             <Table bordered={true}
                                                 aria-label="Players Leaderboard"
+                                                lined
                                                 css={{
                                                     height: "auto",
                                                     minWidth: "100%",
@@ -244,15 +246,18 @@ export default function PlayersLeaderboard() {
                                                             <Table.Row>
                                                                 <Table.Cell css={{ textAlign: 'start' }}>
                                                                     {row[0] !== 'Average' && row[0] !== 'Rank' ? (
-                                                                        <Text>
+                                                                        <Text >
                                                                             vs {row[2]}
                                                                         </Text>
                                                                     ) : (
-                                                                        <Text>
+                                                                        <Text css={{
+                                                                            borderStyle: 'solid',
+                                                                            borderWidth: '2px 0px 0px 0px',
+                                                                            borderColor: '#faf7ea'
+                                                                        }}>
                                                                             {row[2]}
                                                                         </Text>
                                                                     )}
-
                                                                 </Table.Cell>
                                                                 <Table.Cell css={{ textAlign: 'center' }}>{row[4]}</Table.Cell>
                                                                 <Table.Cell css={{ textAlign: 'center' }}>{row[5]}</Table.Cell>
