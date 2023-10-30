@@ -125,7 +125,6 @@ export default function PlayersLeaderboard() {
                     paddingBottom: '24px',
                     borderRadius: '24px 24px 0px 0px'
                 }}>
-                    {}
                     {PlayersData.map((player, index) => {
                         if (index < 50) {
                             return (

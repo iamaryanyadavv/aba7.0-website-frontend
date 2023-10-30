@@ -96,7 +96,7 @@ export default function FootNavbar () {
                             padding: '12px'
                         }}>
                             <Link className="footnavbar-item" href="/schedule" >
-                                Schedule
+                                Game Time
                             </Link>
                         </Grid>
                         <Grid 

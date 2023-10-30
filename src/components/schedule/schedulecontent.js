@@ -8,19 +8,19 @@ import Pool1 from "./pool1";
 import Pool2 from "./pool2";
 import Pool3 from "./pool3";
 import Pool4 from "./pool4";
-import Pool5 from "./pool5";
-import Pool6 from "./pool6";
 import PlayersComponent from "./players";
 import TeamsComponent from "./teams";
+import LeaderboardComponent from './leaderboard';
 import './schedule.css'
 
 export default function ScheduleContent() {
     const [Fetching, setFetching] = useState(false);
-    const [Games, setGames] = useState(true);
+    const [Games, setGames] = useState(false);
     const [Standings, setStandings] = useState(false)
     const [Rules, setRules] = useState(false)
     const [Players, setPlayers] = useState(false)
     const [Teams, setTeams] = useState(false)
+    const [Leaderboard, setLeaderboard] = useState(true)
 
     async function getStandings() {
         await fetch('https://aplapi.onrender.com/seasons/apl6/standings')
@@ -69,6 +69,7 @@ export default function ScheduleContent() {
                                     setRules(false)
                                     setPlayers(false)
                                     setTeams(false)
+                                    setLeaderboard(false)
                                 }}
                             >
                                 <Text className="games-btn-text"
@@ -92,6 +93,7 @@ export default function ScheduleContent() {
                                     setRules(false)
                                     setPlayers(false)
                                     setTeams(false)
+                                    setLeaderboard(false)
                                 }}
                             >
                                 <Text className="games-btn-text"
@@ -115,6 +117,7 @@ export default function ScheduleContent() {
                                     setRules(false)
                                     setPlayers(true)
                                     setTeams(false)
+                                    setLeaderboard(false)
                                 }}>
                                 <Text className="games-btn-text"
                                     css={{
@@ -137,6 +140,7 @@ export default function ScheduleContent() {
                                     setRules(false)
                                     setPlayers(false)
                                     setTeams(true)
+                                    setLeaderboard(false)
                                 }}>
                                 <Text className="games-btn-text"
                                     css={{
@@ -144,6 +148,29 @@ export default function ScheduleContent() {
                                         fontWeight: '$semibold',
                                     }}>
                                     Teams
+                                </Text>
+                            </Button>
+                        </Grid>
+
+                        <Grid
+                            css={{
+                                padding: '10px'
+                            }}>
+                            <Button auto className="games-btn" rounded flat
+                                onClick={() => {
+                                    setGames(false)
+                                    setStandings(false)
+                                    setRules(false)
+                                    setPlayers(false)
+                                    setTeams(false)
+                                    setLeaderboard(true)
+                                }}>
+                                <Text className="games-btn-text"
+                                    css={{
+                                        fontSize: '$md',
+                                        fontWeight: '$semibold',
+                                    }}>
+                                    Leaderboard
                                 </Text>
                             </Button>
                         </Grid>
@@ -171,7 +198,7 @@ export default function ScheduleContent() {
                         </Grid>
                     </Grid.Container>
 
-                    {Games && !Standings && !Rules && !Players && !Teams &&
+                    {Games && !Standings && !Rules && !Players && !Teams && !Leaderboard &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -206,7 +233,7 @@ export default function ScheduleContent() {
                         </>
                     }
 
-                    {!Games && Standings && !Rules && !Players && !Teams &&
+                    {!Games && Standings && !Rules && !Players && !Teams && !Leaderboard &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -235,7 +262,7 @@ export default function ScheduleContent() {
                         </>
                     }
 
-                    {!Games && !Standings && Rules && !Players && !Teams &&
+                    {!Games && !Standings && Rules && !Players && !Teams && !Leaderboard &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -264,7 +291,7 @@ export default function ScheduleContent() {
                         </>
                     }
 
-                    {!Games && !Standings && !Rules && Players && !Teams &&
+                    {!Games && !Standings && !Rules && Players && !Teams && !Leaderboard &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -312,7 +339,7 @@ export default function ScheduleContent() {
                         </>
                     }
 
-                    {!Games && !Standings && !Rules && !Players && Teams &&
+                    {!Games && !Standings && !Rules && !Players && Teams && !Leaderboard &&
                         <>
                             <Text hideIn={'xs'}
                                 css={{
@@ -339,6 +366,36 @@ export default function ScheduleContent() {
                             </Col>
                         </>
                     }
+
+                    {!Games && !Standings && !Rules && !Players && !Teams && Leaderboard &&
+                        <>
+                            <Text hideIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '20px 0px 10px 0px',
+                                    fontSize: '$6xl',
+                                    fontWeight: '$semibold',
+                                    color: '#163364'
+                                }}>
+                                Leaderboard
+                            </Text>
+                            <Text showIn={'xs'}
+                                css={{
+                                    textAlign: 'center',
+                                    padding: '20px 0px 10px 0px',
+                                    fontSize: '$4xl',
+                                    fontWeight: '$semibold',
+                                    color: '#163364'
+                                }}>
+                                Leaderboard
+                            </Text>
+                            <Col>
+                                <LeaderboardComponent />
+                            </Col>
+                        </>
+                    }
+
+
 
                 </div>}
 
