@@ -26,9 +26,10 @@ export default function Games() {
                 for (var i = 11; i < 26; i++) {
                     day2games.push(data.values[i])
                 }
-                for (var i = 27; i <= 35; i++) {
+                for (var i = 27; i <= 34; i++) {
                     day3games.push(data.values[i])
                 }
+                console.log(day3games)
                 setDay1Games(day1games)
                 setDay2Games(day2games)
                 setDay3Games(day3games.reverse())
