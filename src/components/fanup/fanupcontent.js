@@ -803,7 +803,7 @@ export default function FanUpContent() {
                                         fontSize: '$base'
                                     }
                                 }}>
-                                    Fantasy teams are locked. Check out the leaderboards under 'Leading Teams'!
+                                    Fantasy teams are locked. Check out the leaderboards under 'Top50 Fantasy Teams'!
                                 </Text>
                             </Grid.Container>
                         </>

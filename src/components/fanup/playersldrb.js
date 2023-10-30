@@ -196,14 +196,14 @@ export default function PlayersLeaderboard() {
                                                         fontSize: '$xl',
                                                         fontWeight: '$medium'
                                                     }}>
-                                                    Fantasy Price: {player[9]}
+                                                    Fantasy Price: ${player[9]} M
                                                 </Text>
                                                 <Text showIn={'xs'}
                                                     css={{
                                                         fontSize: '$lg',
                                                         fontWeight: '$medium'
                                                     }}>
-                                                    Fantasy Price: {player[9]}
+                                                    Fantasy Price: ${player[9]} M
                                                 </Text>
 
                                                 <Text hideIn={'xs'}

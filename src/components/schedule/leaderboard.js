@@ -87,31 +87,31 @@ export default function Leaderboard() {
                 // console.log(stealsData)
                 // console.log(blocksData)
 
-                var avgPoints = pointsData.sort((a, b) => b[2] - a[2])
-                var avgAssists = assistsData.sort((a, b) => b[2] - a[2])
-                var avgRebounds = reboundsData.sort((a, b) => b[2] - a[2])
-                var avgSteals = stealsData.sort((a, b) => b[2] - a[2])
-                var avgBlocks = blocksData.sort((a, b) => b[2] - a[2])
+                // var avgPoints = pointsData.sort((a, b) => b[2] - a[2])
+                // var avgAssists = assistsData.sort((a, b) => b[2] - a[2])
+                // var avgRebounds = reboundsData.sort((a, b) => b[2] - a[2])
+                // var avgSteals = stealsData.sort((a, b) => b[2] - a[2])
+                // var avgBlocks = blocksData.sort(function(a,b) { return b[2] - a[2]})
 
-                console.log(avgBlocks)
+                // console.log(typeof(avgBlocks[0][2]))
 
-                setAVGPoints(avgPoints)
-                setAVGAssists(avgAssists)
-                setAVGRebounds(avgRebounds)
-                setAVGSteals(avgSteals)
-                setAVGBlocks(avgBlocks)
+                setAVGPoints(pointsData['Average'])
+                setAVGAssists(assistsData['Average'])
+                setAVGRebounds(reboundsData['Average'])
+                setAVGSteals(stealsData['Average'])
+                setAVGBlocks(blocksData['Average'])
 
-                var totalPoints = avgPoints.sort((a, b) => b[1] - a[1])
-                var totalAssists = avgAssists.sort((a, b) => b[1] - a[1])
-                var totalRebounds = avgRebounds.sort((a, b) => b[1] - a[1])
-                var totalSteals = avgSteals.sort((a, b) => b[1] - a[1])
-                var totalBlocks = avgBlocks.sort((a, b) => b[1] - a[1])
+                // var totalPoints = avgPoints.sort((a, b) => b[1] - a[1])
+                // var totalAssists = avgAssists.sort((a, b) => b[1] - a[1])
+                // var totalRebounds = avgRebounds.sort((a, b) => b[1] - a[1])
+                // var totalSteals = avgSteals.sort((a, b) => b[1] - a[1])
+                // var totalBlocks = avgBlocks.sort((a, b) => b[1] - a[1])
 
-                setTotalPoints(totalPoints)
-                setTotalAssists(totalAssists)
-                setTotalRebounds(totalRebounds)
-                setTotalSteals(totalSteals)
-                setTotalBlocks(totalBlocks)
+                setTotalPoints(pointsData['Total'])
+                setTotalAssists(assistsData['Total'])
+                setTotalRebounds(reboundsData['Total'])
+                setTotalSteals(stealsData['Total'])
+                setTotalBlocks(blocksData['Total'])
 
                 setFetching(false)
             })
@@ -268,6 +268,19 @@ export default function Leaderboard() {
                     borderRadius: '24px 24px 0px 0px'
                 }}>
 
+                    <Text css={{
+                        '@xsMin': {
+                            fontSize: '$3xl'
+                        },
+                        '@xsMax': {
+                            fontSize: '$xl'
+                        },
+                        color: '#163364',
+                        fontWeight: '$medium'
+                    }}>
+                        Points Top 10
+                    </Text>
+
                     <Grid.Container
                         css={{
                             jc: 'center',
@@ -390,6 +403,19 @@ export default function Leaderboard() {
                     borderRadius: '24px 24px 0px 0px'
                 }}>
 
+                    <Text css={{
+                        '@xsMin': {
+                            fontSize: '$3xl'
+                        },
+                        '@xsMax': {
+                            fontSize: '$xl'
+                        },
+                        color: '#163364',
+                        fontWeight: '$medium'
+                    }}>
+                        Assists Top 10
+                    </Text>
+
                     <Grid.Container
                         css={{
                             jc: 'center',
@@ -511,6 +537,19 @@ export default function Leaderboard() {
                     borderRadius: '24px 24px 0px 0px'
                 }}>
 
+                    <Text css={{
+                        '@xsMin': {
+                            fontSize: '$3xl'
+                        },
+                        '@xsMax': {
+                            fontSize: '$xl'
+                        },
+                        color: '#163364',
+                        fontWeight: '$medium'
+                    }}>
+                        Rebounds Top 10
+                    </Text>
+
                     <Grid.Container
                         css={{
                             jc: 'center',
@@ -577,7 +616,7 @@ export default function Leaderboard() {
                                                 <Table.Row>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{index + 1}</Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[0]}</Table.Cell>
-                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[1].toFixed(2)}</Table.Cell>
+                                                    <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
                                                 </Table.Row>
 
                                             )
@@ -631,6 +670,19 @@ export default function Leaderboard() {
                     paddingBottom: '24px',
                     borderRadius: '24px 24px 0px 0px'
                 }}>
+
+                    <Text css={{
+                        '@xsMin': {
+                            fontSize: '$3xl'
+                        },
+                        '@xsMax': {
+                            fontSize: '$xl'
+                        },
+                        color: '#163364',
+                        fontWeight: '$medium'
+                    }}>
+                        Steals Top 10
+                    </Text>
 
                     <Grid.Container
                         css={{
@@ -752,6 +804,19 @@ export default function Leaderboard() {
                     paddingBottom: '24px',
                     borderRadius: '24px 24px 0px 0px'
                 }}>
+
+                    <Text css={{
+                        '@xsMin': {
+                            fontSize: '$3xl'
+                        },
+                        '@xsMax': {
+                            fontSize: '$xl'
+                        },
+                        color: '#163364',
+                        fontWeight: '$medium'
+                    }}>
+                        Blocks Top 10
+                    </Text>
 
                     <Grid.Container
                         css={{
