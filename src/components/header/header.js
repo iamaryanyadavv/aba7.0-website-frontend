@@ -12,6 +12,7 @@ function Header() {
         { name: 'RoadToABA', href: '/roadtoaba' },
         { name: 'Game Time', href: '/schedule' },
         { name: 'Gallery', href: '/gallery' },
+        { name: "What's New", href: '/whatsnew' },
     ]
 
     var active = window.location.pathname

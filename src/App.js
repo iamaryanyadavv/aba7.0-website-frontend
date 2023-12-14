@@ -12,6 +12,8 @@ import GalleryPage from './pages/GalleryPage/gallerypage';
 import ImagePage from './pages/imagePage';
 import FanUpPage from './pages/FanUpPage/fanup';
 import RoadToABA from './components/road2ABA/roadtoaba';
+import NewsPage from './pages/NewsPage/newsPage.js'
+
 function App() {
     const theme = createTheme({
         type: 'light',
@@ -34,6 +36,7 @@ function App() {
                         <Route exact path="/fanupabafantasy" element={<FanUpPage />} />
                         <Route exact path="/image" element={<ImagePage />} />
                         <Route exact path="/roadtoaba" element={<RoadToABA />} />
+                        <Route exact path="/whatsnew" element={<NewsPage />} />
                     </Routes>
                 </Router>
             </div>
