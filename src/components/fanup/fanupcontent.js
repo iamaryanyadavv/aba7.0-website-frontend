@@ -1,6 +1,5 @@
-import { Text, Grid, Col, Modal, Loading, Row, Image, Avatar, Button, Table, Popover } from "@nextui-org/react";
+import { Text, Grid, Col, Modal, Loading, Row, Image, Avatar, Button, Table, Popover, Input } from "@nextui-org/react";
 import React, { useState, useEffect } from "react";
-import jwt_decode from "jwt-decode";
 import { useTicker } from "../../hooks";
 import Blank from '../../assets/images/blankplayer.jpg'
 import './fanup.css'
@@ -57,7 +56,6 @@ export default function FanUpContent() {
 
     // ----------------------------------------------------------
 
-
     const getUserTeam = async (user) => {
         setLoginLoader(false)
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getTeam?email=${user.email}`)
@@ -100,8 +98,6 @@ export default function FanUpContent() {
                     for (var i = 0; i < usersPlayers.length; i++) {
                         if (usersPlayers[i][5] == '1') {
                             t1p.push(usersPlayers[i][6])
-                            // console.log("im here")
-                            // console.log(usersPlayers[i][6])
                         }
                         if (usersPlayers[i][5] == '2') {
                             t2p.push(usersPlayers[i][6])
@@ -124,7 +120,6 @@ export default function FanUpContent() {
                 }
 
             })
-        // get user's team and set player1-5, player1-5email IDS, and player 1-5 genders
     }
 
     const getAllPlayers = async (user) => {
@@ -158,7 +153,6 @@ export default function FanUpContent() {
         await getUserTeam(user)
     }
 
-    // VALIDATION
     async function validateTeam() {
         if (selectedPlayers) {
             console.log(selectedPlayers)
@@ -220,7 +214,6 @@ export default function FanUpContent() {
 
     }
 
-    // SAVE TEAM
     async function saveTeam() {
         if (selectedPlayers) {
             console.log(selectedPlayers)
@@ -292,37 +285,58 @@ export default function FanUpContent() {
         await validateTeam();
     }
 
-    //11:30pm on 28th October, 2023 GMT or 5:30pm on 28th October, 2023 IST
-    const endDate = "2025-04-27T13:00:00.000Z"  // 6:30 PM on April 27, 2025 IST (UTC+5:30)
+    const endDate = "2025-04-27T13:00:00.000Z"
 
     const { days, hours, minutes, seconds, isTimeUp } = useTicker(endDate);
 
-    function handleCallbackresponse(response) {
+    function handleManualLogin(e) {
+        e.preventDefault();
 
-        var userObject = jwt_decode(response.credential)
-        setLoginLoader(true);
-        document.getElementById("GoogleButton").hidden = true;
-        if (!isTimeUp) {
-            setUser(userObject)
-            setSignedin(true)
-            getAllPlayers(userObject)
+        if (!manualEmail.includes('@') || manualName.trim() === '') {
+            setLoginError(true);
+            return;
         }
-        else {
-            setShowTimeLockModal(true)
+
+        setLoginLoader(true);
+        document.getElementById("ManualLoginForm").hidden = true;
+
+        if (!isTimeUp) {
+            const userObject = {
+                email: manualEmail,
+                name: manualName,
+                given_name: manualName.split(' ')[0],
+                picture: null
+            };
+
+            setUser(userObject);
+            setSignedin(true);
+            getAllPlayers(userObject);
+            setLoginError(false);
+        } else {
+            setShowTimeLockModal(true);
         }
     }
 
+    const [manualEmail, setManualEmail] = useState('');
+    const [manualName, setManualName] = useState('');
+    const [loginError, setLoginError] = useState(false);
+
+    useEffect(() => {
+        setLoginLoader(false);
+    }, []);
+
+    useEffect(() => {
+        calculatePrice()
+    }, [selectedPlayers1, selectedPlayers2, selectedPlayers3, selectedPlayers4])
+
     function calculatePrice() {
-        // if (gotUserTeam) {
         var sum = 0;
         var T1Players = []
         var T2Players = []
         var T3Players = []
         var T4Players = []
         var selectedPlayers = []
-        // console.log(selectedPlayers1)
         if (selectedPlayers1) {
-
             if (typeof (priceArr) !== "Array") {
                 var priceArr = Array.from(selectedPlayers1)
 
@@ -407,41 +421,10 @@ export default function FanUpContent() {
                 finalPlayers.push(player)
             }
         })
-        // console.log('final', finalPlayers)
         setSelectedPlayers(finalPlayers)
 
         return true;
-        // }
     }
-
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://accounts.google.com/gsi/client';
-        script.async = true;
-        script.onload = () => {
-            setLoginLoader(false);
-
-            window.google.accounts.id.initialize({
-                client_id: "361029505972-bds31bk8tege2lhk8eec4iftajlgp5om.apps.googleusercontent.com",
-                callback: handleCallbackresponse
-            });
-
-            window.google.accounts.id.renderButton(
-                document.getElementById("GoogleButton"),
-                { theme: 'outlined', size: 'large', shape: 'pill', }
-            );
-        };
-        document.head.appendChild(script);
-
-        return () => {
-            // Cleanup: remove the script if component is unmounted
-            document.head.removeChild(script);
-        };
-    }, []);
-
-    useEffect(() => {
-        calculatePrice()
-    }, [selectedPlayers1, selectedPlayers2, selectedPlayers3, selectedPlayers4])
 
     return (
         <>
@@ -519,7 +502,7 @@ export default function FanUpContent() {
 
             {fantasyPage &&
                 <>
-                    {LoginLoader && //Show loader when LoginLoader===true - for the lag between loggin in and shoing welcome message
+                    {LoginLoader &&
                         <Grid.Container
                             css={{
                                 jc: 'center',
@@ -536,7 +519,6 @@ export default function FanUpContent() {
                         </Grid.Container>
                     }
 
-                    {/* GOOGLE LOGIN BTN */}
                     {Object.keys(User).length == 0 && !LoginLoader && !isTimeUp &&
                         <Grid.Container
                             css={{
@@ -768,7 +750,44 @@ export default function FanUpContent() {
 
                                 </Row>
 
-                                <div className="GoogleButton" id='GoogleButton'></div>
+                                <form id="ManualLoginForm" onSubmit={handleManualLogin} style={{ width: '100%', maxWidth: '300px' }}>
+                                    <Input
+                                        bordered
+                                        fullWidth
+                                        color="warning"
+                                        size="lg"
+                                        placeholder="Full Name"
+                                        aria-label="Full Name"
+                                        value={manualName}
+                                        onChange={(e) => setManualName(e.target.value)}
+                                        css={{ marginBottom: '10px' }}
+                                    />
+                                    <Input
+                                        bordered
+                                        fullWidth
+                                        color="warning"
+                                        size="lg"
+                                        placeholder="Email Address"
+                                        aria-label="Email Address"
+                                        value={manualEmail}
+                                        onChange={(e) => setManualEmail(e.target.value)}
+                                        css={{ marginBottom: '10px' }}
+                                    />
+                                    {loginError &&
+                                        <Text color="error" css={{ marginBottom: '10px' }}>
+                                            Please enter a valid email and name
+                                        </Text>
+                                    }
+                                    <Button
+                                        auto
+                                        color="warning"
+                                        type="submit"
+                                        css={{ width: '100%' }}
+                                    >
+                                        Login to Create Fantasy Team
+                                    </Button>
+                                </form>
+
                                 <Text css={{
                                     '@xsMax': {
                                         fontSize: '$base'
@@ -780,7 +799,7 @@ export default function FanUpContent() {
                                     color: '#163364',
                                     paddingTop: '12px'
                                 }}>
-                                    Login with your ashoka email ID to make your ABA 7.0 Fantasy team!
+                                    Enter your details to make your ABA 8.0 Fantasy team!
                                 </Text>
                             </Col>
                         </Grid.Container>
@@ -905,7 +924,6 @@ export default function FanUpContent() {
                             paddingBottom: '24px',
                             borderRadius: '24px 24px 0px 0px'
                         }}>
-                            {/* Team PLayers Grid */}
                             <Grid css={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -985,9 +1003,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[0][0]}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -997,9 +1012,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1023,9 +1035,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[1][0]}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1035,9 +1044,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1066,9 +1072,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[2][0]}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1078,9 +1081,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1109,9 +1109,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[3][0]}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1121,9 +1118,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1147,9 +1141,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[4][0]}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1159,9 +1150,6 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1173,7 +1161,6 @@ export default function FanUpContent() {
                                 </Col>
                             </Grid>
 
-                            {/* Rules Grid */}
                             <Grid css={{
                                 jc: 'center',
                                 alignItems: 'center',
@@ -1262,7 +1249,6 @@ export default function FanUpContent() {
                                             <Text css={{
                                                 fontWeight: '$semibold',
                                             }}>
-                                                {/* Validate team --> if 200 OK --> save team */}
                                                 Save Team
                                             </Text>
                                         }
@@ -1273,8 +1259,6 @@ export default function FanUpContent() {
 
                         </Grid.Container>
                     }
-
-                    {/* {console.log(selectedPlayers)} */}
 
                     <Modal
                         fullScreen={false}
@@ -1470,8 +1454,6 @@ export default function FanUpContent() {
                                 </Grid>
                             </Grid.Container>
 
-                            {console.log(selectedPlayers1)}
-
                             {OneReady && Tier1Players &&
                                 <Table bordered={true}
                                     color={'warning'}
@@ -1664,7 +1646,6 @@ export default function FanUpContent() {
                             setShowResModal(false)
                         }}
                     >
-                        {/* Not validated */}
                         {ValidatedSuccessfully == false && SavedSuccessfully == false &&
                             <>
                                 <Modal.Header>
@@ -1705,7 +1686,6 @@ export default function FanUpContent() {
                             </>
                         }
 
-                        {/* Validated but not saved */}
                         {ValidatedSuccessfully == true && SavedSuccessfully == false &&
                             <>
                                 <Modal.Header >
@@ -1746,7 +1726,6 @@ export default function FanUpContent() {
                             </>
                         }
 
-                        {/* Validated and saved */}
                         {ValidatedSuccessfully == true && SavedSuccessfully == true &&
                             <>
                                 <Modal.Header>
