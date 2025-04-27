@@ -36,7 +36,7 @@ export default function TeamsLeaderboard() {
                 
                 // Add admin message as first team
                 const adminMessage = {
-                    1: "Zahaan Shapoorjee (i made this in 20 minutes sorry for all the bugs)",
+                    1: "Zahaan Shapoorjee (i made this in 20 minutes sorry for all the bugs <3)",
                     23: "∞",
                     length: 24
                 };
@@ -150,7 +150,7 @@ export default function TeamsLeaderboard() {
                                         key={index}
                                         borderWeight={'null'}
                                         shadow
-                                        title={`${teamName} - ${teamScore}`}
+                                        title={`${teamName} - ${teamScore}pts`}
                                         subtitle='Expand for team'>
         
                                         <Grid.Container css={{
