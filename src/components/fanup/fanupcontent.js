@@ -6,6 +6,9 @@ import './fanup.css'
 import TeamsLeaderboard from "./teamsldrb";
 import PlayersLeaderboard from "./playersldrb";
 
+const DEFAULT_MALE_AVATAR = "https://media.istockphoto.com/id/588258370/vector/male-avatar-profile-picture-vector.jpg?s=170667a&w=0&k=20&c=Q81czqi4H-NRDFVBetE0aPs6WLg3El13oM9LdBnHV8o=";
+const DEFAULT_FEMALE_AVATAR = "https://static.vecteezy.com/system/resources/previews/052/259/390/non_2x/portrait-of-a-pink-haired-woman-female-avatars-illustration-in-a-flat-style-vector.jpg";
+
 export default function FanUpContent() {
     const [LoginLoader, setLoginLoader] = useState(false);
     const [SaveBTNLoader, setSaveBTNLoader] = useState(false);
@@ -61,6 +64,10 @@ export default function FanUpContent() {
         email: '',
         fullName: ''
     });
+
+    const getPlayerAvatar = (gender) => {
+        return gender.toLowerCase() === 'female' ? DEFAULT_FEMALE_AVATAR : DEFAULT_MALE_AVATAR;
+    };
 
     const getUserTeam = async (user) => {
         setLoginLoader(false)
@@ -783,28 +790,22 @@ export default function FanUpContent() {
                                                 setGridNo(1)
                                             }}>
                                             {selectedPlayers[0] ?
-                                                <Image
-                                                    src={selectedPlayers[0][0]}
+                                                <Avatar
+                                                    src={getPlayerAvatar(selectedPlayers[0][9])}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                                 :
-                                                <Image
+                                                <Avatar
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                             }
                                         </Grid>
@@ -821,28 +822,22 @@ export default function FanUpContent() {
                                                 setGridNo(2)
                                             }}>
                                             {selectedPlayers[1] ?
-                                                <Image
-                                                    src={selectedPlayers[1][0]}
+                                                <Avatar
+                                                    src={getPlayerAvatar(selectedPlayers[1][9])}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                                 :
-                                                <Image
+                                                <Avatar
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                             }
                                         </Grid>
@@ -864,28 +859,22 @@ export default function FanUpContent() {
                                                 setGridNo(3)
                                             }}>
                                             {selectedPlayers[2] ?
-                                                <Image
-                                                    src={selectedPlayers[2][0]}
+                                                <Avatar
+                                                    src={getPlayerAvatar(selectedPlayers[2][9])}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                                 :
-                                                <Image
+                                                <Avatar
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                             }
                                         </Grid>
@@ -907,28 +896,22 @@ export default function FanUpContent() {
                                                 setGridNo(4)
                                             }}>
                                             {selectedPlayers[3] ?
-                                                <Image
-                                                    src={selectedPlayers[3][0]}
+                                                <Avatar
+                                                    src={getPlayerAvatar(selectedPlayers[3][9])}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                                 :
-                                                <Image
+                                                <Avatar
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                             }
                                         </Grid>
@@ -945,28 +928,22 @@ export default function FanUpContent() {
                                                 setGridNo(5)
                                             }}>
                                             {selectedPlayers[4] ?
-                                                <Image
-                                                    src={selectedPlayers[4][0]}
+                                                <Avatar
+                                                    src={getPlayerAvatar(selectedPlayers[4][9])}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                                 :
-                                                <Image
+                                                <Avatar
                                                     src={Blank}
                                                     css={{
-                                                        // borderStyle: 'solid',
-                                                        // borderWidth: '2px',
-                                                        // borderColor: '#ff9f56',
+                                                        width: '100px',
+                                                        height: '150px',
                                                         borderRadius: '4px',
                                                     }}
-                                                    width={100}
-                                                    height={150}
                                                 />
                                             }
                                         </Grid>
@@ -1304,7 +1281,7 @@ export default function FanUpContent() {
                                                     key={index}
                                                 >
                                                     <Table.Cell css={{ textAlign: 'center' }}>
-                                                        <Avatar src={player[0]} size={'md'} />
+                                                        <Avatar src={getPlayerAvatar(player[9])} size={'md'} />
                                                     </Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
@@ -1349,7 +1326,7 @@ export default function FanUpContent() {
                                             return (
                                                 <Table.Row onClick={() => alert("hi")}>
                                                     <Table.Cell css={{ textAlign: 'center' }}>
-                                                        <Avatar src={player[0]} size={'md'} />
+                                                        <Avatar src={getPlayerAvatar(player[9])} size={'md'} />
                                                     </Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
@@ -1393,7 +1370,7 @@ export default function FanUpContent() {
                                             return (
                                                 <Table.Row onClick={() => alert("hi")}>
                                                     <Table.Cell css={{ textAlign: 'center' }}>
-                                                        <Avatar src={player[0]} size={'md'} />
+                                                        <Avatar src={getPlayerAvatar(player[9])} size={'md'} />
                                                     </Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>
@@ -1437,7 +1414,7 @@ export default function FanUpContent() {
                                             return (
                                                 <Table.Row onClick={() => alert("hi")}>
                                                     <Table.Cell css={{ textAlign: 'center' }}>
-                                                        <Avatar src={player[0]} size={'md'} />
+                                                        <Avatar src={getPlayerAvatar(player[9])} size={'md'} />
                                                     </Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[1]}</Table.Cell>
                                                     <Table.Cell css={{ textAlign: 'center' }}>{player[20]}</Table.Cell>

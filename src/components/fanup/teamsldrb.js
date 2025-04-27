@@ -3,11 +3,20 @@ import React, { useEffect, useState } from "react";
 import Blank from '../../assets/images/blankplayer.jpg'
 import './fanup.css'
 
+const DEFAULT_USER_AVATAR = "https://media.istockphoto.com/id/588258370/vector/male-avatar-profile-picture-vector.jpg?s=170667a&w=0&k=20&c=Q81czqi4H-NRDFVBetE0aPs6WLg3El13oM9LdBnHV8o="; // Default user avatar
+const DEFAULT_MALE_AVATAR = "https://media.istockphoto.com/id/588258370/vector/male-avatar-profile-picture-vector.jpg?s=170667a&w=0&k=20&c=Q81czqi4H-NRDFVBetE0aPs6WLg3El13oM9LdBnHV8o=";
+const DEFAULT_FEMALE_AVATAR = "https://i.imgur.com/8Km9tLL.png";
+
 export default function TeamsLeaderboard() {
 
     const [LoginLoader, setLoginLoader] = useState(true)
 
     const [TeamsData, setTeamsData] = useState()
+
+    const getPlayerAvatar = (gender) => {
+        if(!gender) return DEFAULT_MALE_AVATAR; // Return
+        return gender.toLowerCase() === 'female' ? DEFAULT_FEMALE_AVATAR : DEFAULT_MALE_AVATAR;
+    };
 
     const getAllTeams = async () => {
 
@@ -25,9 +34,7 @@ export default function TeamsLeaderboard() {
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getAllPlayers`)
             .then(response => response.json())
             .then((playersData) => {
-                // console.log(teamsData)
                 teamsData.map((team) => {
-                    // console.log(playersData[team[4]])
                     var row1 = [
                         playersData[team[4]][1],
                         playersData[team[4]][2],
@@ -164,12 +171,12 @@ export default function TeamsLeaderboard() {
                                             }
                                         }}
                                         contentLeft={
-                                            <Avatar bordered size={'xl'} src={team[0]} />
+                                            <Avatar bordered size={'xl'} src={DEFAULT_USER_AVATAR} />
                                         }
                                         key={index}
                                         borderWeight={'null'}
                                         shadow
-                                        title={team[1] + ' - ' + team[23]}
+                                        title={team[1].split('-')[0].trim() + ' - ' + team[23]}
                                         subtitle='Expand for team'>
     
                                         <Grid.Container css={{
@@ -195,141 +202,6 @@ export default function TeamsLeaderboard() {
     
                                             </Col>
     
-                                            {/* <Col css={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'center',
-                                            width: 'max-content',
-                                            borderRadius: '8px',
-                                            padding: '1% 12px',
-                                            marginBottom: '12px'
-                                        }}
-                                            className="fantasy-court"
-                                        >
-                                            <Row css={{
-                                                justifyContent: 'center',
-                                                alignItems: 'center'
-                                            }}>
-                                                <Grid css={{
-                                                    marginRight: '24px',
-                                                    marginLeft: '24px',
-                                                    '&:hover': {
-                                                        cursor: 'pointer',
-                                                        opacity: '0.95',
-                                                        transform: 'scale(1.025)'
-                                                    }
-                                                }}>
-                                                    <Image
-                                                        src={team[3]}
-                                                        css={{
-                                                            // borderStyle: 'solid',
-                                                            // borderWidth: '2px',
-                                                            // borderColor: '#ff9f56',
-                                                            borderRadius: '4px',
-                                                        }}
-                                                        width={100}
-                                                        height={150}
-                                                    />
-                                                </Grid>
-    
-                                                <Grid css={{
-                                                    marginRight: '24px',
-                                                    marginLeft: '24px',
-                                                    '&:hover': {
-                                                        cursor: 'pointer',
-                                                        opacity: '0.95',
-                                                        transform: 'scale(1.025)'
-                                                    }
-                                                }}>
-                                                    <Image
-                                                        src={team[7]}
-                                                        css={{
-                                                            // borderStyle: 'solid',
-                                                            // borderWidth: '2px',
-                                                            // borderColor: '#ff9f56',
-                                                            borderRadius: '4px',
-                                                        }}
-                                                        width={100}
-                                                        height={150}
-                                                    />
-                                                </Grid>
-    
-                                            </Row>
-    
-                                            <Row css={{
-                                                justifyContent: 'center',
-                                                alignItems: 'center'
-                                            }}>
-                                                <Grid css={{
-                                                    margin: '24px 24px',
-                                                    '&:hover': {
-                                                        cursor: 'pointer',
-                                                        opacity: '0.95',
-                                                        transform: 'scale(1.025)'
-                                                    }
-                                                }}>
-                                                    <Image
-                                                        src={team[11]}
-                                                        css={{
-                                                            // borderStyle: 'solid',
-                                                            // borderWidth: '2px',
-                                                            // borderColor: '#ff9f56',
-                                                            borderRadius: '4px',
-                                                        }}
-                                                        width={100}
-                                                        height={150}
-                                                    />
-                                                </Grid>
-                                            </Row>
-    
-                                            <Row css={{
-                                                justifyContent: 'center',
-                                            }}>
-                                                <Grid css={{
-                                                    marginRight: '24px',
-                                                    marginLeft: '24px',
-                                                    '&:hover': {
-                                                        cursor: 'pointer',
-                                                        opacity: '0.95',
-                                                        transform: 'scale(1.025)'
-                                                    }
-                                                }}>
-                                                    <Image
-                                                        src={team[15]}
-                                                        css={{
-                                                            // borderStyle: 'solid',
-                                                            // borderWidth: '2px',
-                                                            // borderColor: '#ff9f56',
-                                                            borderRadius: '4px',
-                                                        }}
-                                                        width={100}
-                                                        height={150}
-                                                    />
-                                                </Grid>
-                                                <Grid css={{
-                                                    marginRight: '24px',
-                                                    marginLeft: '24px',
-                                                    '&:hover': {
-                                                        cursor: 'pointer',
-                                                        opacity: '0.95',
-                                                        transform: 'scale(1.025)'
-                                                    }
-                                                }}>
-                                                    <Image
-                                                        src={team[19]}
-                                                        css={{
-                                                            // borderStyle: 'solid',
-                                                            // borderWidth: '2px',
-                                                            // borderColor: '#ff9f56',
-                                                            borderRadius: '4px',
-                                                        }}
-                                                        width={100}
-                                                        height={150}
-                                                    />
-                                                </Grid>
-                                            </Row>
-                                        </Col> */}
-    
                                             <Table bordered={true}
                                                 aria-label="Fantasy teams' players stats"
                                                 css={{
@@ -350,7 +222,10 @@ export default function TeamsLeaderboard() {
                                                 <Table.Body>
     
                                                     <Table.Row>
-                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>
+                                                            <Avatar src={getPlayerAvatar(team[24][9])} size="sm" />
+                                                            {team[24][0]}
+                                                        </Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[24][7]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[24][8]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[24][1]}</Table.Cell>
@@ -362,7 +237,10 @@ export default function TeamsLeaderboard() {
                                                     </Table.Row>
     
                                                     <Table.Row>
-                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>
+                                                            <Avatar src={getPlayerAvatar(team[25][9])} size="sm" />
+                                                            {team[25][0]}
+                                                        </Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[25][7]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[25][8]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[25][1]}</Table.Cell>
@@ -374,7 +252,10 @@ export default function TeamsLeaderboard() {
                                                     </Table.Row>
     
                                                     <Table.Row>
-                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>
+                                                            <Avatar src={getPlayerAvatar(team[26][9])} size="sm" />
+                                                            {team[26][0]}
+                                                        </Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[26][7]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[26][8]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[26][1]}</Table.Cell>
@@ -386,7 +267,10 @@ export default function TeamsLeaderboard() {
                                                     </Table.Row>
     
                                                     <Table.Row>
-                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>
+                                                            <Avatar src={getPlayerAvatar(team[27][9])} size="sm" />
+                                                            {team[27][0]}
+                                                        </Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[27][7]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[27][8]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[27][1]}</Table.Cell>
@@ -398,7 +282,10 @@ export default function TeamsLeaderboard() {
                                                     </Table.Row>
     
                                                     <Table.Row>
-                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>
+                                                            <Avatar src={getPlayerAvatar(team[28][9])} size="sm" />
+                                                            {team[28][0]}
+                                                        </Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[28][7]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[28][8]}</Table.Cell>
                                                         <Table.Cell css={{ textAlign: 'center' }}>{team[28][1]}</Table.Cell>
