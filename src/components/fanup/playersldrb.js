@@ -1,101 +1,102 @@
-import React, { useEffect, useState } from "react";
 import { Avatar, Grid, Table, Row, Text, Image, Col, Loading, Collapse } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import Blank from '../../assets/images/blankplayer.jpg'
+import './fanup.css'
 
-export default function PlayersLeaderboard() {
+export default function TeamsLeaderboard() {
 
     const [LoginLoader, setLoginLoader] = useState(true)
 
-    const [PlayersData, setPlayersData] = useState()
+    const [TeamsData, setTeamsData] = useState()
 
-    const getAllPlayers = async () => {
+    const getAllTeams = async () => {
+
+        // await fetch(`http://localhost:3001/fantasy/getAllTeams`)
+        await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getAllTeams`)
+            .then(response => response.json())
+            .then((teamsData) => {
+                getAllPlayers(teamsData)
+            })
+    }
+
+    const getAllPlayers = async (teamsData) => {
 
         // await fetch(`http://localhost:3001/fantasy/getAllPlayers`)
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getAllPlayers`)
             .then(response => response.json())
-            .then((playersdata) => {
-                getAllStats(playersdata)
-            })
-    }
-
-    const getAllStats = async (playersdata) => {
-        // await fetch(`http://localhost:3001/aba7stats`)
-        await fetch(`https://aba-backend-gr9t.onrender.com/aba7stats`)
-            .then(response => response.json())
-            .then((statsdata) => {
-                statsdata.map((statArray) => {
-                    if (playersdata[statArray[0]]) {
-                        playersdata[statArray[0]][10].push(statArray)
-                    }
+            .then((playersData) => {
+                // console.log(teamsData)
+                teamsData.map((team) => {
+                    // console.log(playersData[team[4]])
+                    var row1 = [
+                        playersData[team[4]][1],
+                        playersData[team[4]][2],
+                        playersData[team[4]][3],
+                        playersData[team[4]][4],
+                        playersData[team[4]][5],
+                        playersData[team[4]][6],
+                        playersData[team[4]][7],
+                        playersData[team[4]][8],
+                        playersData[team[4]][9],
+                    ]
+                    var row2 = [
+                        playersData[team[8]][1],
+                        playersData[team[8]][2],
+                        playersData[team[8]][3],
+                        playersData[team[8]][4],
+                        playersData[team[8]][5],
+                        playersData[team[8]][6],
+                        playersData[team[8]][7],
+                        playersData[team[8]][8],
+                        playersData[team[8]][9],
+                    ]
+                    var row3 = [
+                        playersData[team[12]][1],
+                        playersData[team[12]][2],
+                        playersData[team[12]][3],
+                        playersData[team[12]][4],
+                        playersData[team[12]][5],
+                        playersData[team[12]][6],
+                        playersData[team[12]][7],
+                        playersData[team[12]][8],
+                        playersData[team[12]][9],
+                    ]
+                    var row4 = [
+                        playersData[team[16]][1],
+                        playersData[team[16]][2],
+                        playersData[team[16]][3],
+                        playersData[team[16]][4],
+                        playersData[team[16]][5],
+                        playersData[team[16]][6],
+                        playersData[team[16]][7],
+                        playersData[team[16]][8],
+                        playersData[team[16]][9],
+                    ]
+                    var row5 = [
+                        playersData[team[20]][1],
+                        playersData[team[20]][2],
+                        playersData[team[20]][3],
+                        playersData[team[20]][4],
+                        playersData[team[20]][5],
+                        playersData[team[20]][6],
+                        playersData[team[20]][7],
+                        playersData[team[20]][8],
+                        playersData[team[20]][9],
+                    ]
+                    team.push(row1)
+                    team.push(row2)
+                    team.push(row3)
+                    team.push(row4)
+                    team.push(row5)
                 })
-                var finalPlayersData = []
-                for (const key in playersdata) {
-                    finalPlayersData.push(playersdata[key])
-                }
-                // console.log(finalPlayersData)
-                // setPlayersData(finalPlayersData)
-                preparePlayerTierData(finalPlayersData)
+                setTeamsData(teamsData)
                 setLoginLoader(false)
             })
     }
 
-    function getRankSubscript(rank) {
-        if (rank % 10 === 1 && rank % 100 !== 11) {
-            return "st";
-        } else if (rank % 10 === 2 && rank % 100 !== 12) {
-            return "nd";
-        } else if (rank % 10 === 3 && rank % 100 !== 13) {
-            return "rd";
-        } else {
-            return "th";
-        }
-    }
-
-    const preparePlayerTierData = (finalPlayersData) => {
-
-        for (let i = 0; i < finalPlayersData.length; i++) {
-            let sum =0;
-            let count = 0;
-            finalPlayersData[i][10].map((match) => {
-                sum+=parseInt(match[9])
-                count++
-            })
-            finalPlayersData[i][7] = parseFloat((sum / count).toFixed(1));
-        }
-        for (let i = 0; i < finalPlayersData.length; i++) {
-          const sortedArray1 = finalPlayersData.slice().sort((a, b) => b[2] - a[2]);
-          const rank1 = sortedArray1.findIndex((player) => player === finalPlayersData[i]) + 1;
-          finalPlayersData[i].push(rank1+getRankSubscript(rank1));
-      
-          const sortedArray2 = finalPlayersData.slice().sort((a, b) => b[3] - a[3]);
-          const rank2 = sortedArray2.findIndex((player) => player === finalPlayersData[i]) + 1;
-          finalPlayersData[i].push(rank2+getRankSubscript(rank2));
-      
-          const sortedArray3 = finalPlayersData.slice().sort((a, b) => b[4] - a[4]);
-          const rank3 = sortedArray3.findIndex((player) => player === finalPlayersData[i]) + 1;
-          finalPlayersData[i].push(rank3+getRankSubscript(rank3));
-      
-          const sortedArray4 = finalPlayersData.slice().sort((a, b) => b[5] - a[5]);
-          const rank4 = sortedArray4.findIndex((player) => player === finalPlayersData[i]) + 1;
-          finalPlayersData[i].push(rank4+getRankSubscript(rank4));
-      
-          const sortedArray5 = finalPlayersData.slice().sort((a, b) => b[6] - a[6]);
-          const rank5 = sortedArray5.findIndex((player) => player === finalPlayersData[i]) + 1;
-          finalPlayersData[i].push(rank5+getRankSubscript(rank5));
-      
-          const sortedArray6 = finalPlayersData.slice().sort((a, b) => b[7] - a[7]);
-          const rank6 = sortedArray6.findIndex((player) => player === finalPlayersData[i]) + 1;
-          finalPlayersData[i].push(rank6+getRankSubscript(rank6));
-        }
-      
-        finalPlayersData.sort((a, b) => b[8] - a[8]);
-        console.log(finalPlayersData);
-        setPlayersData(finalPlayersData);
-      }
-      
-
     useEffect(() => {
         setLoginLoader(true)
-        getAllPlayers()
+        getAllTeams()
     }, [])
 
     return (
@@ -117,7 +118,8 @@ export default function PlayersLeaderboard() {
                 </Grid.Container>
             }
 
-            {!LoginLoader && PlayersData &&
+            {!LoginLoader && TeamsData &&
+
                 <Grid.Container css={{
                     backgroundColor: '#faf7ea',
                     justifyContent: 'center',
@@ -125,8 +127,8 @@ export default function PlayersLeaderboard() {
                     paddingBottom: '24px',
                     borderRadius: '24px 24px 0px 0px'
                 }}>
-                    {PlayersData.map((player, index) => {
-                        if (index < 50) {
+                    {TeamsData.map((team, index) => {
+                        if(index<50){
                             return (
                                 <Col css={{
                                     display: 'flex',
@@ -135,7 +137,7 @@ export default function PlayersLeaderboard() {
                                     width: 'max-content',
                                     margin: '0px 36px'
                                 }}>
-
+    
                                     <Text css={{
                                         fontWeight: '$semibold',
                                         padding: '16px 0px 4px 8px',
@@ -148,7 +150,7 @@ export default function PlayersLeaderboard() {
                                     }}>
                                         Rank: {index + 1}
                                     </Text>
-
+    
                                     <Collapse
                                         css={{
                                             backgroundColor: 'White',
@@ -158,18 +160,18 @@ export default function PlayersLeaderboard() {
                                                 width: '330px'
                                             },
                                             '@xsMin': {
-                                                width: '600px',
+                                                width: '700px',
                                             }
                                         }}
                                         contentLeft={
-                                            <Avatar bordered size={'xl'} src={player[0]} />
+                                            <Avatar bordered size={'xl'} src={team[0]} />
                                         }
                                         key={index}
                                         borderWeight={'null'}
                                         shadow
-                                        title={player[1] + ': ' + player[8]}
-                                        subtitle='Expand for statistics'>
-
+                                        title={team[1] + ' - ' + team[23]}
+                                        subtitle='Expand for team'>
+    
                                         <Grid.Container css={{
                                             jc: 'center',
                                             alignItems: 'center',
@@ -181,138 +183,247 @@ export default function PlayersLeaderboard() {
                                                         fontSize: '$xl',
                                                         fontWeight: '$medium'
                                                     }}>
-                                                    Fantasy Points: {player[8]}
+                                                    Worth: ${parseInt(team[6]) + parseInt(team[10]) + parseInt(team[14]) + parseInt(team[18]) + parseInt(team[22])} M
                                                 </Text>
                                                 <Text showIn={'xs'}
                                                     css={{
                                                         fontSize: '$lg',
                                                         fontWeight: '$medium'
                                                     }}>
-                                                    Fantasy Points: {player[8]}
+                                                    Worth: ${parseInt(team[6]) + parseInt(team[10]) + parseInt(team[14]) + parseInt(team[18]) + parseInt(team[22])} M
                                                 </Text>
-
-                                                <Text hideIn={'xs'}
-                                                    css={{
-                                                        fontSize: '$xl',
-                                                        fontWeight: '$medium'
-                                                    }}>
-                                                    Fantasy Price: ${player[9]} M
-                                                </Text>
-                                                <Text showIn={'xs'}
-                                                    css={{
-                                                        fontSize: '$lg',
-                                                        fontWeight: '$medium'
-                                                    }}>
-                                                    Fantasy Price: ${player[9]} M
-                                                </Text>
-
-                                                <Text hideIn={'xs'}
-                                                    css={{
-                                                        fontSize: '$xl',
-                                                        fontWeight: '$medium'
-                                                    }}>
-                                                    {player[1]}'s fantasy value is {(player[8] / player[9]).toFixed(2)}!
-                                                </Text>
-                                                <Text showIn={'xs'}
-                                                    css={{
-                                                        fontSize: '$lg',
-                                                        fontWeight: '$medium'
-                                                    }}>
-                                                    {player[1]}'s fantasy value is {(player[8] / player[9]).toFixed(2)}!
-                                                </Text>
+    
                                             </Col>
-
+    
+                                            {/* <Col css={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            width: 'max-content',
+                                            borderRadius: '8px',
+                                            padding: '1% 12px',
+                                            marginBottom: '12px'
+                                        }}
+                                            className="fantasy-court"
+                                        >
+                                            <Row css={{
+                                                justifyContent: 'center',
+                                                alignItems: 'center'
+                                            }}>
+                                                <Grid css={{
+                                                    marginRight: '24px',
+                                                    marginLeft: '24px',
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                        opacity: '0.95',
+                                                        transform: 'scale(1.025)'
+                                                    }
+                                                }}>
+                                                    <Image
+                                                        src={team[3]}
+                                                        css={{
+                                                            // borderStyle: 'solid',
+                                                            // borderWidth: '2px',
+                                                            // borderColor: '#ff9f56',
+                                                            borderRadius: '4px',
+                                                        }}
+                                                        width={100}
+                                                        height={150}
+                                                    />
+                                                </Grid>
+    
+                                                <Grid css={{
+                                                    marginRight: '24px',
+                                                    marginLeft: '24px',
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                        opacity: '0.95',
+                                                        transform: 'scale(1.025)'
+                                                    }
+                                                }}>
+                                                    <Image
+                                                        src={team[7]}
+                                                        css={{
+                                                            // borderStyle: 'solid',
+                                                            // borderWidth: '2px',
+                                                            // borderColor: '#ff9f56',
+                                                            borderRadius: '4px',
+                                                        }}
+                                                        width={100}
+                                                        height={150}
+                                                    />
+                                                </Grid>
+    
+                                            </Row>
+    
+                                            <Row css={{
+                                                justifyContent: 'center',
+                                                alignItems: 'center'
+                                            }}>
+                                                <Grid css={{
+                                                    margin: '24px 24px',
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                        opacity: '0.95',
+                                                        transform: 'scale(1.025)'
+                                                    }
+                                                }}>
+                                                    <Image
+                                                        src={team[11]}
+                                                        css={{
+                                                            // borderStyle: 'solid',
+                                                            // borderWidth: '2px',
+                                                            // borderColor: '#ff9f56',
+                                                            borderRadius: '4px',
+                                                        }}
+                                                        width={100}
+                                                        height={150}
+                                                    />
+                                                </Grid>
+                                            </Row>
+    
+                                            <Row css={{
+                                                justifyContent: 'center',
+                                            }}>
+                                                <Grid css={{
+                                                    marginRight: '24px',
+                                                    marginLeft: '24px',
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                        opacity: '0.95',
+                                                        transform: 'scale(1.025)'
+                                                    }
+                                                }}>
+                                                    <Image
+                                                        src={team[15]}
+                                                        css={{
+                                                            // borderStyle: 'solid',
+                                                            // borderWidth: '2px',
+                                                            // borderColor: '#ff9f56',
+                                                            borderRadius: '4px',
+                                                        }}
+                                                        width={100}
+                                                        height={150}
+                                                    />
+                                                </Grid>
+                                                <Grid css={{
+                                                    marginRight: '24px',
+                                                    marginLeft: '24px',
+                                                    '&:hover': {
+                                                        cursor: 'pointer',
+                                                        opacity: '0.95',
+                                                        transform: 'scale(1.025)'
+                                                    }
+                                                }}>
+                                                    <Image
+                                                        src={team[19]}
+                                                        css={{
+                                                            // borderStyle: 'solid',
+                                                            // borderWidth: '2px',
+                                                            // borderColor: '#ff9f56',
+                                                            borderRadius: '4px',
+                                                        }}
+                                                        width={100}
+                                                        height={150}
+                                                    />
+                                                </Grid>
+                                            </Row>
+                                        </Col> */}
+    
                                             <Table bordered={true}
-                                                aria-label="Players Leaderboard"
-                                                lined
+                                                aria-label="Fantasy teams' players stats"
                                                 css={{
                                                     height: "auto",
                                                     minWidth: "100%",
                                                 }}>
                                                 <Table.Header>
-                                                    <Table.Column css={{ paddingRight: '8px', textAlign: 'start' }}>Against</Table.Column>
+                                                    <  Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Player</Table.Column>
+                                                    <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Fantasy Points</Table.Column>
+                                                    <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Fantasy Price</Table.Column>
                                                     <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Points</Table.Column>
                                                     <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Rebounds</Table.Column>
                                                     <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Assists</Table.Column>
                                                     <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Steals</Table.Column>
                                                     <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Blocks</Table.Column>
                                                     <Table.Column css={{ paddingRight: '8px', textAlign: 'center' }}>Fouls</Table.Column>
-                                                    {/* <Table.Column css={{paddingRight: '8px',textAlign: 'center'}}>Fantasy Points</Table.Column> */}
                                                 </Table.Header>
                                                 <Table.Body>
-                                                    {player[10].map((row) => {
-                                                        return (
-                                                            <Table.Row>
-                                                                <Table.Cell css={{ textAlign: 'start' }}>
-                                                                    {row[0] !== 'Average' && row[0] !== 'Rank' ? (
-                                                                        <Text >
-                                                                            vs {row[2]}
-                                                                        </Text>
-                                                                    ) : (
-                                                                        <Text css={{
-                                                                            borderStyle: 'solid',
-                                                                            borderWidth: '2px 0px 0px 0px',
-                                                                            borderColor: '#faf7ea'
-                                                                        }}>
-                                                                            {row[2]}
-                                                                        </Text>
-                                                                    )}
-                                                                </Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{row[4]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{row[5]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{row[6]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{row[7]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{row[8]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{row[9]}</Table.Cell>
-                                                                {/* {row[0] == 'Average' ?
-                                                            <Table.Cell css={{ textAlign: 'center' }}>{row[8]} (Total) </Table.Cell>
-                                                            :
-                                                            <Table.Cell css={{ textAlign: 'center' }}>{row[8]}</Table.Cell>
-                                                            } */}
-                                                            </Table.Row>
-                                                        )
-                                                    })}
-                                                        <Table.Row>
-                                                                    <Table.Cell css={{ textAlign: 'start' }}>
-                                                                        <Text >
-                                                                        <b>Average</b>
-                                                                        </Text>
-                                                                    </Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[2]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[3]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[4]}</Table.Cell>      
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[5]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[6]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[7]}</Table.Cell>
-                                                                </Table.Row>
-                                                                <Table.Row>
-                                                                    <Table.Cell css={{ textAlign: 'start' }}>
-                                                                        <Text >
-                                                                            
-                                                                            <i>Rank</i>
-                                                                        </Text>
-                                                                    </Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[11]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[12]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[13]}</Table.Cell>      
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[14]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[15]}</Table.Cell>
-                                                                <Table.Cell css={{ textAlign: 'center' }}>{player[16]}</Table.Cell>
-                                                                </Table.Row>
-
+    
+                                                    <Table.Row>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][7]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][8]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][1]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][2]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][3]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][4]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[24][6]}</Table.Cell>
+                                                    </Table.Row>
+    
+                                                    <Table.Row>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][7]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][8]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][1]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][2]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][3]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][4]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[25][6]}</Table.Cell>
+                                                    </Table.Row>
+    
+                                                    <Table.Row>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][7]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][8]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][1]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][2]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][3]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][4]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[26][6]}</Table.Cell>
+                                                    </Table.Row>
+    
+                                                    <Table.Row>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][7]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][8]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][1]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][2]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][3]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][4]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[27][6]}</Table.Cell>
+                                                    </Table.Row>
+    
+                                                    <Table.Row>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][0]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][7]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][8]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][1]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][2]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][3]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][4]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][5]}</Table.Cell>
+                                                        <Table.Cell css={{ textAlign: 'center' }}>{team[28][6]}</Table.Cell>
+                                                    </Table.Row>
+    
                                                 </Table.Body>
                                             </Table>
-
-
+    
+    
                                         </Grid.Container>
-
+    
                                     </Collapse>
                                 </Col>
                             )
                         }
                     })}
 
+
                 </Grid.Container>
+
             }
         </>
     )

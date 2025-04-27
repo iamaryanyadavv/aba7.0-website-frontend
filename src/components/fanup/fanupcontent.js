@@ -56,6 +56,12 @@ export default function FanUpContent() {
 
     // ----------------------------------------------------------
 
+    // Login Form State
+    const [loginForm, setLoginForm] = useState({
+        email: '',
+        fullName: ''
+    });
+
     const getUserTeam = async (user) => {
         setLoginLoader(false)
         await fetch(`https://aba-backend-gr9t.onrender.com/fantasy/getTeam?email=${user.email}`)
@@ -98,6 +104,8 @@ export default function FanUpContent() {
                     for (var i = 0; i < usersPlayers.length; i++) {
                         if (usersPlayers[i][5] == '1') {
                             t1p.push(usersPlayers[i][6])
+                            // console.log("im here")
+                            // console.log(usersPlayers[i][6])
                         }
                         if (usersPlayers[i][5] == '2') {
                             t2p.push(usersPlayers[i][6])
@@ -120,172 +128,41 @@ export default function FanUpContent() {
                 }
 
             })
+        // get user's team and set player1-5, player1-5email IDS, and player 1-5 genders
     }
 
     const getAllPlayers = async (user) => {
-        try {
-            console.log("Starting getAllPlayers function");
-            const response = await fetch('https://aba-backend-gr9t.onrender.com/aba7players');
-            const playersData = await response.json();
-            
-            console.log("API Response received:", playersData);
-            console.log("Data type:", typeof playersData);
-            
-            // If it's an array, log its length
-            if (Array.isArray(playersData)) {
-                console.log("Array length:", playersData.length);
-            }
-            // If it's an object, log the number of keys
-            else if (typeof playersData === 'object' && playersData !== null) {
-                console.log("Number of keys:", Object.keys(playersData).length);
-                console.log("Keys:", Object.keys(playersData).slice(0, 5), "...");  // Show first 5 keys
-            }
-            
-            var tier1 = []
-            var tier2 = []
-            var tier3 = []
-            var tier4 = []
-            
-            // Check if playersData exists and is an object
-            if (playersData) {
-                // Check if it's the new format (object with player names as keys)
-                if (typeof playersData === 'object' && !Array.isArray(playersData) && playersData !== null) {
-                    // For each player in the object
-                    let index = 0;
-                    const totalKeys = Object.keys(playersData).length;
-                    console.log(`Processing ${totalKeys} players from object format`);
-                    
-                    Object.keys(playersData).forEach((playerName, keyIndex) => {
-                        console.log(`Processing player ${keyIndex+1}/${totalKeys}: ${playerName}`);
-                        const player = playersData[playerName];
-                        
-                        console.log(`Player data type: ${typeof player}, isArray: ${Array.isArray(player)}`);
-                        if (player) {
-                            console.log(`Player data exists, length: ${Array.isArray(player) ? player.length : 'not an array'}`);
-                        } else {
-                            console.log(`Player data is null or undefined for ${playerName}`);
-                        }
-                        
-                        // Add additional validation to ensure player is valid
-                        if (player && Array.isArray(player)) {
-                            try {
-                                console.log(`Player before processing: ${player.slice(0, 3)}...`);
-                                
-                                // Add an index property for reference
-                                player.push(index);
-                                
-                                // Determine tier based on price - ensure index 9 exists or use a default value
-                                console.log(`Checking price at index 9: ${player[9]}`);
-                                const price = player[9] !== undefined ? parseFloat(player[9] || 0) : 0;
-                                console.log(`Parsed price: ${price}`);
-                                
-                                if (price >= 35) {  // Tier 1: Most expensive players
-                                    player[5] = '1'; // Set tier property
-                                    tier1.push(player);
-                                    console.log(`Added to tier 1: ${player[1]}`);
-                                } 
-                                else if (price >= 15) {  // Tier 2: Medium-high price
-                                    player[5] = '2';
-                                    tier2.push(player);
-                                    console.log(`Added to tier 2: ${player[1]}`);
-                                }
-                                else if (price >= 10) {  // Tier 3: Medium price
-                                    player[5] = '3';
-                                    tier3.push(player);
-                                    console.log(`Added to tier 3: ${player[1]}`);
-                                }
-                                else {  // Tier 4: Lowest price
-                                    player[5] = '4';
-                                    tier4.push(player);
-                                    console.log(`Added to tier 4: ${player[1]}`);
-                                }
-                                
-                                index++;
-                            } catch (err) {
-                                console.error(`Error processing player ${playerName}:`, err);
-                                console.error("Player data causing error:", player);
-                            }
-                        } else {
-                            console.warn(`Skipped invalid player entry: ${playerName}`);
-                        }
-                    });
-                } 
-                // Handle the old format if needed (array with values property)
-                else if (playersData.values && Array.isArray(playersData.values)) {
-                    console.log(`Processing ${playersData.values.length} players from values array`);
-                    
-                    playersData.values.forEach((player, idx) => {
-                        console.log(`Processing player ${idx+1}/${playersData.values.length}`);
-                        
-                        if (player && Array.isArray(player)) {
-                            try {
-                                console.log(`Player data: ${player.slice(0, 3)}...`);
-                                console.log(`Player tier: ${player[5]}`);
-                                
-                                if (player[5] === '1') {
-                                    tier1.push(player);
-                                    console.log(`Added to tier 1: ${player[1]}`);
-                                }
-                                if (player[5] === '2') {
-                                    tier2.push(player);
-                                    console.log(`Added to tier 2: ${player[1]}`);
-                                }
-                                if (player[5] === '3') {
-                                    tier3.push(player);
-                                    console.log(`Added to tier 3: ${player[1]}`);
-                                }
-                                if (player[5] === '4') {
-                                    tier4.push(player);
-                                    console.log(`Added to tier 4: ${player[1]}`);
-                                }
-                            } catch (err) {
-                                console.error(`Error processing player at index ${idx}:`, err);
-                                console.error("Player data causing error:", player);
-                            }
-                        } else {
-                            console.warn(`Skipped invalid player at index ${idx}`);
-                        }
-                    });
-                } else {
-                    console.error("Unexpected data format:", playersData);
-                    setLoginLoader(false);
-                    return;
-                }
-                
-                console.log(`Final counts - Tier 1: ${tier1.length}, Tier 2: ${tier2.length}, Tier 3: ${tier3.length}, Tier 4: ${tier4.length}`);
-                
-                // Check if any tier arrays have players without name property (index 1)
-                if (tier1.length > 0) {
-                    console.log("Sample tier 1 player:", tier1[0]);
-                    console.log("First 3 tier 1 players have names:", 
-                        tier1.slice(0, 3).map(p => p && typeof p[1] !== 'undefined'));
-                }
-                
+        await fetch('https://aba-backend-gr9t.onrender.com/aba7players')
+            .then(response => response.json())
+            .then((players) => {
+                var tier1 = []
+                var tier2 = []
+                var tier3 = []
+                var tier4 = []
+                players.values.map((player) => {
+                    if (player[5] == '1') {
+                        tier1.push(player)
+                    }
+                    if (player[5] == '2') {
+                        tier2.push(player)
+                    }
+                    if (player[5] == '3') {
+                        tier3.push(player)
+                    }
+                    if (player[5] == '4') {
+                        tier4.push(player)
+                    }
+                })
                 setTier1Players(tier1)
                 setTier2Players(tier2)
                 setTier3Players(tier3)
                 setTier4Players(tier4)
                 setGotAllPlayers(true)
-            } else {
-                console.error("No player data received");
-                setLoginLoader(false);
-                return;
-            }
-        } catch (error) {
-            console.error("Error fetching players data:", error);
-            setLoginLoader(false);
-            return;
-        }
-        
-        try {
-            console.log("About to call getUserTeam with user:", user);
-            await getUserTeam(user);
-        } catch (error) {
-            console.error("Error fetching user team:", error);
-            setLoginLoader(false);
-        }
+            })
+        await getUserTeam(user)
     }
 
+    // VALIDATION
     async function validateTeam() {
         if (selectedPlayers) {
             console.log(selectedPlayers)
@@ -347,6 +224,7 @@ export default function FanUpContent() {
 
     }
 
+    // SAVE TEAM
     async function saveTeam() {
         if (selectedPlayers) {
             console.log(selectedPlayers)
@@ -418,58 +296,40 @@ export default function FanUpContent() {
         await validateTeam();
     }
 
+    // Update end date to April 27, 2025 6:30 PM IST
     const endDate = "2025-04-27T13:00:00.000Z"
 
     const { days, hours, minutes, seconds, isTimeUp } = useTicker(endDate);
 
-    function handleManualLogin(e) {
+    function handleLogin(e) {
         e.preventDefault();
-
-        if (!manualEmail.includes('@') || manualName.trim() === '') {
-            setLoginError(true);
-            return;
-        }
-
         setLoginLoader(true);
-        document.getElementById("ManualLoginForm").hidden = true;
-
+        
         if (!isTimeUp) {
             const userObject = {
-                email: manualEmail,
-                name: manualName,
-                given_name: manualName.split(' ')[0],
-                picture: null
+                email: loginForm.email,
+                name: loginForm.fullName,
+                given_name: loginForm.fullName.split(' ')[0]
             };
-
             setUser(userObject);
             setSignedin(true);
             getAllPlayers(userObject);
-            setLoginError(false);
         } else {
             setShowTimeLockModal(true);
         }
     }
 
-    const [manualEmail, setManualEmail] = useState('');
-    const [manualName, setManualName] = useState('');
-    const [loginError, setLoginError] = useState(false);
-
-    useEffect(() => {
-        setLoginLoader(false);
-    }, []);
-
-    useEffect(() => {
-        calculatePrice()
-    }, [selectedPlayers1, selectedPlayers2, selectedPlayers3, selectedPlayers4])
-
     function calculatePrice() {
+        // if (gotUserTeam) {
         var sum = 0;
         var T1Players = []
         var T2Players = []
         var T3Players = []
         var T4Players = []
         var selectedPlayers = []
+        // console.log(selectedPlayers1)
         if (selectedPlayers1) {
+
             if (typeof (priceArr) !== "Array") {
                 var priceArr = Array.from(selectedPlayers1)
 
@@ -554,10 +414,16 @@ export default function FanUpContent() {
                 finalPlayers.push(player)
             }
         })
+        // console.log('final', finalPlayers)
         setSelectedPlayers(finalPlayers)
 
         return true;
+        // }
     }
+
+    useEffect(() => {
+        calculatePrice()
+    }, [selectedPlayers1, selectedPlayers2, selectedPlayers3, selectedPlayers4])
 
     return (
         <>
@@ -620,8 +486,7 @@ export default function FanUpContent() {
                             setFantasyPage(false)
                             setTeamLeaderboard(false)
                             setPlayersLeaderboard(true)
-                        }}
-                    >
+                        }}>
                         <Text className="games-btn-text"
                             css={{
                                 fontSize: '$md',
@@ -635,7 +500,7 @@ export default function FanUpContent() {
 
             {fantasyPage &&
                 <>
-                    {LoginLoader &&
+                    {LoginLoader && //Show loader when LoginLoader===true - for the lag between loggin in and shoing welcome message
                         <Grid.Container
                             css={{
                                 jc: 'center',
@@ -652,6 +517,7 @@ export default function FanUpContent() {
                         </Grid.Container>
                     }
 
+                    {/* LOGIN FORM */}
                     {Object.keys(User).length == 0 && !LoginLoader && !isTimeUp &&
                         <Grid.Container
                             css={{
@@ -667,260 +533,43 @@ export default function FanUpContent() {
                                 alignItems: 'center',
                                 margin: '20vh 0px 30vh 0px'
                             }}>
-                                <Text>
-                                    Locking in...
-                                </Text>
-                                <Row
-                                    css={{
-                                        jc: 'center',
-                                        paddingBottom: '24px'
-                                    }}>
-
-                                    <Col
-                                        css={{
-                                            width: 'max-content'
-                                        }}>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$3xl'
-                                                }}>
-                                                {days}
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                {days}
-                                            </Text>
-                                        </Grid.Container>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                Days
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$md'
-                                                }}>
-                                                Days
-                                            </Text>
-                                        </Grid.Container>
-                                    </Col>
-
-                                    <Text hideIn={'xs'}
-                                        css={{
-                                            fontSize: '$3xl',
-                                            padding: '0% 5%'
-                                        }}>
-                                        :
-                                    </Text>
-                                    <Text showIn={'xs'}
-                                        css={{
-                                            fontSize: '$xl',
-                                            padding: '0% 2.5%'
-                                        }}>
-                                        :
-                                    </Text>
-
-                                    <Col
-                                        css={{
-                                            width: 'max-content'
-                                        }}>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$3xl'
-                                                }}>
-                                                {hours}
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                {hours}
-                                            </Text>
-                                        </Grid.Container>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                Hours
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$md'
-                                                }}>
-                                                Hours
-                                            </Text>
-                                        </Grid.Container>
-                                    </Col>
-
-                                    <Text hideIn={'xs'}
-                                        css={{
-                                            fontSize: '$3xl',
-                                            padding: '0% 5%'
-                                        }}>
-                                        :
-                                    </Text>
-                                    <Text showIn={'xs'}
-                                        css={{
-                                            fontSize: '$xl',
-                                            padding: '0% 2.5%'
-                                        }}>
-                                        :
-                                    </Text>
-
-                                    <Col
-                                        css={{
-                                            width: 'max-content'
-                                        }}>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$3xl'
-                                                }}>
-                                                {minutes}
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                {minutes}
-                                            </Text>
-                                        </Grid.Container>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                Minutes
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$md'
-                                                }}>
-                                                Minutes
-                                            </Text>
-                                        </Grid.Container>
-                                    </Col>
-
-                                    <Text hideIn={'xs'}
-                                        css={{
-                                            fontSize: '$3xl',
-                                            padding: '0% 5%'
-                                        }}>
-                                        :
-                                    </Text>
-                                    <Text showIn={'xs'}
-                                        css={{
-                                            fontSize: '$xl',
-                                            padding: '0% 2.5%'
-                                        }}>
-                                        :
-                                    </Text>
-
-                                    <Col
-                                        css={{
-                                            width: 'max-content'
-                                        }}>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$3xl'
-                                                }}>
-                                                {seconds}
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                {seconds}
-                                            </Text>
-                                        </Grid.Container>
-                                        <Grid.Container
-                                            css={{
-                                                jc: 'center',
-                                            }}>
-                                            <Text hideIn={'xs'}
-                                                css={{
-                                                    fontSize: '$xl'
-                                                }}>
-                                                Seconds
-                                            </Text>
-                                            <Text showIn={'xs'}
-                                                css={{
-                                                    fontSize: '$md'
-                                                }}>
-                                                Seconds
-                                            </Text>
-                                        </Grid.Container>
-                                    </Col>
-
-                                </Row>
-
-                                <form id="ManualLoginForm" onSubmit={handleManualLogin} style={{ width: '100%', maxWidth: '300px' }}>
+                                <form onSubmit={handleLogin} style={{width: '100%', maxWidth: '400px'}}>
                                     <Input
+                                        required
                                         bordered
                                         fullWidth
                                         color="warning"
+                                        size="lg"
+                                        type="email"
+                                        placeholder="Email Address"
+                                        css={{ marginBottom: '20px' }}
+                                        value={loginForm.email}
+                                        onChange={(e) => setLoginForm({...loginForm, email: e.target.value})}
+                                    />
+                                    <Input
+                                        required
+                                        bordered
+                                        fullWidth
+                                        color="warning" 
                                         size="lg"
                                         placeholder="Full Name"
-                                        aria-label="Full Name"
-                                        value={manualName}
-                                        onChange={(e) => setManualName(e.target.value)}
-                                        css={{ marginBottom: '10px' }}
+                                        css={{ marginBottom: '20px' }}
+                                        value={loginForm.fullName}
+                                        onChange={(e) => setLoginForm({...loginForm, fullName: e.target.value})}
                                     />
-                                    <Input
-                                        bordered
-                                        fullWidth
-                                        color="warning"
-                                        size="lg"
-                                        placeholder="Email Address"
-                                        aria-label="Email Address"
-                                        value={manualEmail}
-                                        onChange={(e) => setManualEmail(e.target.value)}
-                                        css={{ marginBottom: '10px' }}
-                                    />
-                                    {loginError &&
-                                        <Text color="error" css={{ marginBottom: '10px' }}>
-                                            Please enter a valid email and name
-                                        </Text>
-                                    }
-                                    <Button
-                                        auto
+                                    <Button 
+                                        auto 
                                         color="warning"
                                         type="submit"
-                                        css={{ width: '100%' }}
+                                        css={{width: '200px'}}
                                     >
-                                        Login to Create Fantasy Team
+                                        {LoginLoader ? 
+                                            <Loading type="points" color="currentColor" size="sm" />
+                                            : 
+                                            "Login"
+                                        }
                                     </Button>
                                 </form>
-
                                 <Text css={{
                                     '@xsMax': {
                                         fontSize: '$base'
@@ -932,7 +581,7 @@ export default function FanUpContent() {
                                     color: '#163364',
                                     paddingTop: '12px'
                                 }}>
-                                    Enter your details to make your ABA 8.0 Fantasy team!
+                                    Login to make your ABA 7.0 Fantasy team!
                                 </Text>
                             </Col>
                         </Grid.Container>
@@ -997,7 +646,7 @@ export default function FanUpContent() {
                                         fontWeight: '$medium',
                                         color: 'black',
                                     }}>
-                                    Welcome to the official ABA 8.0 FanUp fantasy {User.name}!
+                                    Welcome to the official ABA 7.0 FanUp fantasy {User.name}!
                                 </Text>
                             </Modal.Body>
 
@@ -1057,6 +706,7 @@ export default function FanUpContent() {
                             paddingBottom: '24px',
                             borderRadius: '24px 24px 0px 0px'
                         }}>
+                            {/* Team PLayers Grid */}
                             <Grid css={{
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -1136,6 +786,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[0][0]}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1145,6 +798,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1168,6 +824,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[1][0]}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1177,6 +836,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1205,6 +867,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[2][0]}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1214,6 +879,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1242,6 +910,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[3][0]}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1251,6 +922,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1274,6 +948,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={selectedPlayers[4][0]}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1283,6 +960,9 @@ export default function FanUpContent() {
                                                 <Image
                                                     src={Blank}
                                                     css={{
+                                                        // borderStyle: 'solid',
+                                                        // borderWidth: '2px',
+                                                        // borderColor: '#ff9f56',
                                                         borderRadius: '4px',
                                                     }}
                                                     width={100}
@@ -1294,6 +974,7 @@ export default function FanUpContent() {
                                 </Col>
                             </Grid>
 
+                            {/* Rules Grid */}
                             <Grid css={{
                                 jc: 'center',
                                 alignItems: 'center',
@@ -1382,6 +1063,7 @@ export default function FanUpContent() {
                                             <Text css={{
                                                 fontWeight: '$semibold',
                                             }}>
+                                                {/* Validate team --> if 200 OK --> save team */}
                                                 Save Team
                                             </Text>
                                         }
@@ -1392,6 +1074,8 @@ export default function FanUpContent() {
 
                         </Grid.Container>
                     }
+
+                    {/* {console.log(selectedPlayers)} */}
 
                     <Modal
                         fullScreen={false}
@@ -1587,6 +1271,8 @@ export default function FanUpContent() {
                                 </Grid>
                             </Grid.Container>
 
+                            {console.log(selectedPlayers1)}
+
                             {OneReady && Tier1Players &&
                                 <Table bordered={true}
                                     color={'warning'}
@@ -1779,6 +1465,7 @@ export default function FanUpContent() {
                             setShowResModal(false)
                         }}
                     >
+                        {/* Not validated */}
                         {ValidatedSuccessfully == false && SavedSuccessfully == false &&
                             <>
                                 <Modal.Header>
@@ -1819,6 +1506,7 @@ export default function FanUpContent() {
                             </>
                         }
 
+                        {/* Validated but not saved */}
                         {ValidatedSuccessfully == true && SavedSuccessfully == false &&
                             <>
                                 <Modal.Header >
@@ -1859,6 +1547,7 @@ export default function FanUpContent() {
                             </>
                         }
 
+                        {/* Validated and saved */}
                         {ValidatedSuccessfully == true && SavedSuccessfully == true &&
                             <>
                                 <Modal.Header>

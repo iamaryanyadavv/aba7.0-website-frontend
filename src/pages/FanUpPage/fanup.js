@@ -13,7 +13,7 @@ export default function FanUpPage(){
         }}>
             <Spacer y={2} />
             <GradientHeading
-                heading='ABA 8.0 Fantasy'
+                heading='ABA 7.0 Fantasy'
                 description='Our very own fantasy league powered by FanUp!'
                 gradient='#163364'
             />
