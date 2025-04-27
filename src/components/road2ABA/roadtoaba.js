@@ -9,7 +9,7 @@ export default function RoadToABA(){
             <div className="RTAPLbackg">
             <GradientHeading
                 heading='Road to ABA'
-                description='You can find all of the tournament details of ABA Season 7.0!'
+                description='You can find all of the tournament details of ABA Season 7.0! Zahaan test'
                 gradient='#163364'
             />
                 <RoadToAPLContent/>
