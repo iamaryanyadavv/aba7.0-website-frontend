@@ -2,11 +2,28 @@ import { Avatar, Grid, Table, Row, Text, Image, Col, Loading, Collapse, Card } f
 import React, { useEffect, useState } from "react";
 import './fanup.css';
 
-// Medal colors for top teams
+// Medal colors for top teams with enhanced distinctiveness
 const RANK_COLORS = {
+    0: '#4CAF50', // Special admin color (green)
     1: '#FFD700', // Gold
     2: '#C0C0C0', // Silver
     3: '#CD7F32', // Bronze
+};
+
+// Background gradients for top teams
+const TEAM_GRADIENTS = {
+    0: 'linear-gradient(135deg, #fff, #ebffeb 80%, #d4ffd4)',
+    1: 'linear-gradient(135deg, #fff, #fffdf0 70%, #fff8d6)',
+    2: 'linear-gradient(135deg, #fff, #f9f9f9 70%, #f0f0f0)',
+    3: 'linear-gradient(135deg, #fff, #faf5f2 70%, #f5e9e0)',
+};
+
+// Border colors for emphasizing top teams
+const TEAM_BORDERS = {
+    0: '1px solid #4CAF50',
+    1: '1px solid #FFD700',
+    2: '1px solid #C0C0C0',
+    3: '1px solid #CD7F32',
 };
 
 const DEFAULT_USER_AVATAR = "https://us-tuna-sounds-images.voicemod.net/74c1d12f-c974-4d4a-9f14-c9421280c1fd-1661473146032.png";
@@ -79,7 +96,18 @@ export default function TeamsLeaderboard() {
                 team.push(getPlayerStats(20)); // row5
             });
             
-            setTeamsData(validTeams);
+            // Sort teams by fantasy points (keeping admin message at index 0)
+            const adminTeam = validTeams[0];
+            const sortedTeams = validTeams.slice(1).sort((a, b) => {
+                const scoreA = a[23] ? parseFloat(a[23]) : 0;
+                const scoreB = b[23] ? parseFloat(b[23]) : 0;
+                return scoreB - scoreA; // Sort in descending order
+            });
+            
+            // Reinsert admin message at the beginning
+            sortedTeams.unshift(adminTeam);
+            
+            setTeamsData(sortedTeams);
             setLoginLoader(false);
         } catch (error) {
             console.error('Error fetching players:', error);
@@ -100,23 +128,24 @@ export default function TeamsLeaderboard() {
         return 0;
     };
 
-    // Render rank badge
+    // Render rank badge with enhanced styling
     const renderRankBadge = (rank) => {
-        const isTopThree = rank <= 3;
+        const isTopFour = rank <= 3;
         
         return (
             <div style={{
                 width: '40px',
                 height: '40px',
                 borderRadius: '50%',
-                background: isTopThree ? RANK_COLORS[rank] : '#e0e0e0',
+                background: RANK_COLORS[rank] || '#e0e0e0',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontWeight: 'bold',
                 fontSize: '1.1rem',
-                color: isTopThree ? '#333' : '#666',
-                boxShadow: isTopThree ? '0 2px 5px rgba(0,0,0,0.2)' : 'none'
+                color: rank === 0 ? '#fff' : (isTopFour ? '#333' : '#666'),
+                boxShadow: isTopFour ? '0 2px 6px rgba(0,0,0,0.3)' : 'none',
+                border: isTopFour ? '2px solid white' : 'none'
             }}>
                 {rank}
             </div>
@@ -176,7 +205,7 @@ export default function TeamsLeaderboard() {
                                     const teamName = team[1] ? (typeof team[1] === 'string' ? team[1].split('-')[0].trim() : 'Unknown Team') : team[1];
                                     const teamScore = team[23] || 0;
                                     const teamWorth = calculateTeamWorth(team);
-                                    const isTopThree = index <= 3;
+                                    const isTopFour = index <= 3;
                                     
                                     return (
                                         <Grid xs={12} key={index} css={{ 
@@ -185,13 +214,15 @@ export default function TeamsLeaderboard() {
                                             <Collapse 
                                                 css={{
                                                     width: '100%',
-                                                    background: isTopThree ? `linear-gradient(135deg, #fff, #fff 80%, ${RANK_COLORS[index]}30)` : '#fff',
-                                                    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                                                    background: TEAM_GRADIENTS[index] || '#fff',
+                                                    boxShadow: isTopFour ? '0 3px 12px rgba(0,0,0,0.15)' : '0 2px 10px rgba(0,0,0,0.1)',
                                                     borderRadius: '12px',
                                                     overflow: 'hidden',
+                                                    border: TEAM_BORDERS[index] || 'none',
                                                     transition: 'all 0.2s ease',
                                                     '&:hover': {
-                                                        boxShadow: '0 5px 15px rgba(0,0,0,0.15)'
+                                                        transform: isTopFour ? 'translateY(-3px)' : 'translateY(-2px)',
+                                                        boxShadow: isTopFour ? '0 6px 18px rgba(0,0,0,0.2)' : '0 5px 15px rgba(0,0,0,0.15)'
                                                     }
                                                 }}
                                                 contentLeft={
@@ -201,24 +232,56 @@ export default function TeamsLeaderboard() {
                                                             bordered 
                                                             size={'md'} 
                                                             src={DEFAULT_USER_AVATAR}
-                                                            color={isTopThree ? "warning" : "default"}
+                                                            color={RANK_COLORS[index] ? "warning" : "default"}
+                                                            borderWeight={isTopFour ? "bold" : "normal"}
                                                         />
                                                     </div>
                                                 }
-                                                borderWeight={'light'}
+                                                borderWeight={isTopFour ? 'bold' : 'light'}
                                                 shadow
                                                 title={
-                                                    <Text b size={isMobileView ? "1rem" : "1.2rem"} css={{ color: isTopThree ? '#163364' : '' }}>
+                                                    <Text 
+                                                        b 
+                                                        size={isMobileView ? (isTopFour ? "1.1rem" : "1rem") : (isTopFour ? "1.3rem" : "1.2rem")} 
+                                                        css={{ 
+                                                            color: index === 0 ? '#4CAF50' : 
+                                                                   index === 1 ? '#9e7c0c' : 
+                                                                   index === 2 ? '#555555' : 
+                                                                   index === 3 ? '#8a5a2b' : '',
+                                                            textShadow: isTopFour ? '0 1px 1px rgba(0,0,0,0.05)' : 'none'
+                                                        }}
+                                                    >
                                                         {teamName}
+                                                        {isTopFour && index !== 0 && (
+                                                            <span style={{ 
+                                                                marginLeft: '8px',
+                                                                fontSize: '0.8em',
+                                                                color: RANK_COLORS[index]
+                                                            }}>
+                                                                {index === 1 ? '🏆' : index === 2 ? '🥈' : '🥉'}
+                                                            </span>
+                                                        )}
                                                     </Text>
                                                 }
                                                 subtitle={
-                                                    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginTop: '4px' }}>
-                                                        <Text css={{ color: '#ff9f56', fontWeight: 'bold' }}>
+                                                    <div style={{ 
+                                                        display: 'flex', 
+                                                        gap: '16px', 
+                                                        alignItems: 'center', 
+                                                        marginTop: '4px' 
+                                                    }}>
+                                                        <Text css={{ 
+                                                            color: '#ff9f56', 
+                                                            fontWeight: 'bold',
+                                                            fontSize: isTopFour ? '1.1em' : '1em'
+                                                        }}>
                                                             {teamScore} pts
                                                         </Text>
                                                         {index !== 0 && (
-                                                            <Text css={{ color: '#666' }}>
+                                                            <Text css={{ 
+                                                                color: '#666',
+                                                                fontWeight: isTopFour ? 'bold' : 'normal'
+                                                            }}>
                                                                 Worth: ${teamWorth} M
                                                             </Text>
                                                         )}
@@ -230,6 +293,7 @@ export default function TeamsLeaderboard() {
                                                         jc: 'center',
                                                         alignItems: 'center',
                                                         padding: '16px 0',
+                                                        background: isTopFour ? 'rgba(255,255,255,0.7)' : 'transparent',
                                                     }}>
                                                         {isMobileView ? (
                                                             // Mobile view - cards for each player
