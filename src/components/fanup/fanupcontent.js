@@ -945,7 +945,7 @@ export default function FanUpContent() {
                                         />
                                         :
                                         <Avatar
-                                            text={User.given_name[0].toUppper()}
+                                            text={User.given_name[0].toUpperCase()}
                                             size={'xl'}
                                         />
                                     }
