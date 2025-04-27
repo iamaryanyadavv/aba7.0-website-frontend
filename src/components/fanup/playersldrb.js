@@ -23,6 +23,7 @@ export default function PlayersLeaderboard() {
             const playersArray = Object.entries(data).map(([name, stats]) => ({
                 name,
                 photo: stats[0],
+                gender: stats[9] || 'Male', // Add gender mapping
                 points: parseFloat(stats[2] || 0),
                 rebounds: parseFloat(stats[3] || 0),
                 assists: parseFloat(stats[4] || 0),
@@ -50,10 +51,20 @@ export default function PlayersLeaderboard() {
     return (
         <>
             {isLoading ? (
-                <Grid.Container css={{ jc: 'center', alignItems: 'center' }}>
-                    <Grid css={{ margin: '20vh 0px 40vh 0px' }}>
-                        <Loading size="md" color='warning' />
-                    </Grid>
+                <Grid.Container 
+                    css={{ 
+                        jc: 'center', 
+                        alignItems: 'center',
+                        minHeight: '50vh',
+                        backgroundColor: '#faf7ea',
+                        borderRadius: '24px 24px 0 0'
+                    }}
+                >
+                    <Loading size="xl" color='warning'>
+                        <Text h4 css={{ textAlign: 'center', color: '#666' }}>
+                            Loading Players...
+                        </Text>
+                    </Loading>
                 </Grid.Container>
             ) : (
                 <Grid.Container css={{
@@ -61,10 +72,27 @@ export default function PlayersLeaderboard() {
                     justifyContent: 'center',
                     alignItems: 'center',
                     paddingBottom: '24px',
-                    borderRadius: '24px 24px 0px 0px'
+                    borderRadius: '24px 24px 0 0',
+                    '@xsMax': {
+                        padding: '12px'
+                    }
                 }}>
-                    <Col css={{ width: '90%', maxWidth: '1200px', padding: '20px' }}>
-                        <Text h2 css={{ textAlign: 'center', marginBottom: '20px' }}>
+                    <Col css={{ 
+                        width: '100%', 
+                        maxWidth: '1200px', 
+                        padding: '20px',
+                        '@xsMax': {
+                            padding: '10px'
+                        }
+                    }}>
+                        <Text h2 css={{ 
+                            textAlign: 'center', 
+                            marginBottom: '20px',
+                            color: '#163364',
+                            '@xsMax': {
+                                fontSize: '1.5rem'
+                            }
+                        }}>
                             Top 50 Fantasy Players
                         </Text>
                         <Table 
@@ -73,36 +101,115 @@ export default function PlayersLeaderboard() {
                             css={{
                                 height: "auto",
                                 minWidth: "100%",
+                                '@xsMax': {
+                                    minWidth: "400px",
+                                }
+                            }}
+                            containerCss={{
+                                '@xsMax': {
+                                    overflowX: 'auto'
+                                }
                             }}
                         >
                             <Table.Header>
-                                <Table.Column css={{ textAlign: 'center' }}>Rank</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Player</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Fantasy Points</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Fantasy Price</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Points</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Rebounds</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Assists</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Steals</Table.Column>
-                                <Table.Column css={{ textAlign: 'center' }}>Blocks</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { fontSize: '0.8rem' } }}>Rank</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { fontSize: '0.8rem' } }}>Player</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { fontSize: '0.8rem' } }}>Gender</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { fontSize: '0.8rem' } }}>Fantasy Points</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { fontSize: '0.8rem' } }}>Price</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { display: 'none' } }}>Points</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { display: 'none' } }}>Rebounds</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { display: 'none' } }}>Assists</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { display: 'none' } }}>Steals</Table.Column>
+                                <Table.Column css={{ textAlign: 'center', '@xsMax': { display: 'none' } }}>Blocks</Table.Column>
                             </Table.Header>
                             <Table.Body>
                                 {playersData.slice(0, 50).map((player, index) => (
                                     <Table.Row key={player.name}>
-                                        <Table.Cell css={{ textAlign: 'center' }}>{index + 1}</Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                                                <Avatar src={getPlayerAvatar(player.gender)} size="sm" />
-                                                {player.name}
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { 
+                                                fontSize: '0.8rem',
+                                                padding: '8px'
+                                            }
+                                        }}>{index + 1}</Table.Cell>
+                                        <Table.Cell>
+                                            <div style={{ 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                justifyContent: 'center', 
+                                                gap: '8px',
+                                                '@xsMax': {
+                                                    flexDirection: 'column',
+                                                    gap: '4px'
+                                                }
+                                            }}>
+                                                {/* <Avatar 
+                                                    src={getPlayerAvatar(player.gender)} 
+                                                    size="sm"
+                                                    bordered
+                                                    color="warning"
+                                                /> */}
+                                                <Text css={{
+                                                    '@xsMax': { 
+                                                        fontSize: '0.8rem',
+                                                        textAlign: 'center'
+                                                    }
+                                                }}>
+                                                    {player.name}
+                                                </Text>
                                             </div>
                                         </Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>{player.fantasyPoints.toFixed(2)}</Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>${player.fantasyPrice}</Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>{player.points.toFixed(2)}</Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>{player.rebounds.toFixed(2)}</Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>{player.assists.toFixed(2)}</Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>{player.steals.toFixed(2)}</Table.Cell>
-                                        <Table.Cell css={{ textAlign: 'center' }}>{player.blocks.toFixed(2)}</Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { fontSize: '0.8rem' }
+                                        }}>
+                                            {player.gender || 'N/A'}
+                                        </Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            fontWeight: '$semibold',
+                                            color: '#ff9f56',
+                                            '@xsMax': { fontSize: '0.8rem' }
+                                        }}>
+                                            {player.fantasyPoints.toFixed(2)}
+                                        </Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { fontSize: '0.8rem' }
+                                        }}>
+                                            ${player.fantasyPrice}
+                                        </Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { display: 'none' }
+                                        }}>
+                                            {player.points.toFixed(2)}
+                                        </Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { display: 'none' }
+                                        }}>
+                                            {player.rebounds.toFixed(2)}
+                                        </Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { display: 'none' }
+                                        }}>
+                                            {player.assists.toFixed(2)}
+                                        </Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { display: 'none' }
+                                        }}>
+                                            {player.steals.toFixed(2)}
+                                        </Table.Cell>
+                                        <Table.Cell css={{ 
+                                            textAlign: 'center',
+                                            '@xsMax': { display: 'none' }
+                                        }}>
+                                            {player.blocks.toFixed(2)}
+                                        </Table.Cell>
                                     </Table.Row>
                                 ))}
                             </Table.Body>
