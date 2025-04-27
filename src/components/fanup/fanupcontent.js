@@ -123,34 +123,167 @@ export default function FanUpContent() {
     }
 
     const getAllPlayers = async (user) => {
-        await fetch('https://aba-backend-gr9t.onrender.com/aba7players')
-            .then(response => response.json())
-            .then((players) => {
-                var tier1 = []
-                var tier2 = []
-                var tier3 = []
-                var tier4 = []
-                players.values.map((player) => {
-                    if (player[5] == '1') {
-                        tier1.push(player)
-                    }
-                    if (player[5] == '2') {
-                        tier2.push(player)
-                    }
-                    if (player[5] == '3') {
-                        tier3.push(player)
-                    }
-                    if (player[5] == '4') {
-                        tier4.push(player)
-                    }
-                })
+        try {
+            console.log("Starting getAllPlayers function");
+            const response = await fetch('https://aba-backend-gr9t.onrender.com/aba7players');
+            const playersData = await response.json();
+            
+            console.log("API Response received:", playersData);
+            console.log("Data type:", typeof playersData);
+            
+            // If it's an array, log its length
+            if (Array.isArray(playersData)) {
+                console.log("Array length:", playersData.length);
+            }
+            // If it's an object, log the number of keys
+            else if (typeof playersData === 'object' && playersData !== null) {
+                console.log("Number of keys:", Object.keys(playersData).length);
+                console.log("Keys:", Object.keys(playersData).slice(0, 5), "...");  // Show first 5 keys
+            }
+            
+            var tier1 = []
+            var tier2 = []
+            var tier3 = []
+            var tier4 = []
+            
+            // Check if playersData exists and is an object
+            if (playersData) {
+                // Check if it's the new format (object with player names as keys)
+                if (typeof playersData === 'object' && !Array.isArray(playersData) && playersData !== null) {
+                    // For each player in the object
+                    let index = 0;
+                    const totalKeys = Object.keys(playersData).length;
+                    console.log(`Processing ${totalKeys} players from object format`);
+                    
+                    Object.keys(playersData).forEach((playerName, keyIndex) => {
+                        console.log(`Processing player ${keyIndex+1}/${totalKeys}: ${playerName}`);
+                        const player = playersData[playerName];
+                        
+                        console.log(`Player data type: ${typeof player}, isArray: ${Array.isArray(player)}`);
+                        if (player) {
+                            console.log(`Player data exists, length: ${Array.isArray(player) ? player.length : 'not an array'}`);
+                        } else {
+                            console.log(`Player data is null or undefined for ${playerName}`);
+                        }
+                        
+                        // Add additional validation to ensure player is valid
+                        if (player && Array.isArray(player)) {
+                            try {
+                                console.log(`Player before processing: ${player.slice(0, 3)}...`);
+                                
+                                // Add an index property for reference
+                                player.push(index);
+                                
+                                // Determine tier based on price - ensure index 9 exists or use a default value
+                                console.log(`Checking price at index 9: ${player[9]}`);
+                                const price = player[9] !== undefined ? parseFloat(player[9] || 0) : 0;
+                                console.log(`Parsed price: ${price}`);
+                                
+                                if (price >= 35) {  // Tier 1: Most expensive players
+                                    player[5] = '1'; // Set tier property
+                                    tier1.push(player);
+                                    console.log(`Added to tier 1: ${player[1]}`);
+                                } 
+                                else if (price >= 15) {  // Tier 2: Medium-high price
+                                    player[5] = '2';
+                                    tier2.push(player);
+                                    console.log(`Added to tier 2: ${player[1]}`);
+                                }
+                                else if (price >= 10) {  // Tier 3: Medium price
+                                    player[5] = '3';
+                                    tier3.push(player);
+                                    console.log(`Added to tier 3: ${player[1]}`);
+                                }
+                                else {  // Tier 4: Lowest price
+                                    player[5] = '4';
+                                    tier4.push(player);
+                                    console.log(`Added to tier 4: ${player[1]}`);
+                                }
+                                
+                                index++;
+                            } catch (err) {
+                                console.error(`Error processing player ${playerName}:`, err);
+                                console.error("Player data causing error:", player);
+                            }
+                        } else {
+                            console.warn(`Skipped invalid player entry: ${playerName}`);
+                        }
+                    });
+                } 
+                // Handle the old format if needed (array with values property)
+                else if (playersData.values && Array.isArray(playersData.values)) {
+                    console.log(`Processing ${playersData.values.length} players from values array`);
+                    
+                    playersData.values.forEach((player, idx) => {
+                        console.log(`Processing player ${idx+1}/${playersData.values.length}`);
+                        
+                        if (player && Array.isArray(player)) {
+                            try {
+                                console.log(`Player data: ${player.slice(0, 3)}...`);
+                                console.log(`Player tier: ${player[5]}`);
+                                
+                                if (player[5] === '1') {
+                                    tier1.push(player);
+                                    console.log(`Added to tier 1: ${player[1]}`);
+                                }
+                                if (player[5] === '2') {
+                                    tier2.push(player);
+                                    console.log(`Added to tier 2: ${player[1]}`);
+                                }
+                                if (player[5] === '3') {
+                                    tier3.push(player);
+                                    console.log(`Added to tier 3: ${player[1]}`);
+                                }
+                                if (player[5] === '4') {
+                                    tier4.push(player);
+                                    console.log(`Added to tier 4: ${player[1]}`);
+                                }
+                            } catch (err) {
+                                console.error(`Error processing player at index ${idx}:`, err);
+                                console.error("Player data causing error:", player);
+                            }
+                        } else {
+                            console.warn(`Skipped invalid player at index ${idx}`);
+                        }
+                    });
+                } else {
+                    console.error("Unexpected data format:", playersData);
+                    setLoginLoader(false);
+                    return;
+                }
+                
+                console.log(`Final counts - Tier 1: ${tier1.length}, Tier 2: ${tier2.length}, Tier 3: ${tier3.length}, Tier 4: ${tier4.length}`);
+                
+                // Check if any tier arrays have players without name property (index 1)
+                if (tier1.length > 0) {
+                    console.log("Sample tier 1 player:", tier1[0]);
+                    console.log("First 3 tier 1 players have names:", 
+                        tier1.slice(0, 3).map(p => p && typeof p[1] !== 'undefined'));
+                }
+                
                 setTier1Players(tier1)
                 setTier2Players(tier2)
                 setTier3Players(tier3)
                 setTier4Players(tier4)
                 setGotAllPlayers(true)
-            })
-        await getUserTeam(user)
+            } else {
+                console.error("No player data received");
+                setLoginLoader(false);
+                return;
+            }
+        } catch (error) {
+            console.error("Error fetching players data:", error);
+            setLoginLoader(false);
+            return;
+        }
+        
+        try {
+            console.log("About to call getUserTeam with user:", user);
+            await getUserTeam(user);
+        } catch (error) {
+            console.error("Error fetching user team:", error);
+            setLoginLoader(false);
+        }
     }
 
     async function validateTeam() {
@@ -864,7 +997,7 @@ export default function FanUpContent() {
                                         fontWeight: '$medium',
                                         color: 'black',
                                     }}>
-                                    Welcome to the official ABA 7.0 FanUp fantasy {User.name}!
+                                    Welcome to the official ABA 8.0 FanUp fantasy {User.name}!
                                 </Text>
                             </Modal.Body>
 
