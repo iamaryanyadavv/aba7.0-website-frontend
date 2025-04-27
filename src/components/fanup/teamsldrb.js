@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Blank from '../../assets/images/blankplayer.jpg'
 import './fanup.css'
 
-const DEFAULT_USER_AVATAR = "https://media.istockphoto.com/id/588258370/vector/male-avatar-profile-picture-vector.jpg?s=170667a&w=0&k=20&c=Q81czqi4H-NRDFVBetE0aPs6WLg3El13oM9LdBnHV8o="; // Default user avatar
-const DEFAULT_MALE_AVATAR = "https://media.istockphoto.com/id/588258370/vector/male-avatar-profile-picture-vector.jpg?s=170667a&w=0&k=20&c=Q81czqi4H-NRDFVBetE0aPs6WLg3El13oM9LdBnHV8o=";
+const DEFAULT_USER_AVATAR = "https://us-tuna-sounds-images.voicemod.net/74c1d12f-c974-4d4a-9f14-c9421280c1fd-1661473146032.png"; // Default user avatar
+const DEFAULT_MALE_AVATAR = "https://us-tuna-sounds-images.voicemod.net/74c1d12f-c974-4d4a-9f14-c9421280c1fd-1661473146032.png";
 const DEFAULT_FEMALE_AVATAR = "https://i.imgur.com/8Km9tLL.png";
 
 export default function TeamsLeaderboard() {
