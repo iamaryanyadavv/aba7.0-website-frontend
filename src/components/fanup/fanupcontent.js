@@ -540,7 +540,13 @@ export default function FanUpContent() {
                                 alignItems: 'center',
                                 margin: '20vh 0px 30vh 0px'
                             }}>
-                                <form onSubmit={handleLogin} style={{width: '100%', maxWidth: '400px'}}>
+                                <form onSubmit={handleLogin} style={{
+                                    width: '100%', 
+                                    maxWidth: '400px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center'
+                                }}>
                                     <Input
                                         required
                                         bordered
@@ -1016,7 +1022,7 @@ export default function FanUpContent() {
                                         },
                                         fontWeight: '$medium'
                                     }}>
-                                        4. Number of players from one team &lt;= 2
+                                        4. Number of players from one team &lt; 2
                                     </Text>
                                     <Text css={{
                                         '@xsMin': {
