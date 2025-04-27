@@ -581,7 +581,7 @@ export default function FanUpContent() {
                                     color: '#163364',
                                     paddingTop: '12px'
                                 }}>
-                                    Login to make your ABA 7.0 Fantasy team!
+                                    Login to make your ABA 8.0 Fantasy team!
                                 </Text>
                             </Col>
                         </Grid.Container>
@@ -646,7 +646,7 @@ export default function FanUpContent() {
                                         fontWeight: '$medium',
                                         color: 'black',
                                     }}>
-                                    Welcome to the official ABA 7.0 FanUp fantasy {User.name}!
+                                    Welcome to the official ABA 8.0 FanUp fantasy {User.name}!
                                 </Text>
                             </Modal.Body>
 
