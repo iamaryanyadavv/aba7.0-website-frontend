@@ -179,12 +179,12 @@ export default function PlayersLeaderboard() {
                         alignItems: 'center' 
                     }}>
                         <div>
-                            <Text small css={{ color: '#666', marginBottom: '8px' }}>Fantasy Points</Text>
+                            <Text small css={{ color: '#666', marginBottom: '8px' }}>Fantasy Points </Text>
                             <Text b size={isTopFive ? "1.2rem" : "1.1rem"} css={{ color: '#ff9f56' }}>{player.fantasyPoints.toFixed(2)}</Text>
                         </div>
                         
                         <div style={{ textAlign: 'right' }}>
-                            <Text small css={{ color: '#666', marginBottom: '8px' }}>Price</Text>
+                            <Text small css={{ color: '#666', marginBottom: '8px' }}>Price </Text>
                             <Text b size={isTopFive ? "1.2rem" : "1.1rem"} css={{ color: '#163364' }}>${player.fantasyPrice}</Text>
                         </div>
                     </div>
