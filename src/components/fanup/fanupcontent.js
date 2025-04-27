@@ -293,7 +293,7 @@ export default function FanUpContent() {
     }
 
     //11:30pm on 28th October, 2023 GMT or 5:30pm on 28th October, 2023 IST
-    const endDate = "2023-10-28T11:30:00.000Z"
+    const endDate = "2025-04-27T13:00:00.000Z"  // 6:30 PM on April 27, 2025 IST (UTC+5:30)
 
     const { days, hours, minutes, seconds, isTimeUp } = useTicker(endDate);
 
@@ -504,7 +504,8 @@ export default function FanUpContent() {
                             setFantasyPage(false)
                             setTeamLeaderboard(false)
                             setPlayersLeaderboard(true)
-                        }}>
+                        }}
+                    >
                         <Text className="games-btn-text"
                             css={{
                                 fontSize: '$md',
